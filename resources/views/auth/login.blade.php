@@ -1,7 +1,7 @@
 @include('layouts.navigation')
 
 <x-guest-layout>
-    <div class="flex">
+    <div class="flex flex-col md:flex-row">
         <!-- Left: Hero branding panel -->
         <div class="flex items-center justify-center min-w-0 p-10 md:flex-1">
             <div class="max-w-full text-left">

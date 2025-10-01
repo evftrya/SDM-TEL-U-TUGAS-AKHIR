@@ -16,6 +16,31 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::group(['prefix' => 'manage', 'as' => 'manage.'], function () {
+        Route::get('/', function () {
+                return view('kelola_data.index');
+            })->name('view');
+
+        Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
+            Route::get('/view', function () {
+                return view('kelola_data.manajemen_akun.view');
+            })->name('view');
+
+            Route::get('/list', function () {
+                return view('kelola_data.manajemen_akun.list');
+            })->name('list');
+            
+            Route::get('/new', function () {
+                return view('kelola_data.manajemen_akun.new');
+            })->name('new');
+            Route::get('/dashboard', function () {
+                return view('kelola_data.manajemen_akun.dashboard');
+            })->name('dashboard');
+        });
+    });
+    
+
 });
 
 // Admin Routes
