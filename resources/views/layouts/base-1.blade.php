@@ -28,10 +28,11 @@
 @endsection
 
 @section('content')
-    <div class="flex min-h-screen bg-gray-100 font-['Poppins']">
+    {{-- <div id="screen-width">Width: <span id="width-value"></span>px</div> --}}
+    <div class="flex max-h-screen bg-gray-100 font-['Poppins']">
         <!-- Sidebar -->
         <aside id="sidebar"
-            class="sidebar main w-56 px-2 bg-white text-gray-900 transition-all duration-300 ease-in-out sm:block drop-shadow-sm overflow-hidden hidden sm:block">
+            class="sidebar flex min-h-fit flex-shrink-0 hp:hidden main w-56 bg-white text-gray-900 transition-all duration-300 ease-in-out sm:block drop-shadow-sm overflow-hidden">
 
             <header class="flex items-center p-4 flex-row gap-2">
                 <!-- Kotak search -->
@@ -58,7 +59,7 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-grow p-6 bg-white">
+        <main class="flex-grow-0 p-6 bg-white max-w-full" id="wrapper-table">
             <h1 class="text-2xl font-bold mb-4">@yield('page-name')</h1>
             @yield('content-base')
             {{-- <p class="text-gray-700">Semua konten utama ada di sini. Sidebar tetap di dalam container, tidak menimpa.</p> --}}
@@ -85,6 +86,9 @@
                 });
                 elemen.setAttribute("onclick", "close_sidebar('show', this)");
 
+                setTimeout(() => {
+                    updateWrapperWidthMain();
+                }, 250);
 
             } else {
                 document.querySelectorAll('.sm-hide').forEach(element => {
@@ -101,9 +105,26 @@
 
                 });
                 elemen.setAttribute("onclick", "close_sidebar('hide', this)");
+                setTimeout(() => {
+                    updateWrapperWidthMain();
+                }, 250);
 
             }
         }
-        </script>
-        @yield('script-base')
+
+        function updateWrapperWidthMain() {
+            const sidebar = document.getElementById("sidebar");
+            const wrapper = document.getElementById("wrapper-table");
+
+            if (sidebar && wrapper) {
+                const sidebarWidth = sidebar.offsetWidth;
+
+                wrapper.style.width = `calc(100% - ${sidebarWidth}px)`; // ← pakai backtick
+                console.log('object :>>', wrapper.style.width);
+            } else {
+                console.warn("Sidebar atau wrapper tidak ditemukan!");
+            }
+        }
+    </script>
+    @yield('script-base')
 @endsection

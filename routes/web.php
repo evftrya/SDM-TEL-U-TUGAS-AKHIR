@@ -38,6 +38,23 @@ Route::middleware('auth')->group(function () {
                 return view('kelola_data.manajemen_akun.dashboard');
             })->name('dashboard');
         });
+
+        Route::group(['prefix' => 'pegawai', 'as' => 'pegawai.'], function () {
+            Route::get('/view', function () {
+                return view('kelola_data.pegawai.view');
+            })->name('view');
+
+            Route::get('/', function () {
+                return view('kelola_data.pegawai.list');
+            })->name('list');
+            
+            Route::get('/new', function () {
+                return view('kelola_data.manajemen_akun.new');
+            })->name('new');
+            Route::get('/dashboard', function () {
+                return view('kelola_data.manajemen_akun.dashboard');
+            })->name('dashboard');
+        });
     });
     
 

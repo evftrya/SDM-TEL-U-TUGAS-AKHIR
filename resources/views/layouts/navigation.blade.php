@@ -23,7 +23,7 @@
                         Presensi
                     </x-nav-link>
 
-                    <x-nav-link :href="url('/pencatatan')" :active="request()->is('pencatatan*')">
+                    <x-nav-link :href="url('/manage')" :active="request()->is('pencatatan*')">
                         Pencatatan Kinerja
                     </x-nav-link>
 
@@ -120,7 +120,7 @@
                 <p class="text-white clear-p">Presensi</p>
 
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="url('/pencatatan')" :active="request()->is('pencatatan*')">
+            <x-responsive-nav-link :href="url('/manage')" :active="request()->is('pencatatan*')">
                 {{-- Pencatatan Kinerja --}}
                 <p class="text-white clear-p">Pencatatan Kinerja</p>
 
