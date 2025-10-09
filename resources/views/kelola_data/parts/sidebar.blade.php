@@ -5,7 +5,7 @@
 $sidebars = [
     ['Manajemen Data Pegawai',
         [
-            ['Daftar Pegawai',  'manage.pegawai.list', 'fa-slab fa-regular fa-inbox'],
+            ['Daftar Pegawai',  route('manage.pegawai.list', ['destination' => 'something']), 'fa-slab fa-regular fa-inbox'],
             ['Tambah Pegawai Baru',  'manage.pegawai.new', 'fa-slab fa-regular fa-inbox'],
             ['Import Pegawai',  'manage.pegawai.new', 'fa-slab fa-regular fa-inbox'],
             ['Dashboard Pegawai',  'manage.pegawai.dashboard', 'fa-slab fa-regular fa-inbox'],
@@ -62,7 +62,7 @@ $sidebars = [
 @foreach ($sidebars as  $sidebar)
 <x-sidebar-group title="{{$sidebar[0]}}" icon="fa-users">
     @foreach ($sidebar[1] as $button) 
-    <x-sidebar-button href="{{route($button[1])}}" icon="{{$button[2]}}" label="{{$button[0]}}" />
+    <x-sidebar-button href="{{$button[1]}}" icon="{{$button[2]}}" label="{{$button[0]}}" />
     @endforeach
 </x-sidebar-group>
 @endforeach

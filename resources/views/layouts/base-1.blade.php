@@ -29,10 +29,10 @@
 
 @section('content')
     {{-- <div id="screen-width">Width: <span id="width-value"></span>px</div> --}}
-    <div class="flex max-h-screen bg-gray-100 font-['Poppins']">
+    <div class="flex max-h-max gap-2 m-2 mb-0 pb-2 bg-gray-100 font-['Poppins']">
         <!-- Sidebar -->
         <aside id="sidebar"
-            class="sidebar flex min-h-fit flex-shrink-0 hp:hidden main w-56 bg-white text-gray-900 transition-all duration-300 ease-in-out sm:block drop-shadow-sm overflow-hidden">
+            class="sidebar flex min-h-fit rounded-lg flex-shrink-0 hp:hidden main w-56 bg-white text-gray-900 transition-all duration-300 ease-in-out sm:block drop-shadow-sm overflow-hidden">
 
             <header class="flex items-center p-4 flex-row gap-2">
                 <!-- Kotak search -->
@@ -59,11 +59,11 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-grow-0 p-6 bg-white max-w-full" id="wrapper-table">
+        <div class="flex-grow-1 p-6 bg-white rounded-lg h-auto max-w-full" id="wrapper-table">
             <h1 class="text-2xl font-bold mb-4">@yield('page-name')</h1>
             @yield('content-base')
             {{-- <p class="text-gray-700">Semua konten utama ada di sini. Sidebar tetap di dalam container, tidak menimpa.</p> --}}
-        </main>
+        </div>
     </div>
 @endsection
 @section('script')

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+    style="height: fit-content !important; min-height: fit-content !important;">
 
 <head>
     <meta charset="utf-8">
@@ -10,25 +11,28 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link rel="stylesheet" href="{{ asset('style.css') }}"">
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @yield('header')
     <style>
-        body{
+        body {
             /* overflow-x: hidden !important; */
         }
     </style>
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased bg-[#DEDEDE] h-auto">
     <div class="min-h-screen w-full flex-shrink bg-gray-100 dark:bg-gray-900">
         @include('layouts.navigation')
 
@@ -49,5 +53,6 @@
     </div>
 </body>
 @yield('script')
+
 
 </html>

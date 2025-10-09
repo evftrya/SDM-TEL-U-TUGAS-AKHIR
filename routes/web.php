@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\PegawaiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -44,9 +45,7 @@ Route::middleware('auth')->group(function () {
                 return view('kelola_data.pegawai.view');
             })->name('view');
 
-            Route::get('/', function () {
-                return view('kelola_data.pegawai.list');
-            })->name('list');
+            Route::get('/list/{destination}', [PegawaiController::class, 'index'])->name('list');
             
             Route::get('/new', function () {
                 return view('kelola_data.manajemen_akun.new');
