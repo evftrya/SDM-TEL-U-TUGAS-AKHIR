@@ -150,7 +150,8 @@
                             <tbody class="bg-white divide-y divide-gray-200 text-center align-middle">
                                 @for ($i = 0; $i < 20; $i++)
                                     <tr class="">
-                                        <td class="px-4 py-3 whitespace-nowrap align-middle">Alianda {{ $i }}
+                                        <td class="px-4 py-3 whitespace-nowrap align-middle break-words">
+                                            Nur Laila Fitria {{ $i }}
                                         </td>
                                         <td class="px-4 py-3 whitespace-nowrap align-middle">Male</td>
                                         <td class="px-4 py-3 whitespace-nowrap align-middle">085623144152</td>

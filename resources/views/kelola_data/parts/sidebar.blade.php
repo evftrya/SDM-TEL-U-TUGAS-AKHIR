@@ -2,67 +2,75 @@
 
 
 @php
-$sidebars = [
-    ['Manajemen Data Pegawai',
+    $sidebars = [
         [
-            ['Daftar Pegawai',  route('manage.pegawai.list', ['destination' => 'something']), 'fa-slab fa-regular fa-inbox'],
-            ['Tambah Pegawai Baru',  'manage.pegawai.new', 'fa-slab fa-regular fa-inbox'],
-            ['Import Pegawai',  'manage.pegawai.new', 'fa-slab fa-regular fa-inbox'],
-            ['Dashboard Pegawai',  'manage.pegawai.dashboard', 'fa-slab fa-regular fa-inbox'],
-        ]
-    ],
-    ['Managemen Data Dosen',
+            ['Manajemen Data Pegawai','Pegawai'],
+            [
+                ['Daftar Pegawai', route('manage.pegawai.list', ['destination' => 'something']), 'fa-solid fa-users'],
+                ['Tambah Pegawai Baru', 'manage.pegawai.new', 'fa-solid fa-user-plus'],
+                ['Import Pegawai', 'manage.pegawai.new', 'fa-solid fa-file-import'],
+                ['Dashboard Pegawai', 'manage.pegawai.dashboard', 'fa-solid fa-chart-line'],
+            ],
+        ],
         [
-            ['Daftar Dosen',  'manage.account.list', 'fa-slab fa-regular fa-inbox'],
-            ['Tambah Dosen Baru',  'manage.account.new', 'fa-slab fa-regular fa-inbox'],
-            ['Import Dosen',  'manage.account.new', 'fa-slab fa-regular fa-inbox'],
-        ]
-    ],
-    ['Managemen Fakultas',
+            ['Managemen Data Dosen','Dosen'],
+            [
+                ['Daftar Dosen', 'manage.account.list', 'fa-solid fa-chalkboard-user'],
+                ['Tambah Dosen Baru', 'manage.account.new', 'fa-solid fa-user-plus'],
+                ['Import Dosen', 'manage.account.new', 'fa-solid fa-file-import'],
+            ],
+        ],
         [
-            ['Daftar Fakultas',  'manage.account.list', 'fa-slab fa-regular fa-inbox'],
-            ['Tambah Fakultas Baru',  'manage.account.new', 'fa-slab fa-regular fa-inbox'],
-        ]
-    ],
-    ['Managemen Program Studi',
+            ['Managemen Fakultas','Facult'],
+            [
+                ['Daftar Fakultas', 'manage.account.list', 'fa-solid fa-building-columns'],
+                ['Tambah Fakultas Baru', 'manage.account.new', 'fa-solid fa-circle-plus'],
+            ],
+        ],
         [
-            ['Daftar Program Studi',  'manage.account.list', 'fa-slab fa-regular fa-inbox'],
-            ['Tambah Program Studi Baru',  'manage.account.new', 'fa-slab fa-regular fa-inbox'],
-        ]
-    ],
-    ['Managemen Level',
+            ['Managemen Program Studi','Prodi'],
+            [
+                ['Daftar Program Studi', 'manage.account.list', 'fa-solid fa-book-open'],
+                ['Tambah Program Studi Baru', 'manage.account.new', 'fa-solid fa-circle-plus'],
+            ],
+        ],
         [
-            ['Daftar Level',  'manage.account.list', 'fa-slab fa-regular fa-inbox'],
-            ['Tambah Level Baru',  'manage.account.new', 'fa-slab fa-regular fa-inbox'],
-        ]
-    ],
-    ['Managemen Pengawakan',
+            ['Managemen Level','Level'],
+            [
+                ['Daftar Level', 'manage.account.list', 'fa-solid fa-layer-group'],
+                ['Tambah Level Baru', 'manage.account.new', 'fa-solid fa-circle-plus'],
+            ],
+        ],
         [
-            ['Daftar Pengawakan',  'manage.account.list', 'fa-slab fa-regular fa-inbox'],
-            ['Tambah Pengawakan Baru',  'manage.account.new', 'fa-slab fa-regular fa-inbox'],
-        ]
-    ],
-    ['Managemen Formasi',
+            ['Managemen Pengawakan','Awak'],
+            [
+                ['Daftar Pengawakan', 'manage.account.list', 'fa-solid fa-users-gear'],
+                ['Tambah Pengawakan Baru', 'manage.account.new', 'fa-solid fa-user-plus'],
+            ],
+        ],
         [
-            ['Daftar Formasi',  'manage.account.list', 'fa-slab fa-regular fa-inbox'],
-            ['Tambah Formasi Baru',  'manage.account.new', 'fa-slab fa-regular fa-inbox'],
-        ]
-    ],
-    ['Managemen COE',
+            ['Managemen Formasi','Formasi'],
+            [
+                ['Daftar Formasi', 'manage.account.list', 'fa-solid fa-table-list'],
+                ['Tambah Formasi Baru', 'manage.account.new', 'fa-solid fa-circle-plus'],
+            ],
+        ],
         [
-            ['Daftar COE',  'manage.account.list', 'fa-slab fa-regular fa-inbox'],
-            ['Tambah COE Baru',  'manage.account.new', 'fa-slab fa-regular fa-inbox'],
-            ['Import COE',  'manage.account.new', 'fa-slab fa-regular fa-inbox'],
-        ]
-    ],
-
-]
+            ['Managemen COE','COE'],
+            [
+                ['Daftar COE', 'manage.account.list', 'fa-solid fa-diagram-project'],
+                ['Tambah COE Baru', 'manage.account.new', 'fa-solid fa-circle-plus'],
+                ['Import COE', 'manage.account.new', 'fa-solid fa-file-import'],
+            ],
+        ],
+    ];
 @endphp
 
-@foreach ($sidebars as  $sidebar)
-<x-sidebar-group title="{{$sidebar[0]}}" icon="fa-users">
-    @foreach ($sidebar[1] as $button) 
-    <x-sidebar-button href="{{$button[1]}}" icon="{{$button[2]}}" label="{{$button[0]}}" />
-    @endforeach
-</x-sidebar-group>
+
+@foreach ($sidebars as $sidebar)
+    <x-sidebar-group title="{{ $sidebar[0][0] }}" hide="{{$sidebar[0][1]}}" icon="fa-users">
+        @foreach ($sidebar[1] as $button)
+            <x-sidebar-button href="{{ $button[1] }}" icon="{{ $button[2] }}" label="{{ $button[0] }}" />
+        @endforeach
+    </x-sidebar-group>
 @endforeach
