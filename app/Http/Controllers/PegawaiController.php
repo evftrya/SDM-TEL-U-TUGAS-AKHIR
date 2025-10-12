@@ -14,10 +14,15 @@ class PegawaiController extends Controller
 
     public function index($destination)
     {
-        $text = ucwords($destination);
-        $send = [$text];
-        //Catatan : datanya disesuaikan tujuan
-        return view('kelola_data.pegawai.list',compact('send'));
+        $text = ucwords(strtolower($destination));
+        // dd($text);
+        if(!in_array($text, ['All', 'Tpa', 'Dosen'])){
+            return redirect('/manage/pegawai/list/All');
+        }
+        else{
+            $send = [$text];
+            return view('kelola_data.pegawai.list',compact('send'));
+        }
     }
     
     /**

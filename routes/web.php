@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\PegawaiController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,21 @@ Route::middleware('auth')->group(function () {
             })->name('view');
 
             Route::get('/list/{destination}', [PegawaiController::class, 'index'])->name('list');
+            
+            Route::get('/new', function () {
+                return view('kelola_data.manajemen_akun.new');
+            })->name('new');
+            Route::get('/dashboard', function () {
+                return view('kelola_data.manajemen_akun.dashboard');
+            })->name('dashboard');
+        });
+
+        Route::group(['prefix' => 'fakultas', 'as' => 'fakultas.'], function () {
+            Route::get('/view', function () {
+                return view('kelola_data.fakultas.view');
+            })->name('view');
+    
+            Route::get('/list/', [FacultyController::class, 'index'])->name('list');
             
             Route::get('/new', function () {
                 return view('kelola_data.manajemen_akun.new');

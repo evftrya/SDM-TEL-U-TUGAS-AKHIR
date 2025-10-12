@@ -21,16 +21,14 @@
         class="flex flex-col md:flex-row items-center gap-[11.749480247497559px] self-stretch px-1 pt-[14.686850547790527px] pb-[13.952507972717285px]">
         <div class="flex w-full flex-col gap-[2.9373700618743896px] grow">
             <div class="flex items-center gap-[5.874740123748779px] self-stretch"><span
-                    class="font-medium text-2xl leading-[20.56159019470215px] text-[#101828]">Daftar
-                    Pegawai {{$send[0]=='All'?null:$send[0]}}</span>
+                    class="font-medium text-2xl leading-[20.56159019470215px] text-[#101828]">Daftar Fakultas</span>
             </div><span class="font-normal text-[10.280795097351074px] leading-[14.686850547790527px] text-[#1f2028]">Anda
                 dapat
-                melihat semua pegawai yang terdaftar di sistem disini</span>
+                melihat semua fakultas yang terdaftar di sistem disini</span>
         </div>
         <div class="flex items-center w-full justify-end gap-[11.749480247497559px]">
 
-            <x-print-tb target_id="pegawaiTable"></x-print-tb>
-            <x-export-csv-tb target_id="pegawaiTable"></x-export-csv-tb>
+
 
             <button class="flex rounded-[5.874740123748779px]">
                 <div
@@ -44,55 +42,43 @@
     </div>
 @endsection
 @section('content-base')
-    <div class="flex flex-grow-0 flex-col gap-2 max-w-100">
-        <div class="flex items-center gap-[3.7518811225891113px]">
-            <a href="{{ route('manage.pegawai.list', ['destination' => 'All']) }}"
-                class="h-[17.508777618408203px] {{ $send[0] == 'All' ? 'nav-active' : null }} flex justify-center items-center gap-[6.253134727478027px] p-[6.253134727478027px] rounded-tl-[1.8759405612945557px] rounded-tr-[1.8759405612945557px]">
-                <span class="font-semibold text-xs text-center text-[#1c2762]">Semua</span>
-            </a>
-            <a href="{{ route('manage.pegawai.list', ['destination' => 'Tpa']) }}"
-                class="h-[17.508777618408203px] {{ $send[0] == 'Tpa' ? 'nav-active' : null }} flex justify-center items-center gap-[6.253134727478027px] p-[6.253134727478027px]">
-                <span class="font-semibold text-xs text-center text-[#1c2762]">TPA</span>
-            </a>
-            <a href="{{ route('manage.pegawai.list', ['destination' => 'Dosen']) }}"
-                class="h-[17.508777618408203px] {{ $send[0] == 'Dosen' ? 'nav-active' : null }} flex justify-center items-center gap-[6.253134727478027px] p-[6.253134727478027px]">
-                <span class="font-semibold text-xs text-center text-[#1c2762]">Dosen</span>
-            </a>
-        </div>
-        
+    <div class="flex flex-row sm:flex-col w-full max-w-full justify-evenly items-center mb-10">
+        @for ($i = 0; $i <= 3; $i++)
+            <div class="flex flex-col justify-center items-center py-2">
+                <h1 class="py-12 text-5xl font-semibold text-center w-full">
+                    120
+                </h1>
+                <p class="font-semibold text-center w-full">Fakultas</p>
+            </div>
 
-        <x-tb id="pegawaiTable">
+            @if ($i != 3)
+                <div class="self-stretch border-l-2 border-gray-500 mx-6"></div>
+            @endif
+        @endfor
+    </div>
+
+    <div class="flex flex-grow-0 flex-col gap-2 max-w-100">
+        <x-tb id="fakultasTable">
+            <x-slot:put_something>
+                <x-print-tb target_id="fakultasTable"></x-print-tb>
+                <x-export-csv-tb target_id="fakultasTable"></x-export-csv-tb>
+            </x-slot:put_something>
             <x-slot:table_header>
-                <x-tb-td type="input" nama="nama">Nama Lengkap</x-tb-td>
-                <x-tb-td type="select" nama="gender">Gender</x-tb-td>
-                <x-tb-td type="input" nama="hp">No. HP</x-tb-td>
-                <x-tb-td type="{{$send[0]=='All'?'select':null}}" nama="tipe">Tipe Pegawai</x-tb-td>
-                <x-tb-td type="select" nama="status">Status</x-tb-td>
-                <x-tb-td type="select" nama="aktif">Is Active</x-tb-td>
-                <x-tb-td type="input" nama="email_pribadi">Email Pribadi</x-tb-td>
-                <x-tb-td type="input" nama="email_institusi">Email Institusi</x-tb-td>
-                <x-tb-td type="input" nama="action">Action</x-tb-td>
+                <x-tb-td nama="nama">No</x-tb-td>
+                <x-tb-td nama="gender">Kode</x-tb-td>
+                <x-tb-td nama="hp">Nama Fakultas</x-tb-td>
+                <x-tb-td nama="tipe">Jumlah Pegawai</x-tb-td>
+                <x-tb-td nama="status">Status</x-tb-td>
+                <x-tb-td nama="action">Action</x-tb-td>
             </x-slot:table_header>
             <x-slot:table_column>
                 @for ($i = 0; $i < 2; $i++)
                     <x-tb-cl id="$i">
-                        <x-tb-cl-fill>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero quas voluptas consequatur sed
-                            tempore
-                            magnam, omnis qui laudantium quos aut
-                        </x-tb-cl-fill>
-                        <x-tb-cl-fill>Male</x-tb-cl-fill>
-                        <x-tb-cl-fill>0895745214532</x-tb-cl-fill>
-                        <x-tb-cl-fill>{{ $i % 2 == 0 ? 'TPA' : 'Dosen' }}</x-tb-cl-fill>
-                        <x-tb-cl-fill>Pegawai Tetap</x-tb-cl-fill>
-                        <x-tb-cl-fill>
-                            <span
-                                class="inline-flex items-center justify-center px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                Active
-                            </span>
-                        </x-tb-cl-fill>
-                        <x-tb-cl-fill>astigful{{ $i }}@gmail.com</x-tb-cl-fill>
-                        <x-tb-cl-fill>astigful{{ $i }}@telkomuniversity.ac.id</x-tb-cl-fill>
+                        <x-tb-cl-fill>1</x-tb-cl-fill>
+                        <x-tb-cl-fill>FTI {{ $i }}</x-tb-cl-fill>
+                        <x-tb-cl-fill>Fakultas Teknik Industri</x-tb-cl-fill>
+                        <x-tb-cl-fill>200</x-tb-cl-fill>
+                        <x-tb-cl-fill>Aktif</x-tb-cl-fill>
                         <x-tb-cl-fill>
                             <div class="flex items-center justify-center gap-3">
                                 <!-- WhatsApp Button -->
@@ -126,7 +112,7 @@
 
     </div>
 
-    
+
 
 
 
@@ -139,6 +125,3 @@
         });
     </script>
 @endsection
-{{-- @section('script')
-    <script src="{{ 'js/print-table' }}"></script>
-@endsection --}}
