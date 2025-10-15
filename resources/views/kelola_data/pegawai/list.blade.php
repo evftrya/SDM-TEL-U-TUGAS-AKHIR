@@ -22,7 +22,7 @@
         <div class="flex w-full flex-col gap-[2.9373700618743896px] grow">
             <div class="flex items-center gap-[5.874740123748779px] self-stretch"><span
                     class="font-medium text-2xl leading-[20.56159019470215px] text-[#101828]">Daftar
-                    Pegawai {{$send[0]=='All'?null:$send[0]}}</span>
+                    Pegawai {{ $send[0] == 'All' ? null : $send[0] }}</span>
             </div><span class="font-normal text-[10.280795097351074px] leading-[14.686850547790527px] text-[#1f2028]">Anda
                 dapat
                 melihat semua pegawai yang terdaftar di sistem disini</span>
@@ -59,19 +59,19 @@
                 <span class="font-semibold text-xs text-center text-[#1c2762]">Dosen</span>
             </a>
         </div>
-        
+
 
         <x-tb id="pegawaiTable">
             <x-slot:table_header>
-                <x-tb-td type="input" nama="nama">Nama Lengkap</x-tb-td>
-                <x-tb-td type="select" nama="gender">Gender</x-tb-td>
-                <x-tb-td type="input" nama="hp">No. HP</x-tb-td>
-                <x-tb-td type="{{$send[0]=='All'?'select':null}}" nama="tipe">Tipe Pegawai</x-tb-td>
-                <x-tb-td type="select" nama="status">Status</x-tb-td>
-                <x-tb-td type="select" nama="aktif">Is Active</x-tb-td>
-                <x-tb-td type="input" nama="email_pribadi">Email Pribadi</x-tb-td>
-                <x-tb-td type="input" nama="email_institusi">Email Institusi</x-tb-td>
-                <x-tb-td type="input" nama="action">Action</x-tb-td>
+                <x-tb-td nama="nama" sorting=true>Nama Lengkap</x-tb-td>
+                <x-tb-td type="select" nama="gender" sorting=true>Gender</x-tb-td>
+                <x-tb-td nama="hp" sorting=true>No. HP</x-tb-td>
+                <x-tb-td type="{{ $send[0] == 'All' ? 'select' : null }}" nama="tipe" sorting=true>Tipe Pegawai</x-tb-td>
+                <x-tb-td type="select" nama="status" sorting=true>Status</x-tb-td>
+                <x-tb-td type="select" nama="aktif" sorting=true>Is Active</x-tb-td>
+                <x-tb-td nama="email_pribadi" sorting=true>Email Pribadi</x-tb-td>
+                <x-tb-td nama="email_institusi" sorting=true>Email Institusi</x-tb-td>
+                <x-tb-td nama="action" sorting=true>Action</x-tb-td>
             </x-slot:table_header>
             <x-slot:table_column>
                 @for ($i = 0; $i < 2; $i++)
@@ -126,7 +126,7 @@
 
     </div>
 
-    
+
 
 
 

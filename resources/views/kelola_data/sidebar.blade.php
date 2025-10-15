@@ -7,61 +7,61 @@
             ['Manajemen Data Pegawai','Pegawai'],
             [
                 ['Daftar Pegawai', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-users'],
-                ['Tambah Pegawai Baru', 'manage.pegawai.new', 'fa-solid fa-user-plus'],
-                ['Import Pegawai', 'manage.pegawai.new', 'fa-solid fa-file-import'],
-                ['Dashboard Pegawai', 'manage.pegawai.dashboard', 'fa-solid fa-chart-line'],
+                ['Tambah Pegawai Baru', route('manage.pegawai.new'), 'fa-solid fa-user-plus'],
+                // ['Import Pegawai', route('manage.pegawai.import'), 'fa-solid fa-file-import'],
+                // ['Dashboard Pegawai', route('manage.pegawai.dashboard'), 'fa-solid fa-chart-line'],
             ],
         ],
         [
             ['Managemen Level','Level'],
             [
-                ['Daftar Level', 'manage.account.list', 'fa-solid fa-layer-group'],
-                ['Tambah Level Baru', 'manage.account.new', 'fa-solid fa-circle-plus'],
+                ['Daftar Level', route('manage.level.list'), 'fa-solid fa-layer-group'],
+                ['Tambah Level Baru', route('manage.level.new'), 'fa-solid fa-circle-plus'],
             ],
         ],
         
         [
             ['Managemen Formasi','Formasi'],
             [
-                ['Daftar Formasi', 'manage.account.list', 'fa-solid fa-table-list'],
-                ['Tambah Formasi Baru', 'manage.account.new', 'fa-solid fa-circle-plus'],
+                ['Daftar Formasi', route('manage.formasi.list'), 'fa-solid fa-table-list'],
+                ['Tambah Formasi Baru', route('manage.formasi.list'), 'fa-solid fa-circle-plus'],
             ],
         ],
         [
             ['Managemen Pengawakan','Awak'],
             [
-                ['Daftar Pengawakan', 'manage.account.list', 'fa-solid fa-users-gear'],
-                ['Tambah Pengawakan Baru', 'manage.account.new', 'fa-solid fa-user-plus'],
+                ['Daftar Pengawakan', route('manage.pengawakan.list'), 'fa-solid fa-users-gear'],
+                ['Tambah Pengawakan Baru', route('manage.pengawakan.list'), 'fa-solid fa-user-plus'],
             ],
         ],
         [
             ['Managemen Data Dosen','Dosen'],
             [
                 ['Daftar Dosen', route('manage.pegawai.list', ['destination' => 'Dosen']), 'fa-solid fa-chalkboard-user'],
-                ['Tambah Dosen Baru', 'manage.account.new', 'fa-solid fa-user-plus'],
-                ['Import Dosen', 'manage.account.new', 'fa-solid fa-file-import'],
+                // ['Tambah Dosen Baru', route('manage.level.list'), 'fa-solid fa-user-plus'],
+                // ['Import Dosen', route('manage.level.list'), 'fa-solid fa-file-import'],
             ],
         ],
         [
             ['Managemen Fakultas','Facult'],
             [
                 ['Daftar Fakultas',  route('manage.fakultas.list'), 'fa-solid fa-building-columns'],
-                ['Tambah Fakultas Baru', 'manage.account.new', 'fa-solid fa-circle-plus'],
+                ['Tambah Fakultas Baru', route('manage.fakultas.list'), 'fa-solid fa-circle-plus'],
             ],
         ],
         [
             ['Managemen Program Studi','Prodi'],
             [
-                ['Daftar Program Studi', 'manage.account.list', 'fa-solid fa-book-open'],
-                ['Tambah Program Studi Baru', 'manage.account.new', 'fa-solid fa-circle-plus'],
+                // ['Daftar Program Studi', 'manage.prodi.list', 'fa-solid fa-book-open'],
+                // ['Tambah Program Studi Baru', route('manage.prodi.list'), 'fa-solid fa-circle-plus'],
             ],
         ],
         [
             ['Managemen COE','COE'],
             [
-                ['Daftar COE', 'manage.account.list', 'fa-solid fa-diagram-project'],
-                ['Tambah COE Baru', 'manage.account.new', 'fa-solid fa-circle-plus'],
-                ['Import COE', 'manage.account.new', 'fa-solid fa-file-import'],
+                // ['Daftar COE', 'manage.coe.list', 'fa-solid fa-diagram-project'],
+                // ['Tambah COE Baru', route('manage.coe.list'), 'fa-solid fa-circle-plus'],
+                // ['Import COE', route('manage.coe.list'), 'fa-solid fa-file-import'],
             ],
         ],
     ];

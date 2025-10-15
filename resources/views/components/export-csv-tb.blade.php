@@ -1,12 +1,17 @@
 @props(['target_id' => null])
 
-<button id="exportCsvBtn" data-id-table="{{ $target_id }}" class="flex rounded-[5.874740123748779px] h-full">
+<button id="exportCsvBtn" data-id-table="{{ $target_id }}" 
+    class="group flex rounded-md h-full transition-all duration-200 ease-in-out">
     <div
-        class="flex justify-center items-center gap-[5.874740123748779px] bg-white px-[11.749480247497559px] py-[7.343425273895264px] rounded-[5.874740123748779px] border border-[#d0d5dd] hover:bg-gray-50 transition">
-        <i class="bi bi-filetype-csv text-sm text-[#344054]"></i>
-        <span class="font-medium text-[10.28px] leading-[14.68px] text-[#344054]">Export CSV</span>
+        class="flex justify-center items-center gap-2 px-3 py-2.5 
+        rounded-md border border-[#b6d4fe] bg-[#eef6ff] text-[#1e429f]
+        hover:bg-[#dbeafe] hover:border-[#93c5fd] hover:text-[#1d4ed8] 
+        hover:shadow-md active:scale-[0.97] transition-all duration-200 ease-in-out">
+        <i class="bi bi-filetype-csv text-sm group-hover:text-[#1d4ed8]"></i>
+        <span class="font-medium text-[11px] leading-[15px]">Export CSV</span>
     </div>
 </button>
+
 
 <script>
     document.getElementById("exportCsvBtn").addEventListener("click", function() {

@@ -3,7 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\FormationController;
+use App\Http\Controllers\LevelController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\PengawakanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -47,10 +50,8 @@ Route::middleware('auth')->group(function () {
             })->name('view');
 
             Route::get('/list/{destination}', [PegawaiController::class, 'index'])->name('list');
+            Route::get('/new', [PegawaiController::class, 'new'])->name('new');
             
-            Route::get('/new', function () {
-                return view('kelola_data.manajemen_akun.new');
-            })->name('new');
             Route::get('/dashboard', function () {
                 return view('kelola_data.manajemen_akun.dashboard');
             })->name('dashboard');
@@ -65,6 +66,51 @@ Route::middleware('auth')->group(function () {
             
             Route::get('/new', function () {
                 return view('kelola_data.manajemen_akun.new');
+            })->name('new');
+            Route::get('/dashboard', function () {
+                return view('kelola_data.manajemen_akun.dashboard');
+            })->name('dashboard');
+        });
+
+        Route::group(['prefix' => 'level', 'as' => 'level.'], function () {
+            Route::get('/view', function () {
+                return view('kelola_data.fakultas.view');
+            })->name('view');
+    
+            Route::get('/list/', [LevelController::class, 'index'])->name('list');
+            
+            Route::get('/new', function () {
+                return view('kelola_data.level.tes');
+            })->name('new');
+            Route::get('/dashboard', function () {
+                return view('kelola_data.manajemen_akun.dashboard');
+            })->name('dashboard');
+        });
+
+        Route::group(['prefix' => 'formasi', 'as' => 'formasi.'], function () {
+            Route::get('/view', function () {
+                return view('kelola_data.formasi.view');
+            })->name('view');
+    
+            Route::get('/list/', [FormationController::class, 'index'])->name('list');
+            
+            Route::get('/new', function () {
+                return view('kelola_data.formasi.view');
+            })->name('new');
+            Route::get('/dashboard', function () {
+                return view('kelola_data.manajemen_akun.dashboard');
+            })->name('dashboard');
+        });
+
+        Route::group(['prefix' => 'pengawakan', 'as' => 'pengawakan.'], function () {
+            Route::get('/view', function () {
+                return view('kelola_data.formasi.view');
+            })->name('view');
+    
+            Route::get('/list/', [PengawakanController::class, 'index'])->name('list');
+            
+            Route::get('/new', function () {
+                return view('kelola_data.formasi.view');
             })->name('new');
             Route::get('/dashboard', function () {
                 return view('kelola_data.manajemen_akun.dashboard');

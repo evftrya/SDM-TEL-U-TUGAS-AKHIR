@@ -42,20 +42,22 @@
     </div>
 @endsection
 @section('content-base')
-    <div class="flex flex-row sm:flex-col w-full max-w-full justify-evenly items-center mb-10">
+    <div class="grid md:flex grid-cols-2 gap-y-3 flex-col md:flex-row w-full max-w-full justify-evenly items-center mb-10">
         @for ($i = 0; $i <= 3; $i++)
             <div class="flex flex-col justify-center items-center py-2">
-                <h1 class="py-12 text-5xl font-semibold text-center w-full">
+                <h1 class="py-6 md:py-12 text-5xl font-semibold text-center w-full">
                     120
                 </h1>
                 <p class="font-semibold text-center w-full">Fakultas</p>
             </div>
 
             @if ($i != 3)
-                <div class="self-stretch border-l-2 border-gray-500 mx-6"></div>
+                <div class="self-stretch sm:hidden border-l-2 border-gray-500 mx-6"></div>
             @endif
         @endfor
     </div>
+
+
 
     <div class="flex flex-grow-0 flex-col gap-2 max-w-100">
         <x-tb id="fakultasTable">
@@ -72,7 +74,7 @@
                 <x-tb-td nama="action">Action</x-tb-td>
             </x-slot:table_header>
             <x-slot:table_column>
-                @for ($i = 0; $i < 2; $i++)
+                @for ($i = 0; $i < 30; $i++)
                     <x-tb-cl id="$i">
                         <x-tb-cl-fill>1</x-tb-cl-fill>
                         <x-tb-cl-fill>FTI {{ $i }}</x-tb-cl-fill>

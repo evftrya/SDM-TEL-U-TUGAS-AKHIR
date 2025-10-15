@@ -25,12 +25,19 @@ class PegawaiController extends Controller
         }
     }
     
+    public function new()
+    {
+        $send = null;
+        return view('kelola_data.pegawai.input',compact('send'));
+        
+    }
+    
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        
     }
 
     /**

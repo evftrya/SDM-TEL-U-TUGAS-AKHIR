@@ -59,7 +59,7 @@
         </aside>
 
         <!-- Main Content -->
-        <div class="flex-grow-1 p-6 bg-white rounded-lg h-auto max-w-full" id="wrapper-table">
+        <div class="flex-grow-1 @yield('padding-wrapper-table') p-6 bg-white rounded-lg h-auto max-w-full" id="wrapper-table">
             <h1 class="text-2xl font-bold mb-4">@yield('page-name')</h1>
             @yield('content-base')
             {{-- <p class="text-gray-700">Semua konten utama ada di sini. Sidebar tetap di dalam container, tidak menimpa.</p> --}}
