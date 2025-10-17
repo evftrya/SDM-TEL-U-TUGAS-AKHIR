@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/list', function () {
                 return view('kelola_data.manajemen_akun.list');
             })->name('list');
-            
+
             Route::get('/new', function () {
                 return view('kelola_data.manajemen_akun.new');
             })->name('new');
@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
             })->name('view');
 
             Route::get('/list/{destination}', [PegawaiController::class, 'index'])->name('list');
-            
+
             Route::get('/new', function () {
                 return view('kelola_data.manajemen_akun.new');
             })->name('new');
@@ -60,9 +60,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/view', function () {
                 return view('kelola_data.fakultas.view');
             })->name('view');
-    
-            Route::get('/list/', [FacultyController::class, 'index'])->name('list');
-            
+
+            Route::get('/list', [FacultyController::class, 'index'])->name('list');
+
             Route::get('/new', function () {
                 return view('kelola_data.manajemen_akun.new');
             })->name('new');
@@ -71,7 +71,54 @@ Route::middleware('auth')->group(function () {
             })->name('dashboard');
         });
     });
-    
+
+    // Kinerja Pegawai Routes (separated from manage)
+    Route::group(['prefix' => 'kinerja', 'as' => 'kinerja.'], function () {
+        // Main index
+        Route::get('/', function () {
+            return view('kinerja_pegawai.index');
+        })->name('index');
+
+        // Base and sidebar may be included in other views but provide direct routes for preview
+        Route::get('/base', function () {
+            return view('kinerja_pegawai.base');
+        })->name('base');
+
+        Route::get('/sidebar', function () {
+            return view('kinerja_pegawai.sidebar');
+        })->name('sidebar');
+
+        // Dashboard Fakultas
+        Route::get('/dashboard/fakultas', function () {
+            return view('kinerja_pegawai.dashboard_fakultas.index');
+        })->name('dashboard.fakultas.index');
+
+        Route::get('/dashboard/fakultas/{id?}', function ($id = null) {
+            return view('kinerja_pegawai.dashboard_fakultas.detail', ['id' => $id]);
+        })->name('dashboard.fakultas.detail');
+
+        Route::get('/dashboard/fakultas/input/{id?}', function ($id = null) {
+            return view('kinerja_pegawai.dashboard_fakultas.input', ['id' => $id]);
+        })->name('dashboard.fakultas.input');
+
+
+        // Dashboard Target
+        Route::get('/dashboard/target', function () {
+            return view('kinerja_pegawai.dashboard_target.input');
+        })->name('dashboard.target.input');
+
+        Route::get('/dashboard/target/{action}/{id?}', function ($action, $id = null) {
+            $action = in_array($action, ['approval', 'detail', 'edit', 'input']) ? $action : 'detail';
+            return view("kinerja_pegawai.dashboard_target.$action", ['id' => $id]);
+        })->where('action', 'approval|detail|edit|input')->name('dashboard.target.action');
+
+        // Laporan Target
+        Route::get('/laporan/target/{id?}', function ($id = null) {
+            return view('kinerja_pegawai.laporan_target.detail', ['id' => $id]);
+        })->name('laporan.target.detail');
+    });
+
+
 
 });
 

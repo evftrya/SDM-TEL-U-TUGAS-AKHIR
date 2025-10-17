@@ -17,8 +17,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('pegawai_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            // Foreign key to pegawai table
+            $table->foreign('pegawai_id')->references('id')->on('pegawai')->onDelete('set null');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
