@@ -5,8 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Faculty extends Model
+class RefPangkatGolongan extends Model
 {
-    /** @use HasFactory<\Database\Factories\FacultyFactory> */
     use HasFactory;
+
+    protected $table = 'ref_pangkat_golongan';
+
+    protected $fillable = ['pangkat', 'golongan'];
 }

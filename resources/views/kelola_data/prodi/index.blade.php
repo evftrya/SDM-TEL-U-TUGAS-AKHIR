@@ -1,0 +1,118 @@
+@extends('kelola_data.base')
+
+@section('header-base')
+    <style>
+        .max-w-100 {
+            max-width: 100% !important;
+        }
+
+        .nav-active {
+            background-color: #0070ff;
+
+            span {
+                color: white;
+            }
+        }
+    </style>
+@endsection
+
+@section('page-name')
+    <div
+        class="flex flex-col md:flex-row items-center gap-[11.749480247497559px] self-stretch px-1 pt-[14.686850547790527px] pb-[13.952507972717285px]">
+        <div class="flex w-full flex-col gap-[2.9373700618743896px] grow">
+            <div class="flex items-center gap-[5.874740123748779px] self-stretch">
+                <span class="font-medium text-2xl leading-[20.56159019470215px] text-[#101828]">Daftar Program Studi</span>
+            </div>
+            <span class="font-normal text-[10.280795097351074px] leading-[14.686850547790527px] text-[#1f2028]">
+                Anda dapat melihat semua program studi yang terdaftar di sistem disini
+            </span>
+        </div>
+        <div class="flex items-center w-full justify-end gap-[11.749480247497559px]">
+            <a href="{{ route('manage.prodi.create') }}" class="flex rounded-[5.874740123748779px]">
+                <div
+                    class="flex justify-center items-center gap-[5.874740123748779px] bg-[#0070ff] px-[11.749480247497559px] py-[7.343425273895264px] rounded-[5.874740123748779px] border border-[#0070ff] hover:bg-[#005fe0] transition">
+                    <i class="bi bi-plus text-sm text-white"></i>
+                    <span class="font-medium text-[10.28px] leading-[14.68px] text-white">Tambah</span>
+                </div>
+            </a>
+        </div>
+    </div>
+@endsection
+
+@section('content-base')
+    @if (session('success'))
+        <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <div class="flex flex-grow-0 flex-col gap-2 max-w-100">
+        <x-tb id="prodiTable">
+            <x-slot:put_something>
+                <x-print-tb target_id="prodiTable"></x-print-tb>
+                <x-export-csv-tb target_id="prodiTable"></x-export-csv-tb>
+            </x-slot:put_something>
+            <x-slot:table_header>
+                <x-tb-td nama="no">No</x-tb-td>
+                <x-tb-td nama="kode">Kode</x-tb-td>
+                <x-tb-td nama="nama">Nama Program Studi</x-tb-td>
+                <x-tb-td nama="fakultas">Fakultas</x-tb-td>
+                <x-tb-td nama="action">Action</x-tb-td>
+            </x-slot:table_header>
+            <x-slot:table_column>
+                @forelse ($prodis as $index => $prodi)
+                    <x-tb-cl id="{{ $prodi->id }}">
+                        <x-tb-cl-fill>{{ $prodis->firstItem() + $index }}</x-tb-cl-fill>
+                        <x-tb-cl-fill>{{ $prodi->id }}</x-tb-cl-fill>
+                        <x-tb-cl-fill>{{ $prodi->nama_prodi }}</x-tb-cl-fill>
+                        <x-tb-cl-fill>{{ $prodi->fakultas->nama_fakultas ?? '-' }}</x-tb-cl-fill>
+                        <x-tb-cl-fill>
+                            <div class="flex items-center justify-center gap-3">
+                                <!-- Edit Button -->
+                                <a href="{{ route('manage.prodi.edit', $prodi->id) }}" data-bs-container="body"
+                                    data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover"
+                                    data-bs-content="Edit Program Studi"
+                                    class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] bg-white hover:bg-[#f9fafb] transition duration-150 ease-in-out">
+                                    <i class="bi bi-pencil text-[#0070ff] text-[14px]"></i>
+                                </a>
+
+                                <!-- View Details Button -->
+                                <a href="{{ route('manage.prodi.show', $prodi->id) }}"
+                                    class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition duration-200">
+                                    View Details
+                                </a>
+
+                                <!-- Delete Button -->
+                                <form action="{{ route('manage.prodi.destroy', $prodi->id) }}" method="POST"
+                                    class="inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus prodi ini?')"
+                                        data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top"
+                                        data-bs-trigger="hover" data-bs-content="Hapus Program Studi"
+                                        class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] bg-white hover:bg-red-50 transition duration-150 ease-in-out">
+                                        <i class="bi bi-trash text-red-600 text-[14px]"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </x-tb-cl-fill>
+                    </x-tb-cl>
+                @empty
+                    <tr>
+                        <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500">
+                            Belum ada data program studi
+                        </td>
+                    </tr>
+                @endforelse
+            </x-slot:table_column>
+        </x-tb>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+            [...popoverTriggerList].map(el => new bootstrap.Popover(el));
+        });
+    </script>
+@endsection

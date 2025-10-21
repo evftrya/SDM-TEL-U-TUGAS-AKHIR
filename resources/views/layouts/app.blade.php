@@ -11,7 +11,7 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link rel="stylesheet" href="{{ asset('style.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('style.css') }}"> -->
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -25,15 +25,14 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @yield('header')
+    <!-- Prevent oversized SVG flashes: ensure SVGs scale to their containers -->
     <style>
-        body {
-            /* overflow-x: hidden !important; */
-        }
+        svg { max-width: 100%; height: auto; display: block; }
     </style>
 </head>
 
 <body class="font-sans antialiased bg-[#DEDEDE] h-auto">
-    <div class="min-h-screen w-full flex-shrink bg-gray-100 dark:bg-gray-900">
+    <div class="flex-shrink w-full min-h-screen bg-gray-100 dark:bg-gray-900">
         @include('layouts.navigation')
 
         <!-- Page Heading -->

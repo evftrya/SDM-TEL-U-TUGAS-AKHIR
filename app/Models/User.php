@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
+        'pegawai_id',
     ];
 
     /**
@@ -46,5 +47,13 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_admin' => 'boolean',
         ];
+    }
+
+    /**
+     * Get the pegawai associated with this user.
+     */
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class);
     }
 }
