@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/list/', [FacultyController::class, 'index'])->name('list');
             
             Route::get('/new', function () {
-                return view('kelola_data.manajemen_akun.new');
+                return view('kelola_data.manajemen_akun.input');
             })->name('new');
             Route::get('/dashboard', function () {
                 return view('kelola_data.manajemen_akun.dashboard');
@@ -78,10 +78,15 @@ Route::middleware('auth')->group(function () {
             })->name('view');
     
             Route::get('/list/', [LevelController::class, 'index'])->name('list');
+            Route::get('/new', [LevelController::class, 'new'])->name('new');
+            Route::post('/create', [LevelController::class, 'create'])->name('create');
+            Route::post('/update-data', [LevelController::class, 'create'])->name('update-data');
+            Route::get('/update/{idLevel}', [LevelController::class, 'update'])->name('update');
             
-            Route::get('/new', function () {
-                return view('kelola_data.level.tes');
-            })->name('new');
+            
+            // Route::get('/new', function () {
+            //     return view('kelola_data.level.input');
+            // })->name('new');
             Route::get('/dashboard', function () {
                 return view('kelola_data.manajemen_akun.dashboard');
             })->name('dashboard');
