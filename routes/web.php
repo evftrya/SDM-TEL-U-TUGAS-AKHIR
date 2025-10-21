@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\ProdiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -70,6 +71,9 @@ Route::middleware('auth')->group(function () {
                 return view('kelola_data.manajemen_akun.dashboard');
             })->name('dashboard');
         });
+
+        // Prodi Routes
+        Route::resource('prodi', ProdiController::class);
     });
 
     // Kinerja Pegawai Routes (separated from manage)

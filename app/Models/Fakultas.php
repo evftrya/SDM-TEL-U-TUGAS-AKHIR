@@ -10,6 +10,7 @@ class Fakultas extends Model
     use HasFactory;
 
     protected $table = 'fakultas';
+    public $timestamps = false;
 
     protected $fillable = ['nama_fakultas'];
 
