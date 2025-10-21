@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->boolean('is_admin')->default(false);
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password_hash')->unique()->nullable();
+            $table->string('password_hash')->nullable();
             $table->unsignedBigInteger('pegawai_id')->nullable();
             $table->rememberToken();
             $table->timestamps();

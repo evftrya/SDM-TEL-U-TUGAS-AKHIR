@@ -13,9 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Seed pegawai (replaces users)
+        // Seed users
         $this->call([
-            // PegawaiSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }
