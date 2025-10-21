@@ -26,7 +26,7 @@ class ListAdminUsers extends Command
      */
     public function handle()
     {
-        $admins = User::where('is_admin', true)->get(['id', 'name', 'email', 'is_admin', 'created_at']);
+        $admins = User::where('is_admin', true)->get(['id', 'nama_lengkap', 'email', 'is_admin', 'created_at']);
 
         if ($admins->isEmpty()) {
             $this->info('No admin users found.');

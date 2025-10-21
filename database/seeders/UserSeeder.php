@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Pegawai;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class PegawaiSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +13,7 @@ class PegawaiSeeder extends Seeder
     public function run(): void
     {
         // Create admin pegawai
-        Pegawai::factory()->admin()->create([
+        User::factory()->admin()->create([
             'nama_lengkap' => 'Admin Telkom University',
             'username' => 'admin',
             'email' => 'admin@telkomuniversity.ac.id',
@@ -22,14 +22,14 @@ class PegawaiSeeder extends Seeder
         ]);
 
         // Create test pegawai accounts
-        Pegawai::factory()->create([
+        User::factory()->create([
             'nama_lengkap' => 'Budi Santoso',
             'username' => 'budi.santoso',
             'email' => 'budi.santoso@telkomuniversity.ac.id',
             'jenis_kelamin' => 'Laki-laki',
         ]);
 
-        Pegawai::factory()->create([
+        User::factory()->create([
             'nama_lengkap' => 'Siti Nurhaliza',
             'username' => 'siti.nurhaliza',
             'email' => 'siti.nurhaliza@telkomuniversity.ac.id',
@@ -37,6 +37,6 @@ class PegawaiSeeder extends Seeder
         ]);
 
         // Create additional random pegawai
-        // Pegawai::factory(10)->create();
+        // User::factory(10)->create();
     }
 }

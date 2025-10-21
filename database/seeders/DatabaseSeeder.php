@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // Seed pegawai (replaces users)
         $this->call([
-            PegawaiSeeder::class,
+            // PegawaiSeeder::class,
         ]);
     }
 }

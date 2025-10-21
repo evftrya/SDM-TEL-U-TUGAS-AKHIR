@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 class CreateAdminUser extends Command
 {
     /**
-     * The name and signature of the console command.
+     * The nama_lengkap and signature of the console command.
      *
      * @var string
      */
@@ -37,7 +37,7 @@ class CreateAdminUser extends Command
         }
 
         // Get user input
-        $name = $this->ask('Enter admin name', 'Admin');
+        $nama_lengkap = $this->ask('Enter admin nama_lengkap', 'Admin');
         $email = $this->ask('Enter admin email', 'admin@telkomuniversity.ac.id');
 
         // Validate email
@@ -69,17 +69,17 @@ class CreateAdminUser extends Command
         // Create admin user
         try {
             $admin = User::create([
-                'name' => $name,
+                'nama_lengkap' => $nama_lengkap,
                 'email' => $email,
-                'password' => Hash::make($password),
+                'password_hash' => Hash::make($password),
                 'is_admin' => true,
                 'email_verified_at' => now(),
             ]);
 
             $this->info('✅ Admin user created successfully!');
             $this->table(
-                ['ID', 'Name', 'Email', 'Is Admin', 'Created At'],
-                [[$admin->id, $admin->name, $admin->email, $admin->is_admin ? 'Yes' : 'No', $admin->created_at]]
+                ['ID', 'Nama Lengkap', 'Email', 'Is Admin', 'Created At'],
+                [[$admin->id, $admin->nama_lengkap, $admin->email, $admin->is_admin ? 'Yes' : 'No', $admin->created_at]]
             );
 
             return 0;

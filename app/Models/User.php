@@ -18,11 +18,18 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'nama_lengkap',
+        'gelar_depan',
+        'gelar_belakang',
+        'jenis_kelamin',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'username',
+        'password_hash',
         'email',
-        'password',
+        'email_verified_at',
+        'remember_token',
         'is_admin',
-        'pegawai_id',
     ];
 
     /**
@@ -52,8 +59,8 @@ class User extends Authenticatable
     /**
      * Get the pegawai associated with this user.
      */
-    public function pegawai()
-    {
-        return $this->belongsTo(Pegawai::class);
-    }
+    // public function pegawai()
+    // {
+    //     // return $this->belongsTo(Pegawai::class);
+    // }
 }
