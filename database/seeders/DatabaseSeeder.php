@@ -11,11 +11,11 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void
-    {
-        // Seed pegawai (replaces users)
-        $this->call([
-            // PegawaiSeeder::class,
-        ]);
-    }
+public function run(): void
+{
+    $this->call([
+        FakultasSeeder::class,
+    ]);
+}
+
 }

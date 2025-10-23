@@ -1,85 +1,77 @@
-@extends('kelola_data.base')
+<!-- Modal Tambah Prodi -->
+<div id="createModal" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+    <div id="createModalBackdrop" class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <div class="relative bg-white rounded-lg shadow-xl w-full max-w-sm mx-4 overflow-hidden z-10">
+        <!-- Header -->
+        <div class="text-center px-6 pt-6">
+            <h2 class="text-3xl font-semibold text-gray-900">Tambah Prodi</h2>
+        </div>
 
-@section('header-base')
-    <style>
-        .max-w-100 {
-            max-width: 100% !important;
-        }
+        <!-- Body -->
+        <div class="p-6 space-y-4">
+            <form id="createProdiForm" method="POST" action="{{ route('manage.prodi.store') }}">
+                @csrf
 
-        .nav-active {
-            background-color: #0070ff;
+                <!-- Nama Prodi -->
+                <div>
+                    <label for="nama_prodi_modal" class="block text-sm font-semibold text-gray-700 mb-1">Nama
+                        Prodi</label>
+                    <input id="nama_prodi_modal" name="nama_prodi" type="text" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition"
+                        placeholder="Contoh: FTI">
+                </div>
 
-            span {
-                color: white;
-            }
-        }
-    </style>
-@endsection
+                <!-- Fakultas -->
+                <div>
+                    <label for="fakultas_id_modal" class="block text-sm font-semibold text-gray-700 mb-1">Nama
+                        Fakultas</label>
+                    <select id="fakultas_id_modal" name="fakultas_id" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition bg-white">
+                        <option value="">-- Pilih Fakultas --</option>
+                        @foreach ($fakultas as $f)
+                            <option value="{{ $f->id }}">{{ $f->nama_fakultas }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-@section('page-name')
-    <div
-        class="flex flex-col md:flex-row items-center gap-[11.749480247497559px] self-stretch px-1 pt-[14.686850547790527px] pb-[13.952507972717285px]">
-        <div class="flex w-full flex-col gap-[2.9373700618743896px] grow">
-            <div class="flex items-center gap-[5.874740123748779px] self-stretch">
-                <span class="font-medium text-2xl leading-[20.56159019470215px] text-[#101828]">Tambah Program Studi</span>
-            </div>
-            <span class="font-normal text-[10.280795097351074px] leading-[14.686850547790527px] text-[#1f2028]">
-                Tambahkan program studi baru ke dalam sistem
-            </span>
+                <!-- Tombol -->
+                <div class="flex justify-between mt-6">
+                    <button type="button" id="cancelCreateModal"
+                        class="w-1/2 mr-2 py-2 rounded-md bg-red-500 text-white font-medium hover:bg-red-600 transition">
+                        Tutup
+                    </button>
+                    <button type="submit"
+                        class="w-1/2 ml-2 py-2 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition">
+                        Simpan
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
-@endsection
+</div>
 
-@section('content-base')
-    <div class="bg-white rounded-lg shadow-sm p-6 max-w-100">
-        <form method="POST" action="{{ route('manage.prodi.store') }}">
-            @csrf
+<script>
+    (function() {
+        const openBtn = document.getElementById('openCreateModal');
+        const modal = document.getElementById('createModal');
+        const backdrop = document.getElementById('createModalBackdrop');
+        const cancelBtn = document.getElementById('cancelCreateModal');
 
-            <!-- Fakultas -->
-            <div class="mb-6">
-                <label for="fakultas_id" class="block text-sm font-medium text-gray-700 mb-2">
-                    Fakultas <span class="text-red-500">*</span>
-                </label>
-                <select id="fakultas_id" name="fakultas_id"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                    required>
-                    <option value="">Pilih Fakultas</option>
-                    @foreach ($fakultas as $f)
-                        <option value="{{ $f->id }}" {{ old('fakultas_id') == $f->id ? 'selected' : '' }}>
-                            {{ $f->nama_fakultas }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('fakultas_id')
-                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
+        function showModal() {
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
 
-            <!-- Nama Prodi -->
-            <div class="mb-6">
-                <label for="nama_prodi" class="block text-sm font-medium text-gray-700 mb-2">
-                    Nama Program Studi <span class="text-red-500">*</span>
-                </label>
-                <input id="nama_prodi" type="text" name="nama_prodi" value="{{ old('nama_prodi') }}"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                    placeholder="Contoh: Teknik Informatika" required>
-                @error('nama_prodi')
-                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
+        function hideModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
 
-            <!-- Action Buttons -->
-            <div class="flex items-center justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
-                <a href="{{ route('manage.prodi.index') }}"
-                    class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 transition duration-200">
-                    Batal
-                </a>
-                <button type="submit"
-                    class="px-4 py-2 bg-[#0070ff] text-white rounded-md text-sm font-medium hover:bg-[#005fe0] transition duration-200">
-                    <i class="bi bi-check-circle mr-1"></i>
-                    Simpan
-                </button>
-            </div>
-        </form>
-    </div>
-@endsection
+        if (openBtn) openBtn.addEventListener('click', showModal);
+        if (cancelBtn) cancelBtn.addEventListener('click', hideModal);
+        if (backdrop) backdrop.addEventListener('click', hideModal);
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') hideModal();
+        });
+    })();
+</script>

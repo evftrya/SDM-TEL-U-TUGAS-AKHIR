@@ -5,8 +5,6 @@
             max-width: 100% !important;
         }
 
-
-
         .nav-active {
             background-color: #0070ff;
 
@@ -27,8 +25,6 @@
                 melihat semua fakultas yang terdaftar di sistem disini</span>
         </div>
         <div class="flex items-center w-full justify-end gap-[11.749480247497559px]">
-
-
 
             <button class="flex rounded-[5.874740123748779px]">
                 <div
@@ -57,8 +53,6 @@
         @endfor
     </div>
 
-
-
     <div class="flex flex-grow-0 flex-col gap-2 max-w-100">
         <x-tb id="fakultasTable">
             <x-slot:put_something>
@@ -84,14 +78,12 @@
                         <x-tb-cl-fill>
                             <div class="flex items-center justify-center gap-3">
                                 <!-- WhatsApp Button -->
-                                <!-- WhatsApp Button dengan Popover -->
                                 <a href="https://wa.me/628972529100" target="_blank" data-bs-container="body"
                                     data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover"
                                     data-bs-content="Hubungi lewat WhatsApp 📱"
                                     class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] bg-white hover:bg-[#f9fafb] transition duration-150 ease-in-out">
                                     <i class="bi bi-whatsapp text-[#25D366] text-[16px]"></i>
                                 </a>
-
 
                                 <!-- Power Button -->
                                 <button
@@ -101,8 +93,17 @@
 
                                 <!-- View Details Button -->
                                 <button
-                                    class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition duration-200">
+                                    class="px-3 py-1.5 border border-[#1C2762] text-[#1C2762] rounded-md text-xs font-medium hover:bg-[#1C2762] hover:text-white transition duration-200">
                                     View Details
+                                </button>
+
+                                <!-- Delete Button -->
+                                <button type="button"
+                                    onclick="openDeleteModal('{{ $i }}', 'Fakultas Teknik Industri', '#')"
+                                    data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top"
+                                    data-bs-trigger="hover" data-bs-content="Hapus Fakultas"
+                                    class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] bg-white hover:bg-red-50 transition duration-150 ease-in-out">
+                                    <i class="bi bi-trash text-red-600 text-[14px]"></i>
                                 </button>
                             </div>
                         </x-tb-cl-fill>
@@ -111,14 +112,7 @@
             </x-slot:table_column>
         </x-tb>
 
-
     </div>
-
-
-
-
-
-
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -126,4 +120,7 @@
             [...popoverTriggerList].map(el => new bootstrap.Popover(el));
         });
     </script>
+
+    <!-- Include Delete Modal -->
+    @include('kelola_data.fakultas.delete')
 @endsection

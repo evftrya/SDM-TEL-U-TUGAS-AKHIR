@@ -14,7 +14,8 @@ class ProdiController extends Controller
     public function index()
     {
         $prodis = Prodi::with('fakultas')->paginate(15);
-        return view('kelola_data.prodi.index', compact('prodis'));
+        $fakultas = Fakultas::all();
+        return view('kelola_data.prodi.index', compact('prodis', 'fakultas'));
     }
 
     /**
@@ -24,6 +25,7 @@ class ProdiController extends Controller
     {
         $fakultas = Fakultas::all();
         return view('kelola_data.prodi.create', compact('fakultas'));
+
     }
 
     /**
