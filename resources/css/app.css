@@ -4,3 +4,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    /* {
+            @apply transition-all duration-300;
+        } */
+
+    .active-sidebar {
+        @apply border-blue-600 border-l-4 bg-gray-600 hover:bg-gray-800 text-white !important;
+    }
+}

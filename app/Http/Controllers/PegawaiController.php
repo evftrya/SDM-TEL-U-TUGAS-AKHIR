@@ -122,6 +122,21 @@ class PegawaiController extends Controller
     }
 
 
+    public function employeeInfo()
+    {
+        return view('kelola_data.pegawai.view.employee-information');
+    }
+
+    public function personalInfo()
+    {
+        return view('kelola_data.pegawai.view.personal-information');
+    }
+
+    public function riwayatJabatan()
+    {
+        return view('kelola_data.pegawai.view.riwayat-jabatan');
+    }
+
     /**
      * Store a newly created resource in storage.
      */

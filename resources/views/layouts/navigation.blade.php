@@ -12,8 +12,8 @@
             </div>
 
             <!-- Center: Navigation Links -->
-            <div class="hidden sm:flex sm:items-center sm:justify-center sm:flex-1">
-                <div class="space-x-8 text-white sm:flex">
+            <div class="hidden md:flex md:items-center md:justify-center md:flex-1">
+                <div class="space-x-8 text-white md:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         Beranda
                     </x-nav-link>
@@ -50,11 +50,11 @@
 
                                     <div class="ms-1">
                                         <!-- <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                clip-rule="evenodd" />
-                                        </svg> -->
+                                                    viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd"
+                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd" />
+                                                </svg> -->
                                     </div>
                                 </button>
                             </x-slot>
@@ -91,7 +91,7 @@
                 @endauth
 
                 <!-- Hamburger -->
-                <div class="flex items-center -me-2 sm:hidden">
+                <div class="flex items-center -me-2 md:hidden">
                     <button @click="open = ! open"
                         class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400">
                         <!-- <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -190,6 +190,6 @@
                         </x-responsive-nav-link>
                     </div>
                 </div>
-            @endauth
-        </div>
+            </div>
+        @endauth
 </nav>

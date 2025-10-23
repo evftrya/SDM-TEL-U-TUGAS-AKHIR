@@ -46,13 +46,16 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::group(['prefix' => 'pegawai', 'as' => 'pegawai.'], function () {
-            Route::get('/view', function () {
-                return view('kelola_data.pegawai.view');
-            })->name('view');
-
+            
             Route::get('/list/{destination}', [PegawaiController::class, 'index'])->name('list');
             Route::get('/new', [PegawaiController::class, 'new'])->name('new');
             Route::post('/create', [PegawaiController::class, 'create'])->name('create');
+            Route::group(['prefix' => 'view', 'as' => 'view.'], function () {
+                Route::get('/employee-information', [PegawaiController::class, 'employeeInfo'])->name('employee-info');
+                Route::get('/personal-information', [PegawaiController::class, 'personalInfo'])->name('personal-info');
+                Route::get('/riwayat-jabatan', [PegawaiController::class, 'riwayatJabatan'])->name('riwayat-jabatan');
+
+            });
             
             Route::get('/dashboard', function () {
                 return view('kelola_data.manajemen_akun.dashboard');

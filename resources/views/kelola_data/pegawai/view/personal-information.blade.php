@@ -1,5 +1,12 @@
 @extends('kelola_data.base-profile')
-@section('profile-content')
+@section('content-base')
+<p class="text-sm">
+        {{-- <span class="inline sm:hidden">Ukuran: xs</span> --}}
+        <span class="inline sm:hidden">Ukuran: xs</span>
+        <span class="hidden sm:inline md:hidden">Ukuran: sm</span>
+        <span class="hidden md:inline lg:hidden">Ukuran: md</span>
+        <span class="hidden lg:inline">Ukuran: lg+</span>
+    </p>
     <div class="w-full flex flex-col gap-[18px]">
         <div class="flex items-center gap-[29px]"><span
                 class="font-semibold text-[24.083213806152344px] leading-[20.44701385498047px] text-[#101828]">Personal

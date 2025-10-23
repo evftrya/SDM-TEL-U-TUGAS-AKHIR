@@ -288,10 +288,6 @@
             }, 1000); // delay 1 detik
         });
     </script>
-    <a href="{{ route('manage.level.update', ['idLevel' => $index]) }}" onclick="return stopModal(event)"
-        class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition duration-200">
-        Ubah Data
-    </a>
 
     <div id="pageOverlay"
         class="hidden fixed inset-0 bg-black/50 text-white text-lg flex items-center justify-center z-[9999]">

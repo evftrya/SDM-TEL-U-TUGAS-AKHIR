@@ -18,6 +18,11 @@ export default {
             screens: {
                 'hp': { 'max': '615px' },
             },
+            colors:{
+                primary:{
+                    DEFAULT: "#1C2762",
+                }
+            }
         },
     },
 

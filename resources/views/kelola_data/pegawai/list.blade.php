@@ -112,10 +112,11 @@
                                 </button>
 
                                 <!-- View Details Button -->
-                                <button
+                                <a href="{{ route('manage.pegawai.view.personal-info') }}"
                                     class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition duration-200">
                                     View Details
-                                </button>
+                                </a>
+
                             </div>
                         </x-tb-cl-fill>
                     </x-tb-cl>
