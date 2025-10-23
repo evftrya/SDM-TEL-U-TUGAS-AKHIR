@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/list/{destination}', [PegawaiController::class, 'index'])->name('list');
             Route::get('/new', [PegawaiController::class, 'new'])->name('new');
+            Route::post('/create', [PegawaiController::class, 'create'])->name('create');
             
             Route::get('/dashboard', function () {
                 return view('kelola_data.manajemen_akun.dashboard');

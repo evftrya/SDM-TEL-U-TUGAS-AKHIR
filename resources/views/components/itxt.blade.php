@@ -6,23 +6,55 @@
     'nm' => '',
     'req' => true,
     'dis' => false,
+    'max' => 100,
+    'step' => '',
+    'fill' => '',
+    'rules' => '', // <— tambahkan ini
 ])
 
-<div class="flex flex-col gap-1">
+@php
+    // pastikan $rules array
+    $rules = is_array($rules) ? $rules : [];
+    $hasAnyHelp = $max !== 'none' || !empty($rules);
+@endphp
+
+<div class="flex flex-col gap-1 {{ $fill }}">
     <label class="text-sm text-gray-600 font-medium">
         {{ $lbl }}
-        @if($req)
+        @if ($req)
             *
         @endif
     </label>
 
-    <input
-        type="{{ $type }}"
-        name="{{ $nm }}"
-        placeholder="{{ $plc }}"
-        value="{{ old($nm, $val) }}"
-        @if($req) required @endif
-        @if($dis) disabled @endif
-        class="h-10 border border-gray-300 rounded-md px-3 text-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-400"
-    >
+    @if ($type !== 'textarea')
+        <input type="{{ $type }}" name="{{ $nm }}" placeholder="{{ $plc }}"
+            value="{{ old($nm, $val) }}" @if ($req) required @endif
+            @if ($dis) disabled @endif
+            @if($step!='') step="{{ $step }}" @endif
+            class="peer h-10 border border-gray-300 rounded-md px-3 text-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-400">
+    @else
+        <textarea name="{{ $nm }}" rows="4" placeholder="{{ $plc }}"
+            @if ($req) required @endif @if ($dis) disabled @endif
+            class="peer border flex-grow-1 border-gray-300 rounded-md px-3 py-2 text-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-400">{{ old($nm, $val) }}</textarea>
+    @endif
+
+    @if ($rules != 'none')
+        @if ($hasAnyHelp)
+            <ul
+                class="hidden peer-focus:block text-xs text-gray-500 list-disc ml-5 transition-all duration-200 ease-in-out">
+                @if ($max !== 'none')
+                    <li>Maksimal {{ $max }} Karakter</li>
+                @endif
+
+                @foreach ($rules as $rule)
+                    <li>{{ $rule }}</li>
+                @endforeach
+            </ul>
+        @endif
+    @endif
+
+    @error($nm)
+        <div class="text-danger text-sm">{{ $message }}</div>
+    @enderror
+
 </div>

@@ -65,9 +65,9 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-        'pegawai' => [
+        'pegawai' => [ 
             'driver' => 'eloquent',
-            'model' => App\Models\Pegawai::class,
+            'model' => App\Models\User::class,
         ],
 
         // 'users' => [
