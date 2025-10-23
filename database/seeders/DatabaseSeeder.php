@@ -11,11 +11,11 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void
-    {
-        // Seed users
-        $this->call([
-            UserSeeder::class,
-        ]);
-    }
+public function run(): void
+{
+    $this->call([
+        FakultasSeeder::class,
+    ]);
+}
+
 }

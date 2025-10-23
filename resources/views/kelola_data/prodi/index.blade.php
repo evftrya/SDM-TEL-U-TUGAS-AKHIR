@@ -28,13 +28,13 @@
             </span>
         </div>
         <div class="flex items-center w-full justify-end gap-[11.749480247497559px]">
-            <a href="{{ route('manage.prodi.create') }}" class="flex rounded-[5.874740123748779px]">
+            <button id="openCreateModal" type="button" class="flex rounded-[5.874740123748779px]">
                 <div
                     class="flex justify-center items-center gap-[5.874740123748779px] bg-[#0070ff] px-[11.749480247497559px] py-[7.343425273895264px] rounded-[5.874740123748779px] border border-[#0070ff] hover:bg-[#005fe0] transition">
                     <i class="bi bi-plus text-sm text-white"></i>
                     <span class="font-medium text-[10.28px] leading-[14.68px] text-white">Tambah</span>
                 </div>
-            </a>
+            </button>
         </div>
     </div>
 @endsection
@@ -53,8 +53,7 @@
                 <x-export-csv-tb target_id="prodiTable"></x-export-csv-tb>
             </x-slot:put_something>
             <x-slot:table_header>
-                <x-tb-td nama="no">No</x-tb-td>
-                <x-tb-td nama="kode">Kode</x-tb-td>
+                {{-- <x-tb-td nama="kode">Kode</x-tb-td> --}}
                 <x-tb-td nama="nama">Nama Program Studi</x-tb-td>
                 <x-tb-td nama="fakultas">Fakultas</x-tb-td>
                 <x-tb-td nama="action">Action</x-tb-td>
@@ -62,8 +61,6 @@
             <x-slot:table_column>
                 @forelse ($prodis as $index => $prodi)
                     <x-tb-cl id="{{ $prodi->id }}">
-                        <x-tb-cl-fill>{{ $prodis->firstItem() + $index }}</x-tb-cl-fill>
-                        <x-tb-cl-fill>{{ $prodi->id }}</x-tb-cl-fill>
                         <x-tb-cl-fill>{{ $prodi->nama_prodi }}</x-tb-cl-fill>
                         <x-tb-cl-fill>{{ $prodi->fakultas->nama_fakultas ?? '-' }}</x-tb-cl-fill>
                         <x-tb-cl-fill>
@@ -77,30 +74,26 @@
                                 </a>
 
                                 <!-- View Details Button -->
-                                <a href="{{ route('manage.prodi.show', $prodi->id) }}"
-                                    class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition duration-200">
+                                <button type="button"
+                                    onclick="openDetailModal({{ $prodi->id }}, '{{ addslashes($prodi->nama_prodi) }}', '{{ addslashes($prodi->fakultas->nama_fakultas) }}')"
+                                    class="px-3 py-1.5 border border-[#1C2762] text-[#1C2762] rounded-md text-xs font-medium hover:bg-[#1C2762] hover:text-white transition duration-200">
                                     View Details
-                                </a>
+                                </button>
 
                                 <!-- Delete Button -->
-                                <form action="{{ route('manage.prodi.destroy', $prodi->id) }}" method="POST"
-                                    class="inline-block">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        onclick="return confirm('Apakah Anda yakin ingin menghapus prodi ini?')"
-                                        data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top"
-                                        data-bs-trigger="hover" data-bs-content="Hapus Program Studi"
-                                        class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] bg-white hover:bg-red-50 transition duration-150 ease-in-out">
-                                        <i class="bi bi-trash text-red-600 text-[14px]"></i>
-                                    </button>
-                                </form>
+                                <button type="button"
+                                    onclick="openDeleteProdiModal({{ $prodi->id }}, '{{ addslashes($prodi->nama_prodi) }}', '{{ route('manage.prodi.destroy', $prodi->id) }}')"
+                                    data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top"
+                                    data-bs-trigger="hover" data-bs-content="Hapus Program Studi"
+                                    class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] bg-white hover:bg-red-50 transition duration-150 ease-in-out">
+                                    <i class="bi bi-trash text-red-600 text-[14px]"></i>
+                                </button>
                             </div>
                         </x-tb-cl-fill>
                     </x-tb-cl>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500">
+                        <td colspan="3" class="px-6 py-4 text-center text-sm text-gray-500">
                             Belum ada data program studi
                         </td>
                     </tr>
@@ -115,4 +108,13 @@
             [...popoverTriggerList].map(el => new bootstrap.Popover(el));
         });
     </script>
+
+    <!-- Include Create Modal -->
+    @include('kelola_data.prodi.create')
+
+    <!-- Include Detail Modal -->
+    @include('kelola_data.prodi.show')
+
+    <!-- Include Delete Modal -->
+    @include('kelola_data.prodi.delete')
 @endsection
