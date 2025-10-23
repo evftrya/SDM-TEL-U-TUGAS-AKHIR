@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -13,29 +14,33 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
+     * Non-incrementing ID (UUID)
+     */
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    /**
+     * Fillable attributes
      */
     protected $fillable = [
         'nama_lengkap',
-        'gelar_depan',
-        'gelar_belakang',
+        'telepon',
+        'alamat',
+        'email_institusi',
         'jenis_kelamin',
         'tempat_lahir',
-        'tanggal_lahir',
+        'tgl_lahir',
+        'tgl_bergabung',
+        'email_pribadi',
+        'email_verified_at',
         'username',
         'password_hash',
-        'email',
-        'email_verified_at',
-        'remember_token',
         'is_admin',
+        'remember_token',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Hidden attributes
      */
     protected $hidden = [
         'password_hash',
@@ -43,9 +48,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Casts
      */
     protected function casts(): array
     {
@@ -57,9 +60,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the password for authentication.
-     *
-     * @return string
+     * Use password_hash for authentication
      */
     public function getAuthPassword()
     {
@@ -67,10 +68,26 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the pegawai associated with this user.
+     * Auto-hash password when set
      */
-    // public function pegawai()
-    // {
-    //     // return $this->belongsTo(Pegawai::class);
-    // }
+    protected function password(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => ['password_hash' => \Illuminate\Support\Facades\Hash::make($value)]
+        );
+    }
+
+    /**
+     * Auto-generate UUID when creating new User
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
+    }
 }

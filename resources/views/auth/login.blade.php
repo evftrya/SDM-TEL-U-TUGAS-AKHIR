@@ -21,10 +21,10 @@
                     @csrf
 
                     <!-- Email -->
-                    <div>
+                    {{-- <div>
                         <x-input-label for="email" :value="__('Email')" />
                         <x-text-input id="email" class="block w-full mt-1"
-                            type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                            type="email" name="email_institusi" :value="old('email')" required autofocus autocomplete="username" />
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
 
@@ -34,7 +34,12 @@
                         <x-text-input id="password" class="block w-full mt-1"
                             type="password" name="password" required autocomplete="current-password" />
                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                    </div>
+                    </div> --}}
+
+                    <x-itxt fill="mb-4" type="email" lbl="Email Institusi" plc="john@telkomuniversity.ac.id" nm="email_institusi"
+                        max="100" fill="flex-grow"></x-itxt>
+                    <x-itxt type="password" lbl="Password" nm="password"
+                        max="15" fill="flex-grow"></x-itxt>
 
                     <!-- Remember Me -->
                     <div class="block mt-4">

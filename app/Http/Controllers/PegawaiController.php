@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\Dosen;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -114,9 +115,30 @@ class PegawaiController extends Controller
                 : 'Status kepegawaian tidak valid.',
         ]);
 
+        try {
+            $user = User::create($validated);
+            if($user){
+                if($validated['tipe_pegawai']=='Dosen'){
+                    $pegawai = Dosen::create($validated);
+                }
+            }
+            return response()->json([
+                'success' => true,
+                'message' => 'User berhasil dibuat!',
+                'data' => $user
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat membuat user',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+
+        // return redirect(route('manage.pegawai.list', ['destination' => 'All']));
+
         // dd($request,$request->file('ijazah_file'));
 
-        return redirect(route('manage.pegawai.list', ['destination' => 'All']));
 
         // return back()->with('success', 'Data pegawai berhasil disimpan!');
     }

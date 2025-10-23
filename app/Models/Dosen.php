@@ -12,15 +12,16 @@ class Dosen extends Model
     protected $table = 'dosen';
 
     protected $fillable = [
-        'pegawai_id',
-        'prodi_id',
+        'uuid_prodi',
         'nidn',
+        'nuptk',
+        'uuid_user',
     ];
 
     // Relationships
     public function pegawai()
     {
-        return $this->belongsTo(Pegawai::class);
+        return $this->belongsTo(User::class);
     }
 
     public function prodi()
@@ -43,13 +44,13 @@ class Dosen extends Model
         return $this->hasMany(RiwayatJabatanFungsional::class);
     }
 
-    public function riwayatPangkat()
-    {
-        return $this->hasMany(RiwayatPangkat::class);
-    }
+    // public function riwayatPangkat()
+    // {
+    //     return $this->hasMany(RiwayatPangkat::class);
+    // }
 
-    public function sertifikasi()
-    {
-        return $this->hasOne(SertifikasiDosen::class);
-    }
+    // public function sertifikasi()
+    // {
+    //     return $this->hasOne(SertifikasiDosen::class);
+    // }
 }
