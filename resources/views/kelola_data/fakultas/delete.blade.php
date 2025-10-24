@@ -44,7 +44,7 @@
     let deleteFormAction = '';
 
     // Delete Modal logic
-    function openDeleteModal(id, namaFakultas, deleteUrl) {
+    function openDeleteFakultasModal(id, namaFakultas, deleteUrl) {
         document.getElementById('delete_fakultas_name').textContent = namaFakultas;
         deleteFormAction = deleteUrl;
 
