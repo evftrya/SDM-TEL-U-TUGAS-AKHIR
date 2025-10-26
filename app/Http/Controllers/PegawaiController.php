@@ -22,8 +22,10 @@ class PegawaiController extends Controller
             return redirect('/manage/pegawai/list/All');
         }
         else{
+            $users = User::all();
+            // dd($users,$users[1]['email_institusi']);
             $send = [$text];
-            return view('kelola_data.pegawai.list',compact('send'));
+            return view('kelola_data.pegawai.list',compact('send','users'));
         }
     }
     
@@ -149,8 +151,9 @@ class PegawaiController extends Controller
         return view('kelola_data.pegawai.view.employee-information');
     }
 
-    public function personalInfo()
+    public function personalInfo($idUser)
     {
+        // dd($idUser);
         return view('kelola_data.pegawai.view.personal-information');
     }
 

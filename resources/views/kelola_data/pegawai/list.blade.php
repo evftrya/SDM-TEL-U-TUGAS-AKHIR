@@ -74,16 +74,14 @@
                 <x-tb-td nama="action" sorting=true>Action</x-tb-td>
             </x-slot:table_header>
             <x-slot:table_column>
-                @for ($i = 0; $i < 2; $i++)
+                @foreach ($users as  $user)
                     <x-tb-cl id="$i">
                         <x-tb-cl-fill>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero quas voluptas consequatur sed
-                            tempore
-                            magnam, omnis qui laudantium quos aut
+                            {{ $user['nama_lengkap'] }}
                         </x-tb-cl-fill>
-                        <x-tb-cl-fill>Male</x-tb-cl-fill>
-                        <x-tb-cl-fill>0895745214532</x-tb-cl-fill>
-                        <x-tb-cl-fill>{{ $i % 2 == 0 ? 'TPA' : 'Dosen' }}</x-tb-cl-fill>
+                        <x-tb-cl-fill>{{ $user['jenis_kelamin'] }}</x-tb-cl-fill>
+                        <x-tb-cl-fill>{{ $user['telepon'] }}</x-tb-cl-fill>
+                        <x-tb-cl-fill>TPA</x-tb-cl-fill>
                         <x-tb-cl-fill>Pegawai Tetap</x-tb-cl-fill>
                         <x-tb-cl-fill>
                             <span
@@ -91,13 +89,13 @@
                                 Active
                             </span>
                         </x-tb-cl-fill>
-                        <x-tb-cl-fill>astigful{{ $i }}@gmail.com</x-tb-cl-fill>
-                        <x-tb-cl-fill>astigful{{ $i }}@telkomuniversity.ac.id</x-tb-cl-fill>
+                        <x-tb-cl-fill>{{ $user['email_pribadi'] }}</x-tb-cl-fill>
+                        <x-tb-cl-fill>{{ $user['email_institusi'] }}</x-tb-cl-fill>
                         <x-tb-cl-fill>
                             <div class="flex items-center justify-center gap-3">
                                 <!-- WhatsApp Button -->
                                 <!-- WhatsApp Button dengan Popover -->
-                                <a href="https://wa.me/628972529100" target="_blank" data-bs-container="body"
+                                <a href="https://wa.me/62{{ $user['telepon'] }}" target="_blank" data-bs-container="body"
                                     data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover"
                                     data-bs-content="Hubungi lewat WhatsApp 📱"
                                     class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] bg-white hover:bg-[#f9fafb] transition duration-150 ease-in-out">
@@ -112,7 +110,7 @@
                                 </button>
 
                                 <!-- View Details Button -->
-                                <a href="{{ route('manage.pegawai.view.personal-info') }}"
+                                <a href="{{ route('manage.pegawai.view.personal-info',['idUser'=>$user['id']]) }}"
                                     class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition duration-200">
                                     View Details
                                 </a>
@@ -120,7 +118,7 @@
                             </div>
                         </x-tb-cl-fill>
                     </x-tb-cl>
-                @endfor
+                @endforeach
             </x-slot:table_column>
         </x-tb>
 

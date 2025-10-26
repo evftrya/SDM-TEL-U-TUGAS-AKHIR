@@ -52,9 +52,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/new', [PegawaiController::class, 'new'])->name('new');
             Route::post('/create', [PegawaiController::class, 'create'])->name('create');
             Route::group(['prefix' => 'view', 'as' => 'view.'], function () {
-                Route::get('/employee-information', [PegawaiController::class, 'employeeInfo'])->name('employee-info');
-                Route::get('/personal-information', [PegawaiController::class, 'personalInfo'])->name('personal-info');
-                Route::get('/riwayat-jabatan', [PegawaiController::class, 'riwayatJabatan'])->name('riwayat-jabatan');
+                Route::get('/{idUser}/employee-information', [PegawaiController::class, 'employeeInfo'])->name('employee-info');
+                Route::get('/{idUser}/personal-information', [PegawaiController::class, 'personalInfo'])->name('personal-info');
+                Route::get('/{idUser}/riwayat-jabatan', [PegawaiController::class, 'riwayatJabatan'])->name('riwayat-jabatan');
 
             });
             

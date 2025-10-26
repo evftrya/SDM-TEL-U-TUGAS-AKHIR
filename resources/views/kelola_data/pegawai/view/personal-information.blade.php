@@ -1,88 +1,168 @@
 @extends('kelola_data.base-profile')
+
 @section('content-base')
-<p class="text-sm">
-        {{-- <span class="inline sm:hidden">Ukuran: xs</span> --}}
+<div class="w-full max-w-5xl">
+    {{-- Responsive size helper (optional, remove if not needed) --}}
+    <p class="sr-only">
         <span class="inline sm:hidden">Ukuran: xs</span>
         <span class="hidden sm:inline md:hidden">Ukuran: sm</span>
         <span class="hidden md:inline lg:hidden">Ukuran: md</span>
         <span class="hidden lg:inline">Ukuran: lg+</span>
     </p>
-    <div class="w-full flex flex-col gap-[18px]">
-        <div class="flex items-center gap-[29px]"><span
-                class="font-semibold text-[24.083213806152344px] leading-[20.44701385498047px] text-[#101828]">Personal
-                Information</span>
-            <div class="flex rounded-[4.830657005310059px]">
-                <div
-                    class="flex justify-center items-center gap-[4.830657005310059px] bg-[#0070ff] px-[9.661314010620117px] py-[6.038321495056152px] rounded-[4.830657005310059px] border-[0.6038321256637573px] border-solid border-[#0070ff]">
-                    <span class="font-medium text-[8.453649520874023px] leading-[12.076642990112305px] text-white">Ubah
-                        Data</span></div>
+
+    {{-- Header / Title Bar --}}
+    <div class="sticky top-0 z-10 mb-4 -mx-4 border-b border-gray-200/70 bg-white/70 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-white/50 dark:border-gray-800 dark:bg-gray-950/60">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white ring-2 ring-white dark:ring-gray-900">
+                    {{-- If you have an avatar, replace this with <img> --}}
+                    <div class="flex h-full w-full items-center justify-center text-sm font-semibold">TA</div>
+                </div>
+                <div>
+                    <h1 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-gray-100">Profil Dosen</h1>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Ringkasan data personal & kepegawaian</p>
+                </div>
             </div>
-        </div>
-        <div class="flex items-center gap-[73px] self-stretch">
-            <div class="w-[262px] flex flex-col gap-[13px]">
-                <div class="h-4 flex gap-[122px]"><span
-                        class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Nama
-                        Lengkap</span></div>
-                <div class="flex gap-[122px] self-stretch h-4"><span
-                        class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Nama
-                        Lengkap beserta gelar</span></div><span
-                    class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Username</span><span
-                    class="font-light text-[18.014497756958008px] leading-[20px] text-black">Nomor Induk Dosen Nasional
-                    (NIDN)</span><span
-                    class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">NUPTK</span><span
-                    class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Kelompok
-                    Keahlian</span>
-                <div class="h-4 flex gap-[122px]"><span
-                        class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Gelar
-                        Depan</span></div><span
-                    class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Gelar
-                    Belakang</span><span
-                    class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Tempat</span><span
-                    class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Tanggal
-                    Lahir</span><span
-                    class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Jenis
-                    Kelamin</span><span
-                    class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Alamat</span><span
-                    class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">No
-                    Handphone</span><span
-                    class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Email
-                    Institusi</span><span
-                    class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Email
-                    Pribadi</span><span
-                    class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Tanggal
-                    Bergabung</span><span
-                    class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Tanggal
-                    Berhenti</span>
-            </div>
-            <div class="w-[262px] flex flex-col gap-[13px]">
-                <div class="flex gap-[122px] self-stretch h-4"><span
-                        class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Tirex
-                        Alfred</span></div><span
-                    class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Tirex Alfred,
-                    S.T., M.T.</span>
-                <div class="h-4 flex gap-[122px]"><span
-                        class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">trxalf</span>
-                </div><span
-                    class="font-normal text-[18.014497756958008px] leading-[20px] text-black">2155465654 hgjh</span><span
-                    class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">321565462</span><span
-                    class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Software</span><span
-                    class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Sarjana Teknik
-                    (S.T.)</span><span
-                    class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Magister
-                    Teknik (S.T)</span><span
-                    class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Surabaya,
-                </span><span class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">25
-                    Maret 2000</span><span
-                    class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Laki-laki</span><span
-                    class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Jl. Kenangan
-                    Barat</span><span
-                    class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">0895263241235</span><span
-                    class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">trx@telkomuniversity.ac.id</span><span
-                    class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">trx@gmail.com</span><span
-                    class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">23 Februari
-                    2025</span><span
-                    class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">-</span>
+            <div class="flex items-center gap-2">
+                <a href="#" class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800">
+                    Lihat Riwayat
+                </a>
+                <a href="#" class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-3.5 py-2 text-xs font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 active:bg-blue-800">
+                    ✏️ <span>Ubah Data</span>
+                </a>
             </div>
         </div>
     </div>
+
+    {{-- Content Layout --}}
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        {{-- Left column: Identity card --}}
+        <section class="lg:col-span-1">
+            <div class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+                <div class="flex items-start gap-4">
+                    <div class="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white ring-2 ring-white dark:ring-gray-900">
+                        <div class="flex h-full w-full items-center justify-center text-base font-semibold">TA</div>
+                    </div>
+                    <div class="min-w-0">
+                        <h2 class="truncate text-base font-semibold text-gray-900 dark:text-gray-100">Tirex Alfred</h2>
+                        <p class="truncate text-sm text-gray-500 dark:text-gray-400">Tirex Alfred, S.T., M.T.</p>
+                        <span class="mt-2 inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-medium text-blue-700 ring-1 ring-inset ring-blue-200 dark:bg-blue-950/40 dark:text-blue-200 dark:ring-blue-900">Software</span>
+                    </div>
+                </div>
+
+                <dl class="mt-6 space-y-3">
+                    <div class="flex items-start justify-between gap-4">
+                        <dt class="text-xs text-gray-500 dark:text-gray-400">Username</dt>
+                        <dd class="truncate text-sm font-medium text-gray-900 dark:text-gray-100">trxalf</dd>
+                    </div>
+                    <div class="flex items-start justify-between gap-4">
+                        <dt class="text-xs text-gray-500 dark:text-gray-400">NIDN</dt>
+                        <dd class="truncate text-sm font-medium text-gray-900 dark:text-gray-100">2155465654 hgjh</dd>
+                    </div>
+                    <div class="flex items-start justify-between gap-4">
+                        <dt class="text-xs text-gray-500 dark:text-gray-400">NUPTK</dt>
+                        <dd class="truncate text-sm font-medium text-gray-900 dark:text-gray-100">321565462</dd>
+                    </div>
+                </dl>
+
+                <div class="mt-6 grid grid-cols-2 gap-2">
+                    <a href="mailto:trx@telkomuniversity.ac.id" class="group inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-xs font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
+                        📧 <span class="group-hover:underline">Email Institusi</span>
+                    </a>
+                    <a href="tel:0895263241235" class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-xs font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
+                        📱 <span>Telepon</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        {{-- Right column: details --}}
+        <section class="lg:col-span-2 space-y-6">
+            {{-- Section: Data Personal --}}
+            <div class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+                <div class="mb-4 flex items-center justify-between">
+                    <h3 class="text-sm font-semibold tracking-wide text-gray-900 dark:text-gray-100">Data Personal</h3>
+                </div>
+
+                <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
+                    <div>
+                        <dt class="text-xs text-gray-500 dark:text-gray-400">Gelar Depan</dt>
+                        <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">Sarjana Teknik (S.T.)</dd>
+                    </div>
+                    <div>
+                        <dt class="text-xs text-gray-500 dark:text-gray-400">Gelar Belakang</dt>
+                        <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">Magister Teknik (S.T)</dd>
+                    </div>
+                    <div>
+                        <dt class="text-xs text-gray-500 dark:text-gray-400">Tempat Lahir</dt>
+                        <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">Surabaya</dd>
+                    </div>
+                    <div>
+                        <dt class="text-xs text-gray-500 dark:text-gray-400">Tanggal Lahir</dt>
+                        <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">25 Maret 2000</dd>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <dt class="text-xs text-gray-500 dark:text-gray-400">Alamat</dt>
+                        <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">Jl. Kenangan Barat</dd>
+                    </div>
+                    <div>
+                        <dt class="text-xs text-gray-500 dark:text-gray-400">Jenis Kelamin</dt>
+                        <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">Laki-laki</dd>
+                    </div>
+                    <div>
+                        <dt class="text-xs text-gray-500 dark:text-gray-400">No Handphone</dt>
+                        <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">0895263241235</dd>
+                    </div>
+                </dl>
+            </div>
+
+            {{-- Section: Kontak --}}
+            <div class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+                <div class="mb-4 flex items-center justify-between">
+                    <h3 class="text-sm font-semibold tracking-wide text-gray-900 dark:text-gray-100">Kontak</h3>
+                </div>
+
+                <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
+                    <div>
+                        <dt class="text-xs text-gray-500 dark:text-gray-400">Email Institusi</dt>
+                        <dd class="mt-1 flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                            <a href="mailto:trx@telkomuniversity.ac.id" class="hover:underline">trx@telkomuniversity.ac.id</a>
+                            <button type="button" class="ml-1 rounded-md border border-gray-300 px-1.5 py-0.5 text-[10px] text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800" onclick="navigator.clipboard.writeText('trx@telkomuniversity.ac.id')">Salin</button>
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="text-xs text-gray-500 dark:text-gray-400">Email Pribadi</dt>
+                        <dd class="mt-1 flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                            <a href="mailto:trx@gmail.com" class="hover:underline">trx@gmail.com</a>
+                            <button type="button" class="ml-1 rounded-md border border-gray-300 px-1.5 py-0.5 text-[10px] text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800" onclick="navigator.clipboard.writeText('trx@gmail.com')">Salin</button>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+
+            {{-- Section: Status Kepegawaian --}}
+            <div class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+                <div class="mb-4 flex items-center justify-between">
+                    <h3 class="text-sm font-semibold tracking-wide text-gray-900 dark:text-gray-100">Status Kepegawaian</h3>
+                </div>
+
+                <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
+                    <div>
+                        <dt class="text-xs text-gray-500 dark:text-gray-400">Tanggal Bergabung</dt>
+                        <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">23 Februari 2025</dd>
+                    </div>
+                    <div>
+                        <dt class="text-xs text-gray-500 dark:text-gray-400">Tanggal Berhenti</dt>
+                        <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">-</dd>
+                    </div>
+                </dl>
+            </div>
+
+            {{-- Section: Catatan (optional) --}}
+            <div class="rounded-2xl border border-dashed border-gray-200 bg-gray-50 p-5 text-sm text-gray-600 dark:border-gray-800 dark:bg-gray-900/40 dark:text-gray-300">
+                <p>Tip: Gunakan tombol <span class="rounded bg-gray-200 px-1 py-0.5 text-[11px] dark:bg-gray-800">Salin</span> untuk cepat menyalin email. Klik <span class="rounded bg-blue-100 px-1 py-0.5 text-[11px] text-blue-700 dark:bg-blue-950/40 dark:text-blue-200">Ubah Data</span> untuk memperbarui informasi.</p>
+            </div>
+        </section>
+    </div>
+</div>
 @endsection
