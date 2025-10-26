@@ -34,7 +34,7 @@ class User extends Authenticatable
         'email_pribadi',
         'email_verified_at',
         'username',
-        'password_hash',
+        'password',
         'is_admin',
         'remember_token',
     ];
@@ -43,39 +43,20 @@ class User extends Authenticatable
      * Hidden attributes
      */
     protected $hidden = [
-        'password_hash',
+        'password',
         'remember_token',
     ];
 
     /**
-     * Casts
+     * The attribute casting definitions for the model.
+     *
+     * @var array<string,string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password_hash' => 'hashed',
-            'is_admin' => 'boolean',
-        ];
-    }
-
-    /**
-     * Use password_hash for authentication
-     */
-    public function getAuthPassword()
-    {
-        return $this->password_hash;
-    }
-
-    /**
-     * Auto-hash password when set
-     */
-    protected function password(): Attribute
-    {
-        return Attribute::make(
-            set: fn ($value) => ['password_hash' => \Illuminate\Support\Facades\Hash::make($value)]
-        );
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'is_admin' => 'boolean',
+    ];
 
     /**
      * Auto-generate UUID when creating new User

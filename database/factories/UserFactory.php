@@ -42,7 +42,8 @@ class UserFactory extends Factory
             'email_pribadi' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'username' => Str::slug($nama).'_'.$this->faker->unique()->randomNumber(3),
-            'password_hash' => Hash::make('password123'), // default password
+            // default password for factory users (hashed)
+            'password_hash' => \Illuminate\Support\Facades\Hash::make('password123'),
             'is_admin' => $this->faker->boolean(10), // 10% kemungkinan admin
             'remember_token' => Str::random(10),
         ];

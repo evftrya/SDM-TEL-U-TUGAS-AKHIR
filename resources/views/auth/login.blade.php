@@ -24,8 +24,8 @@
                     {{-- <div>
                         <x-input-label for="email" :value="__('Email')" />
                         <x-text-input id="email" class="block w-full mt-1"
-                            type="email" name="email_institusi" :value="old('email')" required autofocus autocomplete="username" />
-                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                            type="email" name="email_institusi" :value="old('email_institusi')" required autofocus autocomplete="username" />
+                        <x-input-error :messages="$errors->get('email_institusi')" class="mt-2" />
                     </div>
 
                     <!-- Password -->
