@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\FakultasController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\PegawaiController;
@@ -126,6 +127,9 @@ Route::middleware('auth')->group(function () {
                 return view('kelola_data.manajemen_akun.dashboard');
             })->name('dashboard');
         });
+
+        // Fakultas Routes
+        Route::resource('fakultas', FakultasController::class);
 
         // Prodi Routes
         Route::resource('prodi', ProdiController::class);

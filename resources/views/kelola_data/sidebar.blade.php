@@ -6,61 +6,52 @@
         [
             ['Manajemen Data Pegawai','Pegawai'],
             [
+                ['Dashboard Pegawai', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-chart-line'],
                 ['Daftar Pegawai', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-users'],
                 ['Tambah Pegawai Baru', route('manage.pegawai.new'), 'fa-solid fa-user-plus'],
-                // ['Import Pegawai', route('manage.pegawai.import'), 'fa-solid fa-file-import'],
-                // ['Dashboard Pegawai', route('manage.pegawai.dashboard'), 'fa-solid fa-chart-line'],
+                ['Import Pegawai', route('manage.pegawai.new'), 'fa-solid fa-file-import'],
             ],
         ],
         [
-            ['Managemen Level','Level'],
+            ['Manajemen Fakultas','Fakultas'],
+            [
+                ['Daftar Fakultas', route('manage.fakultas.index'), 'fa-solid fa-building-columns'],
+                ['Tambah Fakultas', route('manage.fakultas.create'), 'fa-solid fa-circle-plus'],
+            ],
+        ],
+        [
+            ['Manajemen Prodi','Prodi'],
+            [
+                ['Daftar Prodi', route('manage.prodi.index'), 'fa-solid fa-book-open'],
+                ['Tambah Prodi', route('manage.prodi.create'), 'fa-solid fa-circle-plus'],
+            ],
+        ],
+        [
+            ['Manajemen Level','Level'],
             [
                 ['Daftar Level', route('manage.level.list'), 'fa-solid fa-layer-group'],
-                ['Tambah Level Baru', route('manage.level.new'), 'fa-solid fa-circle-plus'],
+                ['Tambah Level', route('manage.level.new'), 'fa-solid fa-circle-plus'],
             ],
         ],
         [
-            ['Managemen Formasi','Formasi'],
+            ['Manajemen Formasi','Formasi'],
             [
                 ['Daftar Formasi', route('manage.formasi.list'), 'fa-solid fa-table-list'],
-                ['Tambah Formasi Baru', route('manage.formasi.list'), 'fa-solid fa-circle-plus'],
+                ['Tambah Formasi', route('manage.formasi.list'), 'fa-solid fa-circle-plus'],
             ],
         ],
         [
-            ['Managemen Pengawakan','Awak'],
+            ['Pengawakan','Pengawakan'],
             [
                 ['Daftar Pengawakan', route('manage.pengawakan.list'), 'fa-solid fa-users-gear'],
-                ['Tambah Pengawakan Baru', route('manage.pengawakan.list'), 'fa-solid fa-user-plus'],
+                ['Tambah Pengawakan', route('manage.pengawakan.list'), 'fa-solid fa-user-plus'],
+                ['Struktur Jabatan', route('manage.pengawakan.list'), 'fa-solid fa-sitemap'],
             ],
         ],
         [
-            ['Managemen Data Dosen','Dosen'],
+            ['Laporan','Laporan'],
             [
-                ['Daftar Dosen', route('manage.pegawai.list', ['destination' => 'Dosen']), 'fa-solid fa-chalkboard-user'],
-                // ['Tambah Dosen Baru', route('manage.level.list'), 'fa-solid fa-user-plus'],
-                // ['Import Dosen', route('manage.level.list'), 'fa-solid fa-file-import'],
-            ],
-        ],
-        [
-            ['Managemen Fakultas','Facult'],
-            [
-                ['Daftar Fakultas',  route('manage.fakultas.list'), 'fa-solid fa-building-columns'],
-                ['Tambah Fakultas Baru', route('manage.fakultas.list'), 'fa-solid fa-circle-plus'],
-            ],
-        ],
-        [
-            ['Managemen Program Studi','Prodi'],
-            [
-                // ['Daftar Program Studi', 'manage.prodi.list', 'fa-solid fa-book-open'],
-                // ['Tambah Program Studi Baru', route('manage.prodi.list'), 'fa-solid fa-circle-plus'],
-            ],
-        ],
-        [
-            ['Managemen COE','COE'],
-            [
-                // ['Daftar COE', 'manage.coe.list', 'fa-solid fa-diagram-project'],
-                // ['Tambah COE Baru', route('manage.coe.list'), 'fa-solid fa-circle-plus'],
-                // ['Import COE', route('manage.coe.list'), 'fa-solid fa-file-import'],
+                ['Laporan Pegawai Lengkap', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-file-lines'],
             ],
         ],
     ];

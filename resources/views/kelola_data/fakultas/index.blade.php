@@ -21,10 +21,10 @@
         class="flex flex-col md:flex-row items-center gap-[11.749480247497559px] self-stretch px-1 pt-[14.686850547790527px] pb-[13.952507972717285px]">
         <div class="flex w-full flex-col gap-[2.9373700618743896px] grow">
             <div class="flex items-center gap-[5.874740123748779px] self-stretch">
-                <span class="font-medium text-2xl leading-[20.56159019470215px] text-[#101828]">Daftar Program Studi</span>
+                <span class="font-medium text-2xl leading-[20.56159019470215px] text-[#101828]">Daftar Fakultas</span>
             </div>
             <span class="font-normal text-[10.280795097351074px] leading-[14.686850547790527px] text-[#1f2028]">
-                Anda dapat melihat semua program studi yang terdaftar di sistem disini
+                Anda dapat melihat semua fakultas yang terdaftar di sistem disini
             </span>
         </div>
         <div class="flex items-center w-full justify-end gap-[11.749480247497559px]">
@@ -47,44 +47,43 @@
     @endif
 
     <div class="flex flex-grow-0 flex-col gap-2 max-w-100">
-        <x-tb id="prodiTable">
+        <x-tb id="fakultasTable">
             <x-slot:put_something>
-                <x-print-tb target_id="prodiTable"></x-print-tb>
-                <x-export-csv-tb target_id="prodiTable"></x-export-csv-tb>
+                <x-print-tb target_id="fakultasTable"></x-print-tb>
+                <x-export-csv-tb target_id="fakultasTable"></x-export-csv-tb>
             </x-slot:put_something>
             <x-slot:table_header>
-                {{-- <x-tb-td nama="kode">Kode</x-tb-td> --}}
-                <x-tb-td nama="nama">Nama Program Studi</x-tb-td>
-                <x-tb-td nama="fakultas">Fakultas</x-tb-td>
+                <x-tb-td nama="nama">Nama Fakultas</x-tb-td>
+                <x-tb-td nama="jumlah_prodi">Jumlah Prodi</x-tb-td>
                 <x-tb-td nama="action">Action</x-tb-td>
             </x-slot:table_header>
             <x-slot:table_column>
-                @forelse ($prodis as $index => $prodi)
-                    <x-tb-cl id="{{ $prodi->id }}">
-                        <x-tb-cl-fill>{{ $prodi->nama_prodi }}</x-tb-cl-fill>
-                        <x-tb-cl-fill>{{ $prodi->fakultas->nama_fakultas ?? '-' }}</x-tb-cl-fill>
+                @forelse ($fakultas as $index => $f)
+                    <x-tb-cl id="{{ $f->id }}">
+                        <x-tb-cl-fill>{{ $f->nama_fakultas }}</x-tb-cl-fill>
+                        <x-tb-cl-fill>{{ $f->prodi_count ?? 0 }} Prodi</x-tb-cl-fill>
                         <x-tb-cl-fill>
                             <div class="flex items-center justify-center gap-3">
                                 <!-- Edit Button -->
-                                <a href="{{ route('manage.prodi.edit', $prodi->id) }}" data-bs-container="body"
+                                <a href="{{ route('manage.fakultas.edit', $f->id) }}" data-bs-container="body"
                                     data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover"
-                                    data-bs-content="Edit Program Studi"
+                                    data-bs-content="Edit Fakultas"
                                     class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] bg-white hover:bg-[#f9fafb] transition duration-150 ease-in-out">
                                     <i class="bi bi-pencil text-[#0070ff] text-[14px]"></i>
                                 </a>
 
                                 <!-- View Details Button -->
                                 <button type="button"
-                                    onclick="openDetailModal({{ $prodi->id }}, '{{ addslashes($prodi->nama_prodi) }}', '{{ addslashes($prodi->fakultas->nama_fakultas) }}')"
+                                    onclick="openDetailModal({{ $f->id }}, '{{ addslashes($f->nama_fakultas) }}', {{ $f->prodi_count ?? 0 }})"
                                     class="px-3 py-1.5 border border-[#1C2762] text-[#1C2762] rounded-md text-xs font-medium hover:bg-[#1C2762] hover:text-white transition duration-200">
                                     View Details
                                 </button>
 
                                 <!-- Delete Button -->
                                 <button type="button"
-                                    onclick="openDeleteProdiModal({{ $prodi->id }}, '{{ addslashes($prodi->nama_prodi) }}', '{{ route('manage.prodi.destroy', $prodi->id) }}')"
+                                    onclick="openDeleteFakultasModal({{ $f->id }}, '{{ addslashes($f->nama_fakultas) }}', '{{ route('manage.fakultas.destroy', $f->id) }}')"
                                     data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top"
-                                    data-bs-trigger="hover" data-bs-content="Hapus Program Studi"
+                                    data-bs-trigger="hover" data-bs-content="Hapus Fakultas"
                                     class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] bg-white hover:bg-red-50 transition duration-150 ease-in-out">
                                     <i class="bi bi-trash text-red-600 text-[14px]"></i>
                                 </button>
@@ -94,7 +93,7 @@
                 @empty
                     <tr>
                         <td colspan="3" class="px-6 py-4 text-center text-sm text-gray-500">
-                            Belum ada data program studi
+                            Belum ada data fakultas
                         </td>
                     </tr>
                 @endforelse
@@ -103,7 +102,7 @@
 
         <!-- Pagination -->
         <div class="mt-4">
-            {{ $prodis->links('vendor.pagination.custom') }}
+            {{ $fakultas->links('vendor.pagination.custom') }}
         </div>
     </div>
 
@@ -115,11 +114,11 @@
     </script>
 
     <!-- Include Create Modal -->
-    @include('kelola_data.prodi.create')
+    @include('kelola_data.fakultas.create')
 
     <!-- Include Detail Modal -->
-    @include('kelola_data.prodi.show')
+    @include('kelola_data.fakultas.show')
 
     <!-- Include Delete Modal -->
-    @include('kelola_data.prodi.delete')
+    @include('kelola_data.fakultas.delete')
 @endsection
