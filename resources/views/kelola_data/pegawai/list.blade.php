@@ -1,3 +1,6 @@
+@php
+    $active_sidebar = 'Daftar Pegawai';
+@endphp
 @extends('kelola_data.base')
 @section('header-base')
     <style>

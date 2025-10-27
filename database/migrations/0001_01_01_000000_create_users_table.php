@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('nama_lengkap');
+            // $table->string('telepon');
             $table->string('telepon')->unique();
-            $table->string('alamat')->unique();
+            $table->string('alamat');
             $table->string('email_institusi')->unique();
             $table->enum('jenis_kelamin', ['Perempuan', 'Laki-laki']);
-            $table->string('tempat_lahir')->unique();
-            $table->date('tgl_lahir')->unique();
-            $table->date('tgl_bergabung')->unique();
+            $table->string('tempat_lahir');
+            $table->date('tgl_lahir');
+            $table->date('tgl_bergabung');
             $table->string('email_pribadi')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('username');
@@ -29,8 +30,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            // Foreign key to pegawai table
-            // $table->foreign('pegawai_id')->references('id')->on('pegawai')->onDelete('set null');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

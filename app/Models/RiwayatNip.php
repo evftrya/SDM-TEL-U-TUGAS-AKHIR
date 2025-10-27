@@ -4,17 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class RiwayatNip extends Model
 {
     use HasFactory;
 
-    protected $table = 'riwayat_nip';
+    protected $table = 'riwayat_nips';
 
     protected $fillable = [
-        'pegawai_id',
-        'status_pegawai_id',
         'nip',
+        'status_pegawai_id',
+        'users_id',
         'tanggal_berlaku',
         'is_active',
     ];
@@ -26,11 +27,22 @@ class RiwayatNip extends Model
 
     public function pegawai()
     {
-        return $this->belongsTo(Pegawai::class);
+        return $this->belongsTo(User::class);
     }
 
     public function statusPegawai()
     {
         return $this->belongsTo(RefStatusPegawai::class, 'status_pegawai_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
     }
 }

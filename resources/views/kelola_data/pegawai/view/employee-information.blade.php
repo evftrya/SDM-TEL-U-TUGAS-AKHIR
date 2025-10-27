@@ -1,36 +1,51 @@
+@php
+    $active_sidebar = 'Employee Information';
+@endphp
+
 @extends('kelola_data.base-profile')
-@section('profile-content')
-    <div class="flex w-full flex-col gap-[18px]">
-        <div class="flex items-center gap-[29px]"><span
-                class="font-semibold text-[24.083213806152344px] leading-[20.44701385498047px] text-[#101828]">Employee
-                Information</span>
-            <div class="flex rounded-[4.830657005310059px]">
-                <div
-                    class="flex justify-center items-center gap-[4.830657005310059px] bg-[#0070ff] px-[9.661314010620117px] py-[6.038321495056152px] rounded-[4.830657005310059px] border-[0.6038321256637573px] border-solid border-[#0070ff]">
-                    <span class="font-medium text-[8.453649520874023px] leading-[12.076642990112305px] text-white">Ubah
-                        Data</span></div>
-            </div>
-        </div>
-        <div class="flex gap-[73px] self-stretch">
-            <div class="w-[262px] flex flex-col gap-[13px]">
-                <div class="h-4 flex gap-[122px]"><span
-                        class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Nomor Induk
-                        Pegawai (NIP)</span></div><span
-                    class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Jenis
-                    Kepegawaian</span>
-                <div class="flex gap-[122px] self-stretch h-4"><span
-                        class="font-light text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Status
-                        Kepegawaian</span></div>
-            </div>
-            <div class="flex flex-col gap-[13px] grow">
-                <div class="flex gap-[122px] self-stretch h-4"><span
-                        class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">123165465421</span>
-                </div><span
-                    class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">TPA</span>
-                <div class="h-4 flex gap-[122px]"><span
-                        class="font-normal text-[18.014497756958008px] leading-[15.294581413269043px] text-black">Pegawai
-                        Tetap</span></div>
-            </div>
+
+@section('content-base')
+<div class="w-full space-y-6">
+    {{-- Header --}}
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h2 class="text-2xl font-semibold text-gray-900">Employee Information</h2>
+
+        <div class="flex">
+            <a
+                href="#"
+                class="inline-flex items-center gap-2 rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 active:bg-blue-800"
+            >
+                ✏️ <span>Ubah Data</span>
+            </a>
         </div>
     </div>
+
+    {{-- Card --}}
+    <div class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+        <dl class="grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2">
+            <div>
+                <dt class="text-xs font-medium text-gray-500">Nomor Induk Pegawai (NIP)</dt>
+                <dd class="mt-1 text-sm font-semibold text-gray-900">123165465421</dd>
+            </div>
+
+            <div>
+                <dt class="text-xs font-medium text-gray-500">Jenis Kepegawaian</dt>
+                <dd class="mt-1">
+                    <span class="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-medium text-blue-700 ring-1 ring-inset ring-blue-200">
+                        TPA
+                    </span>
+                </dd>
+            </div>
+
+            <div>
+                <dt class="text-xs font-medium text-gray-500">Status Kepegawaian</dt>
+                <dd class="mt-1">
+                    <span class="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-medium text-emerald-700 ring-1 ring-inset ring-emerald-200">
+                        Pegawai Tetap
+                    </span>
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
 @endsection

@@ -1,3 +1,7 @@
+@php
+    $active_sidebar = 'Riwayat Jabatan';
+@endphp
+
 @extends('kelola_data.base-profile')
 
 @section('profile-content')

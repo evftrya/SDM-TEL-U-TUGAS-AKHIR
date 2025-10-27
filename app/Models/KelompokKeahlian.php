@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class KelompokKeahlian extends Model
 {
@@ -16,5 +17,16 @@ class KelompokKeahlian extends Model
     public function dosen()
     {
         return $this->belongsToMany(Dosen::class, 'dosen_has_kk', 'kk_id', 'dosen_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
     }
 }

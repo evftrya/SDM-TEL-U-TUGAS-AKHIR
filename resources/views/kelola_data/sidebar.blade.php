@@ -4,7 +4,7 @@
 @php
     $sidebars = [
         [
-            ['Manajemen Data Pegawai','Pegawai'],
+            ['Manajemen Data Pegawai', 'Pegawai'],
             [
                 ['Dashboard Pegawai', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-chart-line'],
                 ['Daftar Pegawai', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-users'],
@@ -13,35 +13,35 @@
             ],
         ],
         [
-            ['Manajemen Fakultas','Fakultas'],
+            ['Manajemen Fakultas', 'Fakultas'],
             [
                 ['Daftar Fakultas', route('manage.fakultas.index'), 'fa-solid fa-building-columns'],
                 ['Tambah Fakultas', route('manage.fakultas.create'), 'fa-solid fa-circle-plus'],
             ],
         ],
         [
-            ['Manajemen Prodi','Prodi'],
+            ['Manajemen Prodi', 'Prodi'],
             [
                 ['Daftar Prodi', route('manage.prodi.index'), 'fa-solid fa-book-open'],
                 ['Tambah Prodi', route('manage.prodi.create'), 'fa-solid fa-circle-plus'],
             ],
         ],
         [
-            ['Manajemen Level','Level'],
+            ['Manajemen Level', 'Level'],
             [
                 ['Daftar Level', route('manage.level.list'), 'fa-solid fa-layer-group'],
                 ['Tambah Level', route('manage.level.new'), 'fa-solid fa-circle-plus'],
             ],
         ],
         [
-            ['Manajemen Formasi','Formasi'],
+            ['Manajemen Formasi', 'Formasi'],
             [
                 ['Daftar Formasi', route('manage.formasi.list'), 'fa-solid fa-table-list'],
                 ['Tambah Formasi', route('manage.formasi.list'), 'fa-solid fa-circle-plus'],
             ],
         ],
         [
-            ['Pengawakan','Pengawakan'],
+            ['Pengawakan', 'Pengawakan'],
             [
                 ['Daftar Pengawakan', route('manage.pengawakan.list'), 'fa-solid fa-users-gear'],
                 ['Tambah Pengawakan', route('manage.pengawakan.list'), 'fa-solid fa-user-plus'],
@@ -49,9 +49,13 @@
             ],
         ],
         [
-            ['Laporan','Laporan'],
+            ['Laporan', 'Laporan'],
             [
-                ['Laporan Pegawai Lengkap', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-file-lines'],
+                [
+                    'Laporan Pegawai Lengkap',
+                    route('manage.pegawai.list', ['destination' => 'All']),
+                    'fa-solid fa-file-lines',
+                ],
             ],
         ],
     ];
@@ -59,9 +63,10 @@
 
 
 @foreach ($sidebars as $sidebar)
-    <x-sidebar-group title="{{ $sidebar[0][0] }}" hide="{{$sidebar[0][1]}}" icon="fa-users">
+    <x-sidebar-group title="{{ $sidebar[0][0] }}" hide="{{ $sidebar[0][1] }}" icon="fa-users">
         @foreach ($sidebar[1] as $i => $button)
-            <x-sidebar-button :isactive="$i === 1 ? 'active-sidebar' : null" href="{{ $button[1] }}" icon="{{ $button[2] }}" label="{{ $button[0] }}" />
+            <x-sidebar-button :isactive="isset($active_sidebar) && $active_sidebar === $button[0] ? 'active-sidebar' : null" href="{{ $button[1] }}" icon="{{ $button[2] }}"
+                label="{{ $button[0] }}" />
         @endforeach
     </x-sidebar-group>
 @endforeach

@@ -4,26 +4,39 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Tpa extends Model
 {
     use HasFactory;
 
-    protected $table = 'tpa';
+    protected $table = 'tpas';
 
     protected $fillable = [
-        'pegawai_id',
+        'users_id',
         'nitk',
     ];
 
     // Relationships
     public function pegawai()
     {
-        return $this->belongsTo(Pegawai::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function riwayatJabatanFungsional()
+    // public function riwayatJabatanFungsional()
+    // {
+    //     return $this->hasMany(RiwayatJabatanFungsionalTpa::class);
+    // }
+
+    protected static function boot()
     {
-        return $this->hasMany(RiwayatJabatanFungsionalTpa::class);
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
     }
 }
+

@@ -28,10 +28,13 @@
 
     @if ($type !== 'textarea')
         <input type="{{ $type }}" name="{{ $nm }}" placeholder="{{ $plc }}"
-            value="{{ old($nm, $val) }}" @if ($req) required @endif
-            @if ($dis) disabled @endif
-            @if($step!='') step="{{ $step }}" @endif
-            class="peer h-10 border border-gray-300 rounded-md px-3 text-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-400">
+    value="{{ old($nm, $val) }}" 
+    @if ($req) required @endif
+    @if ($dis) disabled @endif
+    @if($step!='') step="{{ $step }}" @endif
+    @if($type=='number') inputmode="decimal" @endif
+    class="peer h-10 border border-gray-300 rounded-md px-3 text-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-400">
+
     @else
         <textarea name="{{ $nm }}" rows="4" placeholder="{{ $plc }}"
             @if ($req) required @endif @if ($dis) disabled @endif

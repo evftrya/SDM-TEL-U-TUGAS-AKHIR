@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
+class riwayatPangkatGolongan extends Model
+{
+    /** @use HasFactory<\Database\Factories\RiwayatPangkatGolonganFactory> */
+    use HasFactory;
+
+    protected $table = 'riwayat_pangkat_golongans';
+
+    protected $fillable = [
+        'pangkat_golongan_id',
+        'dosen_id',
+        'tmt_pangkat',
+        'no_sk_llkdikti',
+        'no_sk_pengakuan_ypt',
+    ];
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class, 'dosen_id');
+    }
+
+    public function refPangkatGolongan()
+    {
+        return $this->belongsTo(RefPangkatGolongan::class, 'pangkat_golongan_id');
+    }
+
+    public function skLlDikti()
+    {
+        return $this->belongsTo(Sk::class, 'sk_llkdikti', 'id');
+    }
+    
+    public function skPengakuanYpt()
+    {
+        return $this->belongsTo(Sk::class, 'sk_pengakuan_ypt', 'id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
+    }
+
+    // public $timestamps = true;
+
+    // public $incrementing = false;
+}

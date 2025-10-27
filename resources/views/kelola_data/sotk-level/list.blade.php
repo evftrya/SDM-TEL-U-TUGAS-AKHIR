@@ -1,3 +1,6 @@
+@php
+    $active_sidebar = 'Daftar Level';
+@endphp
 @extends('kelola_data.base')
 @section('header-base')
     {{-- <script src="https://cdn.tailwindcss.com"></script> --}}

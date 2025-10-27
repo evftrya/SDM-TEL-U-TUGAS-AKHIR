@@ -4,18 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
 
 class Dosen extends Model
 {
     use HasFactory;
 
-    protected $table = 'dosen';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $table = 'dosens';
 
     protected $fillable = [
-        'uuid_prodi',
         'nidn',
         'nuptk',
-        'uuid_user',
+        'users_id',
     ];
 
     // Relationships
@@ -42,6 +46,17 @@ class Dosen extends Model
     public function riwayatJabatanFungsional()
     {
         return $this->hasMany(RiwayatJabatanFungsional::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
     }
 
     // public function riwayatPangkat()
