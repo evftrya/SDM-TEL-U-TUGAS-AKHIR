@@ -4,43 +4,9 @@
 
 @extends('kelola_data.base-profile')
 
-@section('content-base')
+@section('content-profile')
     <div class="w-full max-w-full">
-        {{-- Responsive size helper (optional, remove if not needed) --}}
-        <p class="sr-only">
-            <span class="inline sm:hidden">Ukuran: xs</span>
-            <span class="hidden sm:inline md:hidden">Ukuran: sm</span>
-            <span class="hidden md:inline lg:hidden">Ukuran: md</span>
-            <span class="hidden lg:inline">Ukuran: lg+</span>
-        </p>
-
-        {{-- Header / Title Bar --}}
-        <div
-            class="sticky top-0 z-10 mb-4 -mx-4 border-b border-gray-200/70 bg-white/70 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-white/50 dark:border-gray-800 dark:bg-gray-950/60">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div
-                        class="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white ring-2 ring-white dark:ring-gray-900">
-                        {{-- If you have an avatar, replace this with <img> --}}
-                        <div class="flex h-full w-full items-center justify-center text-sm font-semibold">TA</div>
-                    </div>
-                    <div>
-                        <h1 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-gray-100">Profil Dosen</h1>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Ringkasan data personal & kepegawaian</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2">
-                    <a href="#"
-                        class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800">
-                        Lihat Riwayat
-                    </a>
-                    <a href="#"
-                        class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-3.5 py-2 text-xs font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 active:bg-blue-800">
-                        ✏️ <span>Ubah Data</span>
-                    </a>
-                </div>
-            </div>
-        </div>
+        
 
         {{-- Content Layout --}}
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -56,8 +22,7 @@
                         <div class="min-w-0">
                             <h2 class="truncate text-base font-semibold text-gray-900 dark:text-gray-100">Tirex Alfred</h2>
                             <p class="truncate text-sm text-gray-500 dark:text-gray-400">Tirex Alfred, S.T., M.T.</p>
-                            <span
-                                class="mt-2 inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-medium text-blue-700 ring-1 ring-inset ring-blue-200 dark:bg-blue-950/40 dark:text-blue-200 dark:ring-blue-900">Software</span>
+
                         </div>
                     </div>
 
@@ -149,7 +114,14 @@
                             </dd>
                         </div>
                         <div>
-                            <dt class="text-xs text-gray-500 dark:text-gray-400">Email Pribadi</dt>
+                            <dt class="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300">
+                                Email Pribadi
+                                <span
+                                    class="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-medium text-red-700 ring-1 ring-inset ring-red-200 dark:bg-red-950/40 dark:text-red-200 dark:ring-red-900">
+                                    Belum terverifikasi
+                                </span>
+                            </dt>
+
                             <dd class="mt-1 flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                 <a href="mailto:trx@gmail.com" class="hover:underline">trx@gmail.com</a>
                                 <button type="button"

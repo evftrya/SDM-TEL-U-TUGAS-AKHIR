@@ -4,7 +4,7 @@
 
 @extends('kelola_data.base-profile')
 
-@section('profile-content')
+@section('content-profile')
     <style>
         [data-uia-timeline-skin="4"] {
             --_uia-timeline-line-color_default: #222;
