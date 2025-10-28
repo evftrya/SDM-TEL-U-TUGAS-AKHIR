@@ -21,8 +21,6 @@
     <x-sidebar-group title="{{ $sidebar[0][0] }}" hide="{{$sidebar[0][1]}}" icon="fa-users">
         @foreach ($sidebar[1] as $button)
             <x-sidebar-button :isactive="$active_sidebar === $button[0]  ? 'active-sidebar' : null" href="{{ $button[1] }}" icon="{{ $button[2] }}" label="{{ $button[0] }}" />
-
-            {{-- <x-sidebar-button href="{{ $button[1] }}" icon="{{ $button[2] }}" label="{{ $button[0] }}" /> --}}
         @endforeach
     </x-sidebar-group>
 @endforeach

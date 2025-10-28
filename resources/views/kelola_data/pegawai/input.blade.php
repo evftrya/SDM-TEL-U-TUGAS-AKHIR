@@ -37,6 +37,7 @@
 @endsection
 
 @section('content-base')
+{{ dd(session('account')); }}
     <x-form route="{{ route('manage.pegawai.create') }}" id="pegawai-input">
 
         {{-- Data Diri --}}
@@ -71,7 +72,8 @@
 
                     <div class="flex flex-col xl:flex-row justify-between w-full gap-3">
                         <x-itxt lbl="Tempat Lahir" fill="flex-1" plc="Surabaya" nm="tempat_lahir"></x-itxt>
-                        <x-itxt type="date" fill="flex-1" lbl="Tanggal Lahir" nm="tgl_lahir" rules="none"></x-itxt>
+                        <x-itxt type="date" fill="flex-1" lbl="Tanggal Lahir" nm="tgl_lahir" max="2025-10-27"
+                            rules="none"></x-itxt>
                     </div>
                 </div>
             </div>
@@ -84,20 +86,25 @@
                 {{-- <div class="w-full max-w-100 md:mx-auto rounded-md border p-3 my-8"> --}}
                 <h2 class="text-lg font-semibold text-black text-center">Data Kepegawaian</h2>
 
+                @php
+                    $selectedType = old('tipe_pegawai', request('type') ?? 'Dosen');
+                @endphp
                 <x-islc lbl="Tipe Pegawai" nm="tipe_pegawai" id="tipe_pegawai" required>
                     <option value="" disabled>-- Pilih Tipe --</option>
-                    <option value="Dosen" {{ old('tipe_pegawai', 'Dosen') === 'Dosen' ? 'selected' : '' }}>Dosen</option>
-                    <option value="TPA" {{ old('tipe_pegawai') === 'TPA' ? 'selected' : '' }}>TPA</option>
+                    <option value="Dosen" {{ $selectedType === 'Dosen' ? 'selected' : '' }}>Dosen</option>
+                    <option value="TPA" {{ $selectedType === 'Tpa' ? 'selected' : '' }}>TPA</option>
                 </x-islc>
 
 
                 <x-itxt lbl="Nomor Induk Pegawai" plc="1234567890" nm="nip" max="30"></x-itxt>
 
-                <x-itxt type="date" lbl="Tanggal Bergabung" plc="dd/mm/yyyy" nm="tgl_bergabung" rules="none"></x-itxt>
+                <x-itxt type="date" lbl="Tanggal Berlaku NIP" plc="dd/mm/yyyy" nm="tanggal_berlaku" max="1990-01-01"
+                    rules="none"></x-itxt>
 
                 <x-islc lbl="Status Kepegawaian" nm="status_kepegawaian">
                     @foreach ($status_pegawai_options as $status)
-                        <option value="{{ $status->id }}" class="opsi-kepegawaian {{ $status->tipe_pegawai }}">
+                        <option value="{{ (string) data_get($status, 'id') }}"
+                            class="opsi-kepegawaian {{ $status->tipe_pegawai }}">
                             {{ $status->status_pegawai }}</option>
                     @endforeach
                 </x-islc>
@@ -128,7 +135,7 @@
                         <x-itxt lbl="Nomor Induk Dosen Nasional (NIDN)" plc="12547651232" nm="nidn"
                             max="20"></x-itxt>
 
-                        <x-itxt lbl="Nomor (NUPTK)" plc="1234567890" nm="nomor_induk_pegawai" max="30"></x-itxt>
+                        <x-itxt lbl="Nomor (NUPTK)" plc="1234567890" nm="nuptk" max="20"></x-itxt>
 
                         <x-islc lbl="JFA Dosen" nm="jfa">
                             @foreach ($jenjang_jfa_options as $options)
@@ -150,7 +157,7 @@
                 <div class="flex flex-col gap-4">
                     <x-islc lbl="Jenjang Pendidikan" nm="jenjang_pendidikan_id">
                         @foreach ($jenjang_pendidikan_options as $option)
-                            <option value="{{ $option->id }}">{{ $option->jenjang_pendidikan }}</option>  
+                            <option value="{{ $option->id }}">{{ $option->jenjang_pendidikan }}</option>
                         @endforeach
                     </x-islc>
 
@@ -163,7 +170,7 @@
                     <x-itxt lbl="Nama Kampus" plc="Telkom University" nm="nama_kampus" max="150"></x-itxt>
 
                     <x-itxt lbl="Alamat Kampus" plc="Jl. Telekomunikasi No. 1, Bandung" nm="alamat_kampus"
-                        max="150"></x-itxt>
+                        max="300"></x-itxt>
                 </div>
 
                 {{-- Kolom Kanan --}}
@@ -178,8 +185,10 @@
 
 
                     <div class="flex flex-col xl:flex-row justify-between w-full gap-3">
-                        <x-itxt lbl="Gelar yang Didapat" plc="Sarjana Komputer" nm="gelar" max="50"></x-itxt>
-                        <x-itxt lbl="Singkatan Gelar" plc="S.Kom." nm="singkatan_gelar" max="20"></x-itxt>
+                        <x-itxt lbl="Gelar yang Didapat" fill="flex-grow" plc="Sarjana Komputer" nm="gelar"
+                            max="50"></x-itxt>
+                        <x-itxt lbl="Singkatan Gelar" plc="S.Kom." fill="flex-grow" nm="singkatan_gelar"
+                            max="20"></x-itxt>
                     </div>
 
                     {{-- Ijazah / Sertifikat Kelulusan: upload file --}}
@@ -204,13 +213,10 @@
                 return;
             }
 
-            // Simpan semua opsi asli (termasuk classes)
-            const originalStatusOptions = Array.from(statusKepegawaian.options).map(opt => ({
-                value: opt.value,
-                text: opt.text,
-                disabled: opt.disabled,
-                classes: opt.className, // contoh: "opsi-kepegawaian Dosen"
-                selected: opt.selected
+            // Simpan referensi awal options (bukan untuk rebuild, hanya baca class)
+            const statusOptions = Array.from(statusKepegawaian.options).map(opt => ({
+                el: opt,
+                classes: opt.className // contoh: "opsi-kepegawaian Dosen"
             }));
 
             function setSectionRequired(sectionEl, isRequired) {
@@ -239,7 +245,6 @@
                     setSectionRequired(dataTPA, true);
                     setSectionRequired(dataDosen, false);
                 } else {
-                    // fallback: sembunyikan keduanya
                     dataTPA.classList.add('hidden');
                     dataDosen.classList.add('hidden');
                     setSectionRequired(dataTPA, false);
@@ -247,52 +252,36 @@
                 }
             }
 
-            function renderStatusOptions(type) {
-                // Simpan value yang sedang dipilih agar tetap jika masih valid
-                const currentVal = statusKepegawaian.value;
+            // ⬇️ FILTER TANPA MENGUBAH VALUE TERPILIH
+            function filterStatusOptions(type) {
+                statusOptions.forEach(({
+                    el,
+                    classes
+                }) => {
+                    // Biarkan placeholder (yang disabled) tetap terlihat
+                    const isPlaceholder = el.disabled && el.value === '';
+                    if (isPlaceholder) {
+                        el.hidden = false;
+                        return;
+                    }
 
-                // Bersihkan opsi
-                statusKepegawaian.innerHTML = '';
-
-                // Tambah placeholder
-                const ph = document.createElement('option');
-                ph.value = '';
-                ph.textContent = '-- Pilih Status --';
-                ph.disabled = true;
-                ph.selected = true;
-                statusKepegawaian.appendChild(ph);
-
-                // Filter opsi berdasarkan class yang mengandung tipe (Dosen/TPA)
-                const filtered = originalStatusOptions.filter(opt =>
-                    // Hanya opsi yang punya class tipe_pegawai yang dipilih
-                    opt.classes && opt.classes.split(/\s+/).includes(type)
-                );
-
-                filtered.forEach(opt => {
-                    const o = document.createElement('option');
-                    o.value = opt.value;
-                    o.textContent = opt.text;
-                    o.className = opt.classes;
-                    statusKepegawaian.appendChild(o);
+                    // Tampilkan hanya opsi yang mengandung kelas tipe (Dosen/TPA)
+                    const classList = (classes || '').split(/\s+/);
+                    el.hidden = !classList.includes(type);
                 });
-
-                // Jika sebelumnya sudah memilih value yang masih ada di filtered, pilih lagi
-                if (filtered.some(o => o.value === currentVal)) {
-                    statusKepegawaian.value = currentVal;
-                    ph.selected = false;
-                }
+                // Penting: TIDAK mengubah statusKepegawaian.value di sini
             }
 
             function handleTypeChange() {
                 const type = tipePegawai.value;
-                renderStatusOptions(type);
+                filterStatusOptions(type);
                 showHideByType(type);
             }
 
-            // Inisialisasi saat load (menghormati default old('tipe_pegawai', 'Dosen'))
+            // Inisialisasi
             handleTypeChange();
 
-            // Re-render saat tipe pegawai berubah
+            // Re-filter saat tipe pegawai berubah
             tipePegawai.addEventListener('change', handleTypeChange);
         });
     </script>

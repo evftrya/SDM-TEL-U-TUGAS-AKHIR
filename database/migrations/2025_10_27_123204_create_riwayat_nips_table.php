@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('nip');
             $table->foreignUuid('status_pegawai_id')->nullable();
             $table->foreignUuid('users_id')->nullable();
-            $table->date('tanggal_berlaku')->nullable();
-            $table->boolean('is_active')->nullable();
+            $table->date('tanggal_berlaku');
+            $table->boolean('is_active')->default(true);
             // $table->string('no_sk')->nullable();
             $table->timestamps();
 

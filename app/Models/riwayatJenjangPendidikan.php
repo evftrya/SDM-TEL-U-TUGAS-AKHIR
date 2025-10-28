@@ -19,6 +19,7 @@ class riwayatJenjangPendidikan extends Model
         'nama_kampus',
         'tahun_lulus',
         'nilai',
+        'alamat_kampus',
         'gelar',
         'singkatan_gelar',
         'ijazah',

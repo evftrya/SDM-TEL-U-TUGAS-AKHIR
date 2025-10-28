@@ -13,6 +13,7 @@ use App\Models\RiwayatNip;
 use App\Models\Tpa;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class PegawaiController extends Controller
 {
@@ -49,6 +50,10 @@ class PegawaiController extends Controller
     public function create(Request $request)
     {
         // Jalankan validasi
+        // dd($request->status_kepegawaian, $request->jenjang_pendidikan_id);
+
+
+        $tipe = strtolower((string) $request->input('tipe_pegawai'));
 
         $validated = $request->validate([
             // Data diri (umum)
@@ -66,26 +71,20 @@ class PegawaiController extends Controller
 
             // Tipe & status kepegawaian
             'tipe_pegawai'        => ['required', Rule::in(['Dosen', 'TPA'])],
-            'tgl_bergabung'       => ['nullable', 'date', 'after:tgl_lahir'],
-            'status_kepegawaian'  => [
-                'required',
-                Rule::when(
-                    $request->tipe_pegawai === 'Dosen',
-                    Rule::in(['Dosen Tamu', 'Honorer', 'Dosen Tetap', 'Dosen Paruh Waktu']),
-                    Rule::in(['Pegawai Tetap', 'Pegawai Kontrak', 'Magang'])
-                ),
-            ],
-
-            // Data kepegawaian khusus per tipe
-            'nidn'                 => [Rule::requiredIf($request->tipe_pegawai === 'Dosen'), 'nullable', 'string', 'max:20'],
-            'nomor_induk_pegawai'  => [Rule::requiredIf($request->tipe_pegawai === 'Dosen'), 'nullable', 'string', 'max:30'], // NUPTK
-            'jfa'                  => [Rule::requiredIf($request->tipe_pegawai === 'Dosen'), 'nullable', Rule::in(['Asisten Ahli', 'Lektor', 'Lektor Kepala', 'Guru Besar (Profesor)'])],
-
-            'nitk'                 => [Rule::requiredIf($request->tipe_pegawai === 'TPA'), 'nullable', 'string', 'max:15'], // Data TPA
+            'tanggal_berlaku'       => ['nullable', 'date', 'after:tgl_lahir'],
+            'status_kepegawaian'  => 'required',
             'nip'                  => ['nullable', 'string', 'max:30'], // opsional, tidak dipaksa required
 
+            // Data kepegawaian khusus per tipe
+            'nidn'  => ['nullable','string','max:20', Rule::requiredIf($tipe === 'dosen')],
+            'nuptk' => ['nullable','string','max:20', Rule::requiredIf($tipe === 'dosen')],
+            'jfa'   => ['nullable', Rule::requiredIf($tipe === 'dosen')],
+
+            // Wajib saat TPA, boleh kosong selain itu
+            'nitk'  => ['nullable','string','max:15', Rule::requiredIf($tipe === 'tpa')],
+
             // Data pendidikan
-            'jenjang_pendidikan_id'   => ['required', Rule::in(['D3', 'S1/D4', 'S2', 'S3'])],
+            'jenjang_pendidikan_id'   => 'required',
             'bidang_pendidikan'    => ['nullable', 'string', 'max:150'],
             'jurusan'              => ['nullable', 'string', 'max:150'],
             'nama_kampus'          => ['nullable', 'string', 'max:150'],
@@ -123,22 +122,23 @@ class PegawaiController extends Controller
             'nomor_induk_pegawai.required' => 'Nomor Induk Pegawai/NUPTK wajib diisi untuk Dosen.',
             'jfa.required' => 'JFA wajib dipilih untuk Dosen.',
             'nitk.required' => 'NITK wajib diisi untuk TPA.',
-            'status_kepegawaian.in' => $request->tipe_pegawai === 'Dosen'
-                ? 'Untuk Dosen, status kepegawaian hanya boleh Dosen Tamu/Honorer/Dosen Tetap/Dosen Paruh Waktu'
-                : 'Status kepegawaian tidak valid.',
         ]);
 
 
 
         try {
+            DB::beginTransaction();
             // password default: telepon&namalengkap (tanpa spasi)
             $validated['password'] = strtolower(str_replace(' ', '', $validated['telepon'].'&'.$validated['nama_lengkap']));
-
+            $validated['tgl_bergabung'] = $validated['tanggal_berlaku'];
+            $validated['status_pegawai_id'] = $validated['status_kepegawaian'];
+            
             // Create User
-            $users_id = null;
+            $validated['users_id'] = null;
             try {
                 $user = User::create($validated);
-                $users_id = $user->id;
+                $validated['users_id'] = $user->id;
+
             } catch (\Exception $e) {
                 return response()->json([
                     'success' => false,
@@ -185,13 +185,13 @@ class PegawaiController extends Controller
             }
 
             // Jika semua berhasil
-            return response()->json([
-                'success' => true,
-                'message' => 'User berhasil dibuat!',
-                'data' => $user
-            ], 201);
+            DB::commit();
+            
+            return redirect(route('manage.pegawai.view.personal-info', ['idUser' => $validated['users_id']]))->with('success', 'Data pegawai berhasil disimpan!');
+
 
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan tidak terduga',
