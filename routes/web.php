@@ -20,7 +20,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/edit', [ProfileController::class, 'profileNormalisasi'])->name('profile.edit');   
+    Route::get('/profile/personal-information/{idUser}', [ProfileController::class, 'personalInfo'])->name('profile.personal-info');
+    Route::get('/profile/change-password/{idUser}', [ProfileController::class, 'changePassword'])->name('profile.change-password');
+    Route::post('/profile/update-password/', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
@@ -51,10 +54,14 @@ Route::middleware('auth')->group(function () {
             Route::get('/list/{destination}', [PegawaiController::class, 'index'])->name('list');
             Route::get('/new', [PegawaiController::class, 'new'])->name('new');
             Route::post('/create', [PegawaiController::class, 'create'])->name('create');
+            Route::post('/{idUser}/non-active', [PegawaiController::class, 'setNonactive'])->name('set-non-active');
+            Route::post('/{idUser}/set-active', [PegawaiController::class, 'setActive'])->name('set-active');
             Route::group(['prefix' => 'view', 'as' => 'view.'], function () {
-                Route::get('/{idUser}/employee-information', [PegawaiController::class, 'employeeInfo'])->name('employee-info');
-                Route::get('/{idUser}/personal-information', [PegawaiController::class, 'personalInfo'])->name('personal-info');
-                Route::get('/{idUser}/riwayat-jabatan', [PegawaiController::class, 'riwayatJabatan'])->name('riwayat-jabatan');
+                Route::get('/{idUser}/employee-information', [ProfileController::class, 'employeeInfo'])->name('employee-info');
+                Route::get('/{idUser}/personal-information', [ProfileController::class, 'personalInfo'])->name('personal-info');
+                Route::get('/{idUser}/riwayat-jabatan', [ProfileController::class, 'riwayatJabatan'])->name('riwayat-jabatan');
+                Route::get('/{idUser}/change-password', [PegawaiController::class, 'changePassword'])->name('change-password');
+                Route::post('/{idUser}/update-password', [PegawaiController::class, 'updatePassword'])->name('update-password');
 
             });
             

@@ -14,6 +14,10 @@ class RefJabatanFungsional extends Model
 
     protected $fillable = ['nama_jafung'];
 
+    protected $casts = [
+        'id' => 'string',
+    ];
+
 
     protected static function boot()
     {

@@ -18,6 +18,10 @@ class Prodi extends Model
         'nama_prodi',
     ];
 
+    protected $casts = [
+        'id' => 'string',
+    ];
+
     // Relationships
     public function fakultas()
     {

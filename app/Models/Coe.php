@@ -13,6 +13,9 @@ class Coe extends Model
     protected $table = 'coe';
 
     protected $fillable = ['nama_coe'];
+    protected $casts = [
+        'id' => 'string',
+    ];
 
     public function dosen()
     {

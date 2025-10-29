@@ -17,6 +17,9 @@ class Tpa extends Model
         'nitk',
     ];
 
+    protected $casts = [
+        'id' => 'string',
+    ];
     // Relationships
     public function pegawai()
     {

@@ -23,7 +23,10 @@ class RiwayatNip extends Model
     protected $casts = [
         'tanggal_berlaku' => 'date',
         'is_active' => 'boolean',
+        'id' => 'string',
     ];
+
+
 
     public function pegawai()
     {

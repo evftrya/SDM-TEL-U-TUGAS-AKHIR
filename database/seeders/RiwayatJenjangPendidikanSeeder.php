@@ -12,6 +12,6 @@ class RiwayatJenjangPendidikanSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+            
     }
 }

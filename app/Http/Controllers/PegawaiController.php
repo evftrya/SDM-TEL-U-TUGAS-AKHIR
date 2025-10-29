@@ -14,6 +14,7 @@ use App\Models\Tpa;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Password;
 
 class PegawaiController extends Controller
 {
@@ -208,27 +209,58 @@ class PegawaiController extends Controller
         // return back()->with('success', 'Data pegawai berhasil disimpan!');
     }
 
-
-    public function employeeInfo($idUser)
+    public function changePassword($idUser)
     {
         $user = User::find($idUser);
-        return view('kelola_data.pegawai.view.employee-information',compact('user'));
+        // $send = [$idUser];
+        return view('kelola_data.pegawai.change-password',compact('user'));
     }
 
-    public function personalInfo($idUser)
+    public function updatePassword(Request $request,$idUser)
     {
-        // dd($idUser);
-        $user = User::find($idUser);
+        $validated = $request->validate([
+            'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
+        ],
+        [
+            'password.required' => 'Password baru wajib diisi.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
+            'password.min' => 'Password baru minimal :min karakter.',
+        ]);
 
-        return view('kelola_data.pegawai.view.personal-information',compact('user'));
+
+
+        $user = User::find($idUser);
+        $user->password = $validated['password'];
+        $user->save();
+
+        // return response()->json([
+        //     'status' => 'success',
+        //     'message' => 'Password berhasil diperbarui!'
+        // ]);
+
+        return redirect()->back()->with('success', 'Password berhasil diperbarui!');
     }
 
-    public function riwayatJabatan($idUser)
+    public function setNonactive(Request $request, $idUser)
     {
         $user = User::find($idUser);
+        $user->is_active = false;
+        $user->save();
 
-        return view('kelola_data.pegawai.view.riwayat-jabatan',compact('user'));
+        return redirect()->back()->with('success', 'Akun pegawai berhasil dinonaktifkan!');
     }
+
+    public function setActive(Request $request, $idUser)
+    {
+        $user = User::find($idUser);
+        $user->is_active = true;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Akun pegawai berhasil diaktifkan!');
+    }
+
+
+    
 
     /**
      * Store a newly created resource in storage.

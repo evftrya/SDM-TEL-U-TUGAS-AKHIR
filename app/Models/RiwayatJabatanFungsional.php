@@ -19,7 +19,7 @@ class RiwayatJabatanFungsional extends Model
         'no_sk',
     ];
 
-    protected $casts = ['tmt_jafung' => 'date'];
+    protected $casts = ['tmt_jafung' => 'date', 'id'=>'string'];
 
     public function dosen()
     {

@@ -77,50 +77,88 @@
                 <x-tb-td nama="action" sorting=true>Action</x-tb-td>
             </x-slot:table_header>
             <x-slot:table_column>
-                @foreach ($users as  $user)
-                    <x-tb-cl id="$i">
-                        <x-tb-cl-fill>
-                            {{ $user['nama_lengkap'] }}
-                        </x-tb-cl-fill>
-                        <x-tb-cl-fill>{{ $user['jenis_kelamin'] }}</x-tb-cl-fill>
-                        <x-tb-cl-fill>{{ $user['telepon'] }}</x-tb-cl-fill>
-                        <x-tb-cl-fill>TPA</x-tb-cl-fill>
-                        <x-tb-cl-fill>Pegawai Tetap</x-tb-cl-fill>
-                        <x-tb-cl-fill>
-                            <span
-                                class="inline-flex items-center justify-center px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                Active
-                            </span>
-                        </x-tb-cl-fill>
-                        <x-tb-cl-fill>{{ $user['email_pribadi'] }}</x-tb-cl-fill>
-                        <x-tb-cl-fill>{{ $user['email_institusi'] }}</x-tb-cl-fill>
-                        <x-tb-cl-fill>
-                            <div class="flex items-center justify-center gap-3">
-                                <!-- WhatsApp Button -->
-                                <!-- WhatsApp Button dengan Popover -->
-                                <a href="https://wa.me/62{{ $user['telepon'] }}" target="_blank" data-bs-container="body"
-                                    data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover"
-                                    data-bs-content="Hubungi lewat WhatsApp 📱"
-                                    class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] bg-white hover:bg-[#f9fafb] transition duration-150 ease-in-out">
-                                    <i class="bi bi-whatsapp text-[#25D366] text-[16px]"></i>
-                                </a>
+                @foreach ($users as $user)
+                    @if ($user['id'] != session('account')['id'])
+                        <x-tb-cl id="$i">
+                            <x-tb-cl-fill>
+                                {{ $user['nama_lengkap'] }}
+                            </x-tb-cl-fill>
+                            <x-tb-cl-fill>{{ $user['jenis_kelamin'] }}</x-tb-cl-fill>
+                            <x-tb-cl-fill>{{ $user['telepon'] }}</x-tb-cl-fill>
+                            <x-tb-cl-fill>TPA</x-tb-cl-fill>
+                            <x-tb-cl-fill>Pegawai Tetap</x-tb-cl-fill>
+                            <x-tb-cl-fill>
+                                    @if ($user['is_active'] == true)
+
+                                <span
+                                    class="inline-flex items-center justify-center px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                    Active
+                                </span>
+                                @else
+                                <span
+                                    class="inline-flex items-center justify-center px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
+                                    Nonactive
+                                </span>
+                                @endif
+
+                            </x-tb-cl-fill>
+                            <x-tb-cl-fill>{{ $user['email_pribadi'] }}</x-tb-cl-fill>
+                            <x-tb-cl-fill>{{ $user['email_institusi'] }}</x-tb-cl-fill>
+                            <x-tb-cl-fill>
+                                <div class="flex items-center justify-center gap-3">
+                                    <!-- WhatsApp Button -->
+                                    <!-- WhatsApp Button dengan Popover -->
+                                    <a href="https://wa.me/62{{ $user['telepon'] }}" target="_blank"
+                                        data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top"
+                                        data-bs-trigger="hover" data-bs-content="Hubungi lewat WhatsApp 📱"
+                                        class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] bg-white hover:bg-[#f9fafb] transition duration-150 ease-in-out">
+                                        <i class="bi bi-whatsapp text-[#25D366] text-[16px]"></i>
+                                    </a>
+                                    @if ($user['is_active'] == true)
+                                        <form id="form-nonaktif-{{ $user['id'] }}"
+                                            action="{{ route('manage.pegawai.set-non-active', ['idUser' => $user['id']]) }}"
+                                            method="POST" class="inline">
+                                            @csrf
+                                            <button title="Nonaktifkan Pegawai" type="button"
+                                                onclick="konfirmasiNonaktif('{{ $user['id'] }}')"
+                                                class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] 
+                                                bg-white text-[#10B981] hover:bg-[#FEE2E2] hover:border-[#FCA5A5] hover:text-[#EF4444]
+                                            transition-all duration-200 ease-in-out shadow-sm hover:shadow-md">
+                                                <i class="fa-solid fa-power-off text-[14px]"></i>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form id="form-aktif-{{ $user['id'] }}"
+                                            action="{{ route('manage.pegawai.set-active', ['idUser' => $user['id']]) }}"
+                                            method="POST" class="inline">
+                                            @csrf
+                                            <button title="Aktifkan Pegawai" type="button"
+                                                onclick="konfirmasiAktif('{{ $user['id'] }}')"
+                                                class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] 
+                                            bg-white text-[#EF4444] hover:bg-[#DCFCE7] hover:border-[#86EFAC] hover:text-[#10B981]
+                                            transition-all duration-200 ease-in-out shadow-sm hover:shadow-md">
+                                                <i class="fa-solid fa-power-off text-[14px]"></i>
+                                            </button>
+                                        </form>
+                                    @endif
 
 
-                                <!-- Power Button -->
-                                <button
-                                    class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] bg-white hover:bg-[#f9fafb] transition">
-                                    <i class="fa-solid fa-power-off text-[#10B981] text-[14px]"></i>
-                                </button>
+                                    <button
+                                        class="px-3 py-1.5 bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white rounded-md text-xs font-medium 
+                                        hover:from-[#1d4ed8] hover:to-[#2563eb] shadow-md hover:shadow-lg transition-all duration-300">
+                                        Ubah Password
+                                    </button>
 
-                                <!-- View Details Button -->
-                                <a href="{{ route('manage.pegawai.view.personal-info',['idUser'=>$user['id']]) }}"
-                                    class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition duration-200">
-                                    View Details
-                                </a>
 
-                            </div>
-                        </x-tb-cl-fill>
-                    </x-tb-cl>
+                                    <a href="{{ route('manage.pegawai.view.personal-info', ['idUser' => $user['id']]) }}"
+                                        class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition duration-200">
+                                        View Details
+                                    </a>
+
+                                </div>
+                            </x-tb-cl-fill>
+                        </x-tb-cl>
+                    @endif
                 @endforeach
             </x-slot:table_column>
         </x-tb>
@@ -131,6 +169,8 @@
 
 
 
+    @include('kelola_data.pegawai.js.active-and-nonactive-pegawai')
+    @include('kelola_data.pegawai.js.alert-success-from-controller')
 
 
 

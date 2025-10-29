@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('sks', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('users_id')->nullable();
+            $table->string('no_sk')->nullable();
+            $table->date('tanggal_berlaku')->nullable();
+            $table->string('file_sk')->nullable();
+            $table->enum('tipe_sk', ['LLDIKTI', 'Pengakuan YPT'])->nullable();
             $table->timestamps();
+
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

@@ -25,6 +25,10 @@ class riwayatJenjangPendidikan extends Model
         'ijazah',
     ];
 
+    protected $casts = [
+        'id' => 'string',
+    ];
+
     public function pegawai()
     {
         return $this->belongsTo(User::class, 'users_id');

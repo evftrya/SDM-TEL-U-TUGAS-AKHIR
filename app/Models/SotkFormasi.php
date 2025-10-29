@@ -18,6 +18,10 @@ class SotkFormasi extends Model
         'atasan_formasi_id',
     ];
 
+    protected $casts = [
+        'id' => 'string',
+    ];
+
     // Relationships
     public function level()
     {

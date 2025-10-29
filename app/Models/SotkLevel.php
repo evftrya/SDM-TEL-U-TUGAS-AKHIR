@@ -19,6 +19,10 @@ class SotkLevel extends Model
         return $this->hasMany(SotkFormasi::class);
     }
 
+
+    protected $casts = [
+        'id' => 'string',
+    ];
     protected static function boot()
     {
         parent::boot();

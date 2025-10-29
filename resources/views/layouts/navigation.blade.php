@@ -66,7 +66,7 @@
                                     </x-dropdown-link>
                                 @endif
 
-                                <x-dropdown-link :href="route('profile.edit')">
+                                <x-dropdown-link :href="route('profile.personal-info', ['idUser' => Auth::user()->id])">
                                     {{ __('Profile') }}
                                 </x-dropdown-link>
 
@@ -148,7 +148,7 @@
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('profile.edit')">
+                    <x-responsive-nav-link :href="route('profile.personal-info', ['idUser' => Auth::user()->id])">
                         {{-- {{ __('Profile') }} --}}
                         <p class="text-white clear-p">{{ __('Profile') }}</p>
 
@@ -162,7 +162,7 @@
                             </x-responsive-nav-link>
                         @endif
 
-                        <x-responsive-nav-link :href="route('profile.edit')">
+                        <x-responsive-nav-link :href="route('profile.personal-info', ['idUser' => Auth::user()->id])">
                             {{-- {{ __('Profile') }} --}}
                             <p class="text-white clear-p">{{ __('Profile') }}</p>
 

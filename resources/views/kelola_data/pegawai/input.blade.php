@@ -37,7 +37,6 @@
 @endsection
 
 @section('content-base')
-{{ dd(session('account')); }}
     <x-form route="{{ route('manage.pegawai.create') }}" id="pegawai-input">
 
         {{-- Data Diri --}}
