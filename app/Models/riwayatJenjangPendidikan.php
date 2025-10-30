@@ -29,7 +29,6 @@ class riwayatJenjangPendidikan extends Model
         'id' => 'string',
         'users_id' => 'string',
         'jenjang_pendidikan_id' => 'string',
-        ''
     ];
 
     public function pegawai()
@@ -51,6 +50,14 @@ class riwayatJenjangPendidikan extends Model
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
         });
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\RiwayatJenjangPendidikanFactory::new();
     }
 
 

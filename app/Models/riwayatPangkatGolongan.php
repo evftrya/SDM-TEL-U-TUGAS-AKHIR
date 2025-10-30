@@ -42,7 +42,7 @@ class riwayatPangkatGolongan extends Model
     {
         return $this->belongsTo(Sk::class, 'sk_llkdikti', 'id');
     }
-    
+
     public function skPengakuanYpt()
     {
         return $this->belongsTo(Sk::class, 'sk_pengakuan_ypt', 'id');
@@ -62,4 +62,12 @@ class riwayatPangkatGolongan extends Model
     // public $timestamps = true;
 
     // public $incrementing = false;
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\RiwayatPangkatGolonganFactory::new();
+    }
 }
