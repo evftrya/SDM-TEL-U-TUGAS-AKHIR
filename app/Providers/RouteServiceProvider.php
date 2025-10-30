@@ -26,6 +26,11 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
+        // Explicit route model binding untuk Fakultas
+        Route::bind('fakulta', function ($value) {
+            return \App\Models\Fakultas::findOrFail($value);
+        });
+
         $this->routes(function () {
             Route::middleware('api')
                 ->prefix('api')

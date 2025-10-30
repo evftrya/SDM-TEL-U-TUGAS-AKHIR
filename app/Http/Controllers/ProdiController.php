@@ -34,7 +34,7 @@ class ProdiController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'fakultas_id' => 'required|exists:fakultas,id',
+            'fakultas_id' => 'required|exists:faculties,id',
             'nama_prodi' => 'required|string|max:100',
         ]);
 
@@ -68,7 +68,7 @@ class ProdiController extends Controller
     public function update(Request $request, Prodi $prodi)
     {
         $validated = $request->validate([
-            'fakultas_id' => 'required|exists:fakultas,id',
+            'fakultas_id' => 'required|exists:faculties,id',
             'nama_prodi' => 'required|string|max:100',
         ]);
 

@@ -42,10 +42,10 @@ class FakultasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Fakultas $fakultas)
+    public function show(Fakultas $fakulta)
     {
-        $fakultas->load('prodi');
-        return view('kelola_data.fakultas.show', compact('fakultas'));
+        $fakulta->load('prodi');
+        return view('kelola_data.fakultas.show', compact('fakulta'));
     }
 
     /**

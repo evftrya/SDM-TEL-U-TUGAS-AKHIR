@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'nama_lengkap' => $nama,
             'telepon' => $this->faker->unique()->numerify('08##########'),
             'alamat' => $this->faker->unique()->address(),
-            'email_institusi' => $this->faker->unique()->safeEmailDomain() 
+            'email_institusi' => $this->faker->unique()->safeEmailDomain()
                 ? 'user'.$this->faker->unique()->randomNumber(3).'@telkomuniversity.ac.id'
                 : $this->faker->unique()->companyEmail(),
             'jenis_kelamin' => $gender,

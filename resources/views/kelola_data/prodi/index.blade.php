@@ -75,14 +75,14 @@
 
                                 <!-- View Details Button -->
                                 <button type="button"
-                                    onclick="openDetailModal({{ $prodi->id }}, '{{ addslashes($prodi->nama_prodi) }}', '{{ addslashes($prodi->fakultas->nama_fakultas) }}')"
+                                    onclick="openDetailModal('{{ $prodi->id }}', '{{ addslashes($prodi->nama_prodi) }}', '{{ addslashes($prodi->fakultas->nama_fakultas ?? '-') }}')"
                                     class="px-3 py-1.5 border border-[#1C2762] text-[#1C2762] rounded-md text-xs font-medium hover:bg-[#1C2762] hover:text-white transition duration-200">
                                     View Details
                                 </button>
 
                                 <!-- Delete Button -->
                                 <button type="button"
-                                    onclick="openDeleteProdiModal({{ $prodi->id }}, '{{ addslashes($prodi->nama_prodi) }}', '{{ route('manage.prodi.destroy', $prodi->id) }}')"
+                                    onclick="openDeleteProdiModal('{{ $prodi->id }}', '{{ addslashes($prodi->nama_prodi) }}', '{{ route('manage.prodi.destroy', $prodi->id) }}')"
                                     data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top"
                                     data-bs-trigger="hover" data-bs-content="Hapus Program Studi"
                                     class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] bg-white hover:bg-red-50 transition duration-150 ease-in-out">
