@@ -53,5 +53,5 @@ class riwayatJenjangPendidikan extends Model
         });
     }
 
-    
+
 }

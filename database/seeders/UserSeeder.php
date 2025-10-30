@@ -17,14 +17,14 @@ class UserSeeder extends Seeder
     public function run(): void
     {
 
-        
+
         // Create admin user
         $user1 = User::factory()->admin()->create([
             'nama_lengkap' => 'Admin Telkom University',
             'email_institusi' => 'admin@telkomuniversity.ac.id',
         ]);
 
-        
+
 
         // Create test user accounts
         $user2 = User::factory()->create([
@@ -45,11 +45,11 @@ class UserSeeder extends Seeder
         // dd($users);
         foreach ($users as $user) {
             // dd($user->id);
-            
+
 
             $indexRefStatusPegawai = fake()->numberBetween(0, count($refStatusPegawai)-1);
             // dd($refStatusPegawai[$indexRefStatusPegawai]);
-            
+
 
             RiwayatNip::factory()->create([
                 'users_id' => $user->id,
@@ -81,7 +81,7 @@ class UserSeeder extends Seeder
                     'pangkat_golongan_id' => $refPangkatGolongan[$indexRefPangkatGolongan]->id,
                     'sk_llkdikti_id' => $skLLKDIKTI->id,
                     'sk_pengakuan_ypt_id' => null,
-                    
+
                 ]);
 
             }
