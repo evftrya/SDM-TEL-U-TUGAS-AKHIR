@@ -23,6 +23,9 @@ class riwayatPangkatGolongan extends Model
 
     protected $casts = [
         'id' => 'string',
+        'dosen_id' => 'string',
+        'pangkat_golongan_id' => 'string',
+        'tmt_pangkat' => 'date',
     ];
 
     public function dosen()

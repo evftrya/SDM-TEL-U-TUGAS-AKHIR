@@ -17,12 +17,16 @@ class Dosen extends Model
     protected $table = 'dosens';
     protected $casts = [
         'id' => 'string',
+        'users_id' => 'string',
+        'nidn' => 'string',
+        'nuptk' => 'string',
     ];
 
     protected $fillable = [
         'nidn',
         'nuptk',
         'users_id',
+        
     ];
 
     // Relationships

@@ -20,6 +20,8 @@ class Prodi extends Model
 
     protected $casts = [
         'id' => 'string',
+        'fakultas_id' => 'string',
+        
     ];
 
     // Relationships

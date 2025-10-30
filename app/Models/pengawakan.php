@@ -11,9 +11,27 @@ class pengawakan extends Model
     /** @use HasFactory<\Database\Factories\PengawakanFactory> */
     use HasFactory;
 
+    protected $table = 'pengawakans';
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+    public $timestamps = true;
+    protected $fillable = [
+        'users_id',
+        'formasi_id',
+        'tmt_mulai',
+        'tmt_selesai',
+    ];
+
     protected $casts = [
         'id' => 'string',
+        'users_id' => 'string',
+        'formasi_id' => 'string',
+        'tmt_mulai' => 'date',
+        'tmt_selesai' => 'date',
     ];
+
+    
 
     protected static function boot()
     {

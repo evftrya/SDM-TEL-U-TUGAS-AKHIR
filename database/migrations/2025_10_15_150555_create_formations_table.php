@@ -12,9 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('formations', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->string('nama_formasi', 50);
+            $table->foreignUuid('level_id')->nullable();
+            $table->foreignUuid('atasan_formasi_id')->nullable();
             $table->timestamps();
-        });
+
+            $table->foreign('level_id')->references('id')->on('levels')->onDelete('set null');
+            $table->foreign('atasan_formasi_id')->references('id')->on('formations')->onDelete('set null');});
     }
 
     /**

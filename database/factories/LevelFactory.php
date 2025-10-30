@@ -17,7 +17,9 @@ class LevelFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nama_level' => $this->faker->jobTitle(),
+            'singkatan_level' => strtoupper($this->faker->lexify('???')),
+            'atasan_level' => null,
         ];
     }
 }

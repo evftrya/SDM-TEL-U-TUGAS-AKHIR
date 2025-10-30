@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pengawakans', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('users_id')->nullable();
+            $table->foreignUuid('formasi_id')->nullable();
+            $table->date('tmt_mulai');
+            $table->date('tmt_selesai')->nullable();            
             $table->timestamps();
+
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('formasi_id')->references('id')->on('formations')->onDelete('set null');
         });
     }
 

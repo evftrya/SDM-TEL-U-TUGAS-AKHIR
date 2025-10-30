@@ -27,6 +27,9 @@ class riwayatJenjangPendidikan extends Model
 
     protected $casts = [
         'id' => 'string',
+        'users_id' => 'string',
+        'jenjang_pendidikan_id' => 'string',
+        ''
     ];
 
     public function pegawai()
