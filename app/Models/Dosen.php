@@ -26,13 +26,13 @@ class Dosen extends Model
         'nidn',
         'nuptk',
         'users_id',
-        
+
     ];
 
     // Relationships
     public function pegawai()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'users_id');
     }
 
     public function prodi()

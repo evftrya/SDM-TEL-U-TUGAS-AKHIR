@@ -20,7 +20,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile/edit', [ProfileController::class, 'profileNormalisasi'])->name('profile.edit');   
+    Route::get('/profile/edit', [ProfileController::class, 'profileNormalisasi'])->name('profile.edit');
     Route::get('/profile/personal-information/{idUser}', [ProfileController::class, 'personalInfo'])->name('profile.personal-info');
     Route::get('/profile/change-password/{idUser}', [ProfileController::class, 'changePassword'])->name('profile.change-password');
     Route::post('/profile/update-password/', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::group(['prefix' => 'pegawai', 'as' => 'pegawai.'], function () {
-            
+
             Route::get('/list/{destination}', [PegawaiController::class, 'index'])->name('list');
             Route::get('/new', [PegawaiController::class, 'new'])->name('new');
             Route::post('/create', [PegawaiController::class, 'create'])->name('create');
@@ -64,7 +64,7 @@ Route::middleware('auth')->group(function () {
                 Route::post('/{idUser}/update-password', [PegawaiController::class, 'updatePassword'])->name('update-password');
 
             });
-            
+
             Route::get('/dashboard', function () {
                 return view('kelola_data.manajemen_akun.dashboard');
             })->name('dashboard');
@@ -89,14 +89,14 @@ Route::middleware('auth')->group(function () {
             Route::get('/view', function () {
                 return view('kelola_data.fakultas.view');
             })->name('view');
-    
+
             Route::get('/list/', [LevelController::class, 'index'])->name('list');
             Route::get('/new', [LevelController::class, 'new'])->name('new');
             Route::post('/create', [LevelController::class, 'create'])->name('create');
             Route::post('/update-data', [LevelController::class, 'create'])->name('update-data');
             Route::get('/update/{idLevel}', [LevelController::class, 'update'])->name('update');
-            
-            
+
+
             // Route::get('/new', function () {
             //     return view('kelola_data.level.input');
             // })->name('new');
@@ -109,9 +109,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/view', function () {
                 return view('kelola_data.formasi.view');
             })->name('view');
-    
+
             Route::get('/list/', [FormationController::class, 'index'])->name('list');
-            
+
             Route::get('/new', function () {
                 return view('kelola_data.formasi.view');
             })->name('new');
@@ -124,9 +124,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/view', function () {
                 return view('kelola_data.formasi.view');
             })->name('view');
-    
+
             Route::get('/list/', [PengawakanController::class, 'index'])->name('list');
-            
+
             Route::get('/new', function () {
                 return view('kelola_data.formasi.view');
             })->name('new');
@@ -139,6 +139,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('fakultas', FakultasController::class);
 
         // Prodi Routes
+        Route::post('prodi/{prodi}/update-stats', [ProdiController::class, 'updateStats'])->name('prodi.updateStats');
         Route::resource('prodi', ProdiController::class);
     });
 
