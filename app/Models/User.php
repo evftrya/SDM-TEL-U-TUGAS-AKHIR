@@ -20,6 +20,11 @@ class User extends Authenticatable
     protected $keyType = 'string';
 
     /**
+     * The column name that should be used for authentication.
+     */
+    public const USERNAME_FIELD = 'email_institusi';
+
+    /**
      * Fillable attributes
      */
     protected $fillable = [

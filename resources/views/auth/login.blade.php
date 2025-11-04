@@ -18,7 +18,8 @@
                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
                 <form method="POST" action="{{ route('login') }}">
-                    @csrf
+                    {{ csrf_field() }}
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <!-- Email -->
                     {{-- <div>
@@ -61,6 +62,7 @@
                             {{ __('Forgot your password?') }}
                         </a>
                         @endif
+
 
                         <x-primary-button class="px-6 py-2">
                             {{ __('Log in') }}

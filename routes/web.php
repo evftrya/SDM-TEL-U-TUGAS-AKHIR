@@ -9,18 +9,33 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PengawakanController;
 use App\Http\Controllers\ProdiController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
 Route::get('/dashboard', function () {
+    if (!Auth::check()) {
+        Log::error('User not authenticated when accessing dashboard');
+        return redirect()->route('login');
+    }
+
+    $user = Auth::user();
+    Log::info('User accessing dashboard', [
+        'id' => $user->id,
+        'email' => $user->email_institusi,
+        'session_id' => Session::getId()
+    ]);
+
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile/edit', [ProfileController::class, 'profileNormalisasi'])->name('profile.edit');   
+    Route::get('/profile/edit', [ProfileController::class, 'profileNormalisasi'])->name('profile.edit');
     Route::get('/profile/personal-information/{idUser}', [ProfileController::class, 'personalInfo'])->name('profile.personal-info');
     Route::get('/profile/change-password/{idUser}', [ProfileController::class, 'changePassword'])->name('profile.change-password');
     Route::post('/profile/update-password/', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
@@ -29,8 +44,8 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['prefix' => 'manage', 'as' => 'manage.'], function () {
         Route::get('/', function () {
-                return view('kelola_data.index');
-            })->name('view');
+            return view('kelola_data.index');
+        })->name('view');
 
         Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
             Route::get('/view', function () {
@@ -50,7 +65,7 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::group(['prefix' => 'pegawai', 'as' => 'pegawai.'], function () {
-            
+
             Route::get('/list/{destination}', [PegawaiController::class, 'index'])->name('list');
             Route::get('/new', [PegawaiController::class, 'new'])->name('new');
             Route::post('/create', [PegawaiController::class, 'create'])->name('create');
@@ -62,9 +77,8 @@ Route::middleware('auth')->group(function () {
                 Route::get('/{idUser}/riwayat-jabatan', [ProfileController::class, 'riwayatJabatan'])->name('riwayat-jabatan');
                 Route::get('/{idUser}/change-password', [PegawaiController::class, 'changePassword'])->name('change-password');
                 Route::post('/{idUser}/update-password', [PegawaiController::class, 'updatePassword'])->name('update-password');
-
             });
-            
+
             Route::get('/dashboard', function () {
                 return view('kelola_data.manajemen_akun.dashboard');
             })->name('dashboard');
@@ -89,14 +103,14 @@ Route::middleware('auth')->group(function () {
             Route::get('/view', function () {
                 return view('kelola_data.fakultas.view');
             })->name('view');
-    
+
             Route::get('/list/', [LevelController::class, 'index'])->name('list');
             Route::get('/new', [LevelController::class, 'new'])->name('new');
             Route::post('/create', [LevelController::class, 'create'])->name('create');
             Route::post('/update-data', [LevelController::class, 'create'])->name('update-data');
             Route::get('/update/{idLevel}', [LevelController::class, 'update'])->name('update');
-            
-            
+
+
             // Route::get('/new', function () {
             //     return view('kelola_data.level.input');
             // })->name('new');
@@ -109,9 +123,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/view', function () {
                 return view('kelola_data.formasi.view');
             })->name('view');
-    
+
             Route::get('/list/', [FormationController::class, 'index'])->name('list');
-            
+
             Route::get('/new', function () {
                 return view('kelola_data.formasi.view');
             })->name('new');
@@ -124,9 +138,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/view', function () {
                 return view('kelola_data.formasi.view');
             })->name('view');
-    
+
             Route::get('/list/', [PengawakanController::class, 'index'])->name('list');
-            
+
             Route::get('/new', function () {
                 return view('kelola_data.formasi.view');
             })->name('new');
@@ -140,6 +154,35 @@ Route::middleware('auth')->group(function () {
 
         // Prodi Routes
         Route::resource('prodi', ProdiController::class);
+    });
+
+    // DUPAK Routes
+    Route::group([
+        'prefix' => 'dupak',
+        'as' => 'dupak.',
+        // 'middleware' => ['auth'],
+    ], function () {
+        // Main index
+        Route::get('/', function () {
+            return view('dupak.index');
+        })->name('index');
+
+        // Dashboard
+        Route::get('/dashboard', function () {
+            return view('dupak.dashboard');
+        })->name('dashboard');
+
+        // Pengajuan DUPAK
+        Route::resource('pengajuan', \App\Http\Controllers\Dupak\PengajuanController::class)
+            ->except(['edit', 'update', 'destroy']);
+
+        // Riwayat DUPAK
+        Route::resource('riwayat', \App\Http\Controllers\Dupak\RiwayatController::class)
+            ->only(['index', 'show']);
+
+        // Validasi DUPAK (for admin/validator)
+        Route::resource('validasi', \App\Http\Controllers\Dupak\ValidasiController::class)
+            ->only(['index', 'show', 'update']);
     });
 
     // Kinerja Pegawai Routes (separated from manage)
@@ -187,9 +230,6 @@ Route::middleware('auth')->group(function () {
             return view('kinerja_pegawai.laporan_target.detail', ['id' => $id]);
         })->name('laporan.target.detail');
     });
-
-
-
 });
 
 // Admin Routes
@@ -204,4 +244,4 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::delete('/users/{user}', [AdminController::class, 'deleteUser'])->name('users.delete');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

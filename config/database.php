@@ -63,6 +63,22 @@ return [
             ]) : [],
         ],
 
+        'dupak' => [
+            'driver' => 'mysql',
+            'url' => env('DUPAK_DB_URL'),
+            'host' => env('DUPAK_DB_HOST', '127.0.0.1'),
+            'port' => env('DUPAK_DB_PORT', '3306'),
+            'database' => env('DUPAK_DB_DATABASE', 'dupak_v1.2.1'),
+            'username' => env('DUPAK_DB_USERNAME', 'root'),
+            'password' => env('DUPAK_DB_PASSWORD', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+        ],
+
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),

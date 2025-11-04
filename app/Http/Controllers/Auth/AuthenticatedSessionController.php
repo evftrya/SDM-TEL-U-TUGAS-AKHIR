@@ -8,6 +8,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -25,19 +27,44 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-            Log::info('Login attempt starting in controller');
-        
-            try {
-                $request->authenticate();
-                Log::info('Authentication successful');
-            } catch (\Exception $e) {
-                Log::error('Authentication failed', ['error' => $e->getMessage()]);
-                throw $e;
+        try {
+            // Start with a clean session
+            Session::flush();
+            
+            // Attempt authentication
+            $request->authenticate();
+
+            // Force regenerate session
+            $request->session()->regenerate();
+            
+            $user = Auth::user();
+            if (!$user) {
+                Log::error('No user after authentication');
+                return redirect()->route('login');
             }
 
-        $request->session()->regenerate();
+            // Set role and session data
+            $role = \App\Models\Tpa::where('users_id', $user->id)->exists() ? 'TPA' : 'Dosen';
+            $sessionData = array_merge($user->toArray(), ['role' => [$role]]);
+            
+            // Store in session
+            session(['account' => $sessionData]);
+            
+            // Log the successful login
+            Log::info('Login successful', [
+                'user_id' => $user->id,
+                'session_id' => session()->getId()
+            ]);
 
-        return redirect()->intended(route('dashboard', absolute: false));
+            // Return to dashboard with session cookie
+            return redirect()->intended(route('dashboard'))
+                ->withCookie(cookie()->forever('auth_check', true));
+                
+        } catch (\Exception $e) {
+            Log::error('Login exception', ['error' => $e->getMessage()]);
+            return redirect()->route('login')
+                ->withErrors(['email_institusi' => 'Login failed']);
+        }
     }
 
     /**

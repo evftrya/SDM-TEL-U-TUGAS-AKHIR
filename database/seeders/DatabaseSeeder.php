@@ -19,6 +19,7 @@ public function run(): void
         RefPangkatGolonganSeeder::class,
         RefStatusPegawaiSeeder::class,
         UserSeeder::class,
+        DupakKegiatanSeeder::class,
     ]);
 
 
