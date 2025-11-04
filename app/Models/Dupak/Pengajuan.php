@@ -14,7 +14,8 @@ class Pengajuan extends DupakModel
             'TahunAjaranAjuanAkhir',
             'semesterAjuan',
             'jfaAsal',
-            'jfaTujuan'
+            'jfaTujuan',
+            'status'
         ];
 
         public function dosen()

@@ -19,18 +19,13 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/dashboard', function () {
-    if (!Auth::check()) {
-        Log::error('User not authenticated when accessing dashboard');
-        return redirect()->route('login');
-    }
-
     $user = Auth::user();
     Log::info('User accessing dashboard', [
         'id' => $user->id,
         'email' => $user->email_institusi,
         'session_id' => Session::getId()
     ]);
-
+    
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -162,11 +157,6 @@ Route::middleware('auth')->group(function () {
         'as' => 'dupak.',
         // 'middleware' => ['auth'],
     ], function () {
-        // Main index
-        Route::get('/', function () {
-            return view('dupak.index');
-        })->name('index');
-
         // Dashboard
         Route::get('/dashboard', function () {
             return view('dupak.dashboard');

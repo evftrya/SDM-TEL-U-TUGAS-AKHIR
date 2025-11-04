@@ -7,6 +7,7 @@ use App\Models\Dupak\Pengajuan;
 use App\Models\Dosen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class PengajuanController extends Controller
 {
@@ -15,17 +16,31 @@ class PengajuanController extends Controller
      */
     public function index()
     {
-        $dosen = Dosen::where('users_id', Auth::id())->first();
+        // Log::info('PengajuanController@index accessed', [
+        //     'user_id' => Auth::id(),
+        //     'url' => request()->fullUrl()
+        // ]);
 
-        if (! $dosen) {
-            return redirect()->back()->with('error', 'Data Dosen tidak ditemukan untuk pengguna ini.');
-        }
+        // $dosen = Dosen::where('users_id', Auth::id())->first();
 
-        $pengajuan = Pengajuan::where('idDosen', $dosen->id)
-            ->orderBy('tanggal_pengajuan', 'desc')
-            ->paginate(10);
+        // if (! $dosen) {
+        //     Log::warning('Dosen not found for user', ['user_id' => Auth::id()]);
+        //     return redirect()->back()->with('error', 'Data Dosen tidak ditemukan untuk pengguna ini.');
+        // }
 
-        return view('dupak.pengajuan.index', compact('pengajuan'));
+        // $pengajuan = Pengajuan::where('idDosen', $dosen->id)
+        //     ->orderBy('created_at', 'desc')
+        //     ->paginate(10);
+
+        // Log::info('PengajuanController@index returning view with data', [
+        //     'pengajuan_count' => $pengajuan->count()
+        // ]);
+
+        return view(
+            'dupak.pengajuan.index',
+            // compact('pengajuan',
+            
+        );
     }
 
     /**
@@ -56,9 +71,12 @@ class PengajuanController extends Controller
         // Create the pengajuan record
         $pengajuan = Pengajuan::create([
             'idDosen' => $dosen->id,
-            'periode_id' => $request->period,
-            'tanggal_pengajuan' => now(),
-            'status' => 'pending',
+            'start' => now(),
+            'end' => null,
+            'TahunAjaranAjuanAwal' => $request->tahun_ajaran_awal,
+            'TahunAjaranAjuanAkhir' => $request->tahun_ajaran_akhir,
+            'semesterAjuan' => $request->semester,
+            'status' => 'pending'
         ]);
 
         // Process each kegiatan type

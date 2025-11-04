@@ -25,12 +25,12 @@ class RiwayatController extends Controller
 
         // Apply filters
         if ($request->filled('year')) {
-            $query->whereYear('tanggal_pengajuan', $request->year);
+            $query->whereYear('created_at', $request->year);
         }
 
         if ($request->filled('period')) {
-            // Assuming period is stored as '1' for Jan-Jun and '2' for Jul-Dec
-            $query->where('periode_id', $request->period);
+            // Period is stored in semesterAjuan
+            $query->where('semesterAjuan', $request->period);
         }
 
         if ($request->filled('status')) {
