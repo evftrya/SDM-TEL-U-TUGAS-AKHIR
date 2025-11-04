@@ -21,22 +21,6 @@
                     {{ csrf_field() }}
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                    <!-- Email -->
-                    {{-- <div>
-                        <x-input-label for="email" :value="__('Email')" />
-                        <x-text-input id="email" class="block w-full mt-1"
-                            type="email" name="email_institusi" :value="old('email_institusi')" required autofocus autocomplete="username" />
-                        <x-input-error :messages="$errors->get('email_institusi')" class="mt-2" />
-                    </div>
-
-                    <!-- Password -->
-                    <div class="mt-4">
-                        <x-input-label for="password" :value="__('Password')" />
-                        <x-text-input id="password" class="block w-full mt-1"
-                            type="password" name="password" required autocomplete="current-password" />
-                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                    </div> --}}
-
                     <x-itxt fill="mb-4" type="email" lbl="Email Institusi" plc="john@telkomuniversity.ac.id" nm="email_institusi"
                         max="100" fill="flex-grow"></x-itxt>
                     <x-itxt type="password" lbl="Password" nm="password"
@@ -49,7 +33,7 @@
                                 class="text-indigo-600 border-gray-300 rounded shadow-sm dark:bg-gray-900 dark:border-gray-700 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
                                 name="remember">
                             <span class="text-sm text-gray-600 ms-2 dark:text-gray-400">
-                                {{ __('Remember me') }}
+                                Remember me
                             </span>
                         </label>
                     </div>

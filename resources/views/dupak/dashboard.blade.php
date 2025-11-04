@@ -12,13 +12,13 @@
 
                 <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                     <!-- Card Pengajuan DUPAK -->
-                    <div class="p-6 bg-white border border-gray-200 rounded-lg shadow">
+                    <!-- <div class="p-6 bg-white border border-gray-200 rounded-lg shadow">
                         <h3 class="mb-2 text-lg font-medium text-gray-900">Pengajuan DUPAK</h3>
                         <p class="mb-4 text-gray-600">Ajukan DUPAK (Daftar Usulan Penetapan Angka Kredit) baru.</p>
                         <a href="{{ route('dupak.pengajuan.create') }}" class="inline-block px-4 py-2 text-white bg-blue-900 rounded hover:bg-blue-950">
                             Buat Pengajuan
                         </a>
-                    </div>
+                    </div> -->
 
                     <div class="col-span-1 p-6 bg-white border border-gray-200 rounded-lg shadow md:col-span-2">
                         @php
@@ -87,15 +87,15 @@
                     </div>
 
                     <!-- Card Riwayat DUPAK -->
-                    <div class="p-6 bg-white border border-gray-200 rounded-lg shadow">
+                    <!-- <div class="p-6 bg-white border border-gray-200 rounded-lg shadow">
                         <h3 class="mb-2 text-lg font-medium text-gray-900">Riwayat DUPAK</h3>
                         <p class="mb-4 text-gray-600">Lihat riwayat pengajuan DUPAK Anda.</p>
                         <a href="{{ route('dupak.riwayat.index') }}" class="inline-block px-4 py-2 text-white bg-gray-600 rounded hover:bg-gray-700">
                             Lihat Riwayat
                         </a>
-                    </div>
+                    </div> -->
 
-                    @if (auth()->user()->isAdmin)
+                    @if (auth()->user()->is_admin)
                     <!-- Card Validasi DUPAK (Admin Only) -->
                     <div class="p-6 bg-white border border-gray-200 rounded-lg shadow">
                         <h3 class="mb-2 text-lg font-medium text-gray-900">Validasi DUPAK</h3>
