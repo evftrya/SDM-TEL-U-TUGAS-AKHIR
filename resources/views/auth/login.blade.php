@@ -18,7 +18,7 @@
                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
                 <form method="POST" action="{{ route('login') }}">
-                    {{ csrf_field() }}
+                    @csrf
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <x-itxt fill="mb-4" type="email" lbl="Email Institusi" plc="john@telkomuniversity.ac.id" nm="email_institusi"
