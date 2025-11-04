@@ -9,7 +9,7 @@
             <div class="p-6 text-gray-900">
                 <div class="flex items-center justify-between mb-6">
                     <h1 class="text-2xl font-semibold">Pengajuan DUPAK</h1>
-                    <a href="{{ route('dupak.pengajuan.create') }}" class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-indigo-300 disabled:opacity-25">
+                    <a href="{{ route('dupak.pengajuan.create') }}" class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase bg-blue-900 border border-transparent rounded-md hover:bg-blue-950 active:bg-blue-900 focus:outline-none focus:border-indigo-900 focus:ring ring-indigo-300 disabled:opacity-25">
                         Buat Pengajuan Baru
                     </a>
                 </div>
@@ -17,18 +17,18 @@
                 <!-- List Pengajuan -->
                 <div class="overflow-hidden bg-white rounded-lg shadow">
                     <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                        <thead class="bg-blue-900">
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase">
                                     No. Pengajuan
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase">
                                     Tanggal
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase">
                                     Status
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase">
                                     Aksi
                                 </th>
                             </tr>
