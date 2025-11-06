@@ -85,24 +85,6 @@
         .btn-expand:hover {
             background: #4b5563;
         }
-
-        .btn-edit {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
-            background: #9ca3af;
-            color: white;
-            font-size: 11px;
-            font-weight: 500;
-            transition: background 0.2s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-edit:hover {
-            background: #6b7280;
-        }
     </style>
 @endsection
 
@@ -196,10 +178,11 @@
                                         <i class="bi bi-chevron-down rotate-icon" id="icon-{{ $stat['id'] }}"></i>
                                         Detail
                                     </button>
-                                    <button onclick="editProdi('{{ $stat['id'] }}')" class="btn-edit">
-                                        <i class="bi bi-pencil"></i>
-                                        Edit
-                                    </button>
+                                    <a href="{{ route('manage.prodi.edit', $stat['id']) }}"
+                                        class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition">
+                                        <i class="bi bi-pencil-square"></i>
+                                        Edit Prodi
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -380,6 +363,15 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <!-- Action Button -->
+                                    <div class="mt-4 pt-3 border-t flex justify-end">
+                                        <button onclick="editProdi('{{ $stat['id'] }}')"
+                                            class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500 text-white text-sm font-medium hover:bg-yellow-600 transition">
+                                            <i class="bi bi-pencil-square"></i>
+                                            Edit Statistik Dosen
+                                        </button>
                                     </div>
                                 </div>
                             </td>
@@ -812,7 +804,47 @@
             <!-- Modal Body -->
             <form id="editStatsForm" onsubmit="saveStats(event)" class="mt-4">
                 <input type="hidden" id="editProdiId" name="prodi_id">
-
+                <!-- Status Kepegawaian Section -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h4 class="text-md font-bold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="bi bi-person-badge-fill"></i>
+                        Status Kepegawaian
+                    </h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-check-circle-fill"></i> Tetap
+                            </label>
+                            <input type="number" name="tetap" id="edit_tetap" min="0"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-clock-history"></i> Calon Tetap
+                            </label>
+                            <input type="number" name="calon_tetap" id="edit_calon_tetap" min="0"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-briefcase-fill"></i> Profesional
+                            </label>
+                            <input type="number" name="profesional" id="edit_profesional" min="0"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-arrows-move"></i> Perbantuan
+                            </label>
+                            <input type="number" name="perbantuan" id="edit_perbantuan" min="0"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                                required>
+                        </div>
+                    </div>
+                </div>
                 <!-- Pendidikan Section -->
                 <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
                     <h4 class="text-md font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -913,47 +945,7 @@
                     </div>
                 </div>
 
-                <!-- Status Kepegawaian Section -->
-                <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                    <h4 class="text-md font-bold text-gray-900 mb-4 flex items-center gap-2">
-                        <i class="bi bi-person-badge-fill"></i>
-                        Status Kepegawaian
-                    </h4>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                <i class="bi bi-check-circle-fill"></i> Tetap
-                            </label>
-                            <input type="number" name="tetap" id="edit_tetap" min="0"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-                                required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                <i class="bi bi-clock-history"></i> Calon Tetap
-                            </label>
-                            <input type="number" name="calon_tetap" id="edit_calon_tetap" min="0"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-                                required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                <i class="bi bi-briefcase-fill"></i> Profesional
-                            </label>
-                            <input type="number" name="profesional" id="edit_profesional" min="0"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-                                required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                <i class="bi bi-arrows-move"></i> Perbantuan
-                            </label>
-                            <input type="number" name="perbantuan" id="edit_perbantuan" min="0"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-                                required>
-                        </div>
-                    </div>
-                </div>
+
 
                 <!-- Summary -->
                 <div class="p-4 bg-gray-100 rounded-lg border border-gray-300 mb-4">
@@ -961,7 +953,7 @@
                         <span class="text-sm font-semibold text-gray-700">
                             <i class="bi bi-people-fill"></i> Total Dosen (Auto):
                         </span>
-                        <span id="edit_total_dosen" class="text-lg font-bold text-gray-700">0</span>
+                        <span id="edit_total_dosen" class="text-lg font-bold text-blue-600">0</span>
                     </div>
                 </div>
 
@@ -972,35 +964,12 @@
                         <i class="bi bi-x-circle"></i> Batal
                     </button>
                     <button type="submit"
-                        class="px-5 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition font-medium">
-                        <i class="bi bi-save"></i> Simpan
+                        class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+                        <i class="bi bi-check-circle"></i> Simpan Perubahan
                     </button>
                 </div>
+            </form>
         </div>
-
-        <!-- Summary -->
-        <div class="p-4 bg-gray-100 rounded-lg border border-gray-300 mb-4">
-            <div class="flex items-center justify-between">
-                <span class="text-sm font-semibold text-gray-700">
-                    <i class="bi bi-people-fill"></i> Total Dosen (Auto):
-                </span>
-                <span id="edit_total_dosen" class="text-lg font-bold text-blue-600">0</span>
-            </div>
-        </div>
-
-        <!-- Modal Footer -->
-        <div class="flex items-center justify-end gap-3 pt-4 border-t">
-            <button type="button" onclick="closeEditModal()"
-                class="px-5 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition font-medium">
-                <i class="bi bi-x-circle"></i> Batal
-            </button>
-            <button type="submit"
-                class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
-                <i class="bi bi-check-circle"></i> Simpan Perubahan
-            </button>
-        </div>
-        </form>
-    </div>
     </div>
 
     <!-- Include Create Modal -->

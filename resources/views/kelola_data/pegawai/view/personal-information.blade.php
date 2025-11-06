@@ -13,21 +13,21 @@
 
         /* Ukuran teks disesuaikan */
         /* .profile-wrapper {
-            font-size: 16px;
-            line-height: 1.7;
-        }
-        .profile-wrapper dt {
-            font-size: 14px;
-        }
-        .profile-wrapper dd {
-            font-size: 16px;
-        }
-        .profile-wrapper h2 {
-            font-size: 20px;
-        }
-        .profile-wrapper h3 {
-            font-size: 18px;
-        } */
+                    font-size: 16px;
+                    line-height: 1.7;
+                }
+                .profile-wrapper dt {
+                    font-size: 14px;
+                }
+                .profile-wrapper dd {
+                    font-size: 16px;
+                }
+                .profile-wrapper h2 {
+                    font-size: 20px;
+                }
+                .profile-wrapper h3 {
+                    font-size: 18px;
+                } */
     </style>
 
     <div class="w-full max-w-full profile-wrapper">
@@ -180,6 +180,31 @@
                     </dl>
                 </div>
 
+                {{-- Section: Emergency Contact --}}
+                <div
+                    class="rounded-2xl border border-gray-200 bg-white p-6 shadow-md dark:border-gray-800 dark:bg-gray-900">
+                    <div class="mb-6 flex items-center justify-between">
+                        <h3 class="font-semibold tracking-wide text-gray-900 dark:text-gray-100">Kontak Darurat</h3>
+                    </div>
+
+                    <dl class="grid grid-cols-1 gap-x-8 gap-y-5">
+                        <div>
+                            <dt class="text-gray-500 dark:text-gray-400">No Telepon Darurat</dt>
+                            <dd class="mt-1 flex items-center gap-3 font-medium text-gray-900 dark:text-gray-100">
+                                @if ($user['emergency_contact_phone'])
+                                    <a href="https://wa.me/{{ PhoneHelper::toIntlID($user['emergency_contact_phone']) }}"
+                                        class="hover:underline">{{ $user['emergency_contact_phone'] }}</a>
+                                    <button type="button"
+                                        class="ml-1 rounded-md border border-gray-300 px-2 py-0.5 text-sm text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 copy"
+                                        onclick="navigator.clipboard.writeText('{{ $user['emergency_contact_phone'] }}')">Salin</button>
+                                @else
+                                    <span class="text-gray-400">-</span>
+                                @endif
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+
                 {{-- Section: Status Kepegawaian --}}
                 <div
                     class="rounded-2xl border border-gray-200 bg-white p-6 shadow-md dark:border-gray-800 dark:bg-gray-900">
@@ -257,7 +282,7 @@
         </div>
     </div>
 
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const copyButtons = document.querySelectorAll('.copy');

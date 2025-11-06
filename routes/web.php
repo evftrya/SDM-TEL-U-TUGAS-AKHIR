@@ -2,13 +2,13 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\FakultasController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PengawakanController;
 use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\SertifikasiDosenController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -141,6 +141,19 @@ Route::middleware('auth')->group(function () {
         // Prodi Routes
         Route::post('prodi/{prodi}/update-stats', [ProdiController::class, 'updateStats'])->name('prodi.updateStats');
         Route::resource('prodi', ProdiController::class);
+
+        // Sertifikasi Dosen Routes
+        Route::group(['prefix' => 'sertifikasi-dosen', 'as' => 'sertifikasi-dosen.'], function () {
+            Route::get('/list', [SertifikasiDosenController::class, 'index'])->name('list');
+            Route::get('/input', [SertifikasiDosenController::class, 'create'])->name('input');
+            Route::post('/store', [SertifikasiDosenController::class, 'store'])->name('store');
+            Route::get('/view/{id}', [SertifikasiDosenController::class, 'view'])->name('view');
+            Route::get('/edit/{id}', [SertifikasiDosenController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [SertifikasiDosenController::class, 'update'])->name('update');
+            Route::delete('/destroy/{id}', [SertifikasiDosenController::class, 'destroy'])->name('destroy');
+            Route::get('/upload', [SertifikasiDosenController::class, 'upload'])->name('upload');
+            Route::post('/process-upload', [SertifikasiDosenController::class, 'processUpload'])->name('process-upload');
+        });
     });
 
     // Kinerja Pegawai Routes (separated from manage)

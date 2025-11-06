@@ -55,6 +55,11 @@ class Dosen extends Model
         return $this->hasMany(RiwayatJabatanFungsional::class);
     }
 
+    public function sertifikasi()
+    {
+        return $this->hasOne(SertifikasiDosen::class);
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -65,14 +70,4 @@ class Dosen extends Model
             }
         });
     }
-
-    // public function riwayatPangkat()
-    // {
-    //     return $this->hasMany(RiwayatPangkat::class);
-    // }
-
-    // public function sertifikasi()
-    // {
-    //     return $this->hasOne(SertifikasiDosen::class);
-    // }
 }
