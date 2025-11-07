@@ -46,11 +46,14 @@
             <div class="grid md:grid-cols-2 gap-8">
                 {{-- Kolom Kiri --}}
                 <div class="flex flex-col gap-4">
-                    <x-itxt lbl="Nama Lengkap" plc="John Doe" nm="nama_lengkap" max="100" required></x-itxt>
+                    <x-itxt lbl="Nama Lengkap" plc="John Doe" nm="nama_lengkap" max="100"></x-itxt>
 
-                    <x-itxt lbl="Username" plc="johndoe" nm="username" max="20" required></x-itxt>
+                    <x-itxt lbl="Username" plc="johndoe" nm="username" max="20"></x-itxt>
 
                     <x-itxt lbl="Telepon" plc="081234567890" nm="telepon" max="13" :rules="['Harus dimulai dengan 0', 'berjumlah 10-13 digit']"></x-itxt>
+
+                    <x-itxt lbl="No Telepon Darurat" plc="081234567890" nm="emergency_contact_phone" max="13"
+                        :rules="['Harus dimulai dengan 0', 'berjumlah 10-13 digit']" :required="false"></x-itxt>
 
                     <x-itxt type="textarea" lbl="Alamat" plc="Jl. Telekomunikasi No. 1, Bandung" nm="alamat"
                         max="300" fill="flex-grow"></x-itxt>

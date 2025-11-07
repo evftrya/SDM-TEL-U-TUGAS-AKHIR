@@ -11,7 +11,9 @@ use App\Models\RefStatusPegawai;
 use App\Models\riwayatJenjangPendidikan;
 use App\Models\RiwayatNip;
 use App\Models\Tpa;
+use Illuminate\Database\Events\TransactionBeginning;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class PegawaiController extends Controller
@@ -34,7 +36,7 @@ class PegawaiController extends Controller
             return view('kelola_data.pegawai.list',compact('send','users'));
         }
     }
-    
+
     public function new()
     {
         $jenjang_pendidikan_options = refJenjangPendidikan::all();
@@ -42,7 +44,7 @@ class PegawaiController extends Controller
         $jenjang_jfa_options=RefPangkatGolongan::all();
         $send = null;
         return view('kelola_data.pegawai.input',compact('send','jenjang_pendidikan_options','status_pegawai_options','jenjang_jfa_options'));
-        
+
     }
 
 
@@ -54,7 +56,8 @@ class PegawaiController extends Controller
             // Data diri (umum)
             'nama_lengkap'        => ['required', 'string', 'max:100'],
             'username'            => ['required', 'alpha_dash', 'min:3', 'max:20'],
-            'telepon'             => ['nullable', 'regex:/^0\d{9,12}$/'], // 10–13 digit, dimulai 0
+            'telepon'             => ['nullable', 'regex:/^0\d{9,12}$/'],
+            'emergency_contact_phone' => ['nullable', 'regex:/^0\d{9,12}$/'],
             'alamat'              => ['nullable', 'string', 'max:300'],
 
             'email_pribadi'       => ['nullable', 'email:rfc,dns', 'max:150'],
@@ -119,6 +122,7 @@ class PegawaiController extends Controller
 
             // Pesan khusus
             'telepon.regex' => 'Nomor telepon harus diawali 0 dan berjumlah 10–13 digit.',
+            'emergency_contact_phone.regex' => 'Nomor telepon darurat harus diawali 0 dan berjumlah 10–13 digit.',
             'nidn.required' => 'NIDN wajib diisi untuk Dosen.',
             'nomor_induk_pegawai.required' => 'Nomor Induk Pegawai/NUPTK wajib diisi untuk Dosen.',
             'jfa.required' => 'JFA wajib dipilih untuk Dosen.',
@@ -133,9 +137,12 @@ class PegawaiController extends Controller
         try {
             // password default: telepon&namalengkap (tanpa spasi)
             $validated['password'] = strtolower(str_replace(' ', '', $validated['telepon'].'&'.$validated['nama_lengkap']));
+            $validated['tgl_bergabung'] = $validated['tmt_mulai'];
+            $validated['status_pegawai_id'] = $validated['status_kepegawaian'];
 
             // Create User
             $users_id = null;
+            DB::transaction();
             try {
                 $user = User::create($validated);
                 $users_id = $user->id;
@@ -185,11 +192,10 @@ class PegawaiController extends Controller
             }
 
             // Jika semua berhasil
-            return response()->json([
-                'success' => true,
-                'message' => 'User berhasil dibuat!',
-                'data' => $user
-            ], 201);
+            DB::commit();
+
+            return redirect(route('manage.pegawai.view.personal-info', ['idUser' => $validated['users_id']]))->with('success', 'Data pegawai berhasil disimpan!');
+
 
         } catch (\Exception $e) {
             return response()->json([
@@ -229,6 +235,18 @@ class PegawaiController extends Controller
 
         return view('kelola_data.pegawai.view.riwayat-jabatan',compact('user'));
     }
+
+    public function setActive(Request $request, $idUser)
+    {
+        $user = User::find($idUser);
+        $user->is_active = true;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Akun pegawai berhasil diaktifkan!');
+    }
+
+
+
 
     /**
      * Store a newly created resource in storage.

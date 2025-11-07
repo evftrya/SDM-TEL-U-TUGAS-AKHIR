@@ -13,6 +13,78 @@
                 color: white;
             }
         }
+
+        /* Expandable Row Styles */
+        .expand-row {
+            display: none;
+            background-color: #f9fafb;
+        }
+
+        .expand-row.show {
+            display: table-row;
+        }
+
+        .detail-section {
+            background: white;
+            padding: 12px 16px;
+            margin: 0;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            padding: 6px 8px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-left: 2px solid #6b7280;
+        }
+
+        .detail-item .icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+            font-size: 14px;
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .rotate-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .rotate-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        /* Button Styles */
+        .btn-expand {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: #6b7280;
+            color: white;
+            font-size: 11px;
+            font-weight: 500;
+            transition: background 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-expand:hover {
+            background: #4b5563;
+        }
     </style>
 @endsection
 
@@ -73,11 +145,259 @@
                                     <i class="bi bi-pencil text-[#0070ff] text-[14px]"></i>
                                 </a>
 
+<<<<<<< HEAD
                                 <!-- View Details Button -->
                                 <button type="button"
                                     onclick="openDetailModal({{ $prodi->id }}, '{{ addslashes($prodi->nama_prodi) }}', '{{ addslashes($prodi->fakultas->nama_fakultas) }}')"
                                     class="px-3 py-1.5 border border-[#1C2762] text-[#1C2762] rounded-md text-xs font-medium hover:bg-[#1C2762] hover:text-white transition duration-200">
                                     View Details
+=======
+            <table id="rekapTable" class="min-w-full divide-y divide-gray-200 text-sm">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border">
+                            No.</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border">
+                            Prodi</th>
+                        <th class="px-3 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider border">
+                            Total Dosen</th>
+                        <th class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider border">
+                            Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @forelse ($prodiStats as $index => $stat)
+                        <!-- Baris utama -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-3 py-3 text-center border">{{ $index + 1 }}</td>
+                            <td class="px-4 py-3 text-left border">
+                                <div class="font-medium text-gray-900">{{ $stat['nama_prodi'] }}</div>
+                                <div class="text-xs text-gray-500">{{ $stat['fakultas'] }}</div>
+                            </td>
+                            <td class="px-3 py-3 text-center border font-semibold">{{ $stat['total_dosen'] }}</td>
+                            <td class="px-4 py-3 text-center border">
+                                <div class="flex gap-2 justify-center">
+                                    <button onclick="toggleDetail('{{ $stat['id'] }}')" id="btn-{{ $stat['id'] }}"
+                                        class="btn-expand">
+                                        <i class="bi bi-chevron-down rotate-icon" id="icon-{{ $stat['id'] }}"></i>
+                                        Detail
+                                    </button>
+                                    <a href="{{ route('manage.prodi.edit', $stat['id']) }}"
+                                        class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition">
+                                        <i class="bi bi-pencil-square"></i>
+                                        Edit Prodi
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Baris detail (expandable) -->
+                        <tr id="detail-{{ $stat['id'] }}" class="expand-row">
+                            <td colspan="4" class="p-0">
+                                <div class="detail-section">
+                                    <!-- Pendidikan Section -->
+                                    <div class="mb-3">
+                                        <h4
+                                            class="text-xs font-semibold text-gray-600 mb-2 pb-1 border-b flex items-center gap-1">
+                                            <i class="bi bi-mortarboard-fill text-gray-600 text-sm"></i>
+                                            Jenjang Pendidikan
+                                        </h4>
+                                        <div class="detail-grid">
+                                            <div class="detail-item">
+                                                <div class="icon">
+                                                    <i class="bi bi-book"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-xs text-gray-500">S2 (Magister)</div>
+                                                    <div class="text-sm font-semibold text-gray-900">{{ $stat['s2'] }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="detail-item">
+                                                <div class="icon">
+                                                    <i class="bi bi-book-fill"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-xs text-gray-500">S3 (Doktor)</div>
+                                                    <div class="text-sm font-semibold text-gray-900">{{ $stat['s3'] }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="detail-item">
+                                                <div class="icon">
+                                                    <i class="bi bi-percent"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-xs text-gray-500">Persentase S3</div>
+                                                    <div class="text-sm font-semibold text-gray-700">
+                                                        {{ number_format($stat['persen_s3'] * 100, 2) }}%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Jabatan Fungsional Section -->
+                                    <div class="mb-3">
+                                        <h4
+                                            class="text-xs font-semibold text-gray-600 mb-2 pb-1 border-b flex items-center gap-1">
+                                            <i class="bi bi-award-fill text-gray-600 text-sm"></i>
+                                            Jabatan Fungsional Akademik
+                                        </h4>
+                                        <div class="detail-grid">
+                                            <div class="detail-item">
+                                                <div class="icon">
+                                                    <i class="bi bi-person"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-xs text-gray-500">Non-JFA Dosen</div>
+                                                    <div class="text-sm font-semibold text-gray-900">{{ $stat['njad'] }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="detail-item">
+                                                <div class="icon">
+                                                    <i class="bi bi-star"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-xs text-gray-500">Asisten Ahli</div>
+                                                    <div class="text-sm font-semibold text-gray-900">{{ $stat['aa'] }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="detail-item">
+                                                <div class="icon">
+                                                    <i class="bi bi-star-fill"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-xs text-gray-500">Lektor</div>
+                                                    <div class="text-sm font-semibold text-gray-900">{{ $stat['l'] }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="detail-item">
+                                                <div class="icon">
+                                                    <i class="bi bi-stars"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-xs text-gray-500">Lektor Kepala</div>
+                                                    <div class="text-sm font-semibold text-gray-900">{{ $stat['lk'] }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="detail-item">
+                                                <div class="icon">
+                                                    <i class="bi bi-trophy-fill"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-xs text-gray-500">Guru Besar</div>
+                                                    <div class="text-sm font-semibold text-gray-900">{{ $stat['gb'] }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="detail-item">
+                                                <div class="icon">
+                                                    <i class="bi bi-graph-up"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-xs text-gray-500">Proporsi L+LK+GB</div>
+                                                    <div class="text-sm font-semibold text-gray-700">
+                                                        {{ number_format($stat['llkgb'] * 100, 2) }}%</div>
+                                                </div>
+                                            </div>
+                                            <div class="detail-item">
+                                                <div class="icon">
+                                                    <i class="bi bi-graph-up-arrow"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-xs text-gray-500">Proporsi JFA</div>
+                                                    <div class="text-sm font-semibold text-gray-700">
+                                                        {{ number_format($stat['jfa'] * 100, 2) }}%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Status Kepegawaian Section -->
+                                    <div>
+                                        <h4
+                                            class="text-xs font-semibold text-gray-600 mb-2 pb-1 border-b flex items-center gap-1">
+                                            <i class="bi bi-person-badge-fill text-gray-600 text-sm"></i>
+                                            Status Kepegawaian
+                                        </h4>
+                                        <div class="detail-grid">
+                                            <div class="detail-item">
+                                                <div class="icon">
+                                                    <i class="bi bi-check-circle-fill"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-xs text-gray-500">Tetap</div>
+                                                    <div class="text-sm font-semibold text-gray-900">{{ $stat['tetap'] }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="detail-item">
+                                                <div class="icon">
+                                                    <i class="bi bi-clock-history"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-xs text-gray-500">Calon Tetap</div>
+                                                    <div class="text-sm font-semibold text-gray-900">
+                                                        {{ $stat['calon_tetap'] }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="detail-item">
+                                                <div class="icon">
+                                                    <i class="bi bi-briefcase-fill"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-xs text-gray-500">Profesional</div>
+                                                    <div class="text-sm font-semibold text-gray-900">
+                                                        {{ $stat['profesional'] }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="detail-item">
+                                                <div class="icon">
+                                                    <i class="bi bi-arrows-move"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-xs text-gray-500">Perbantuan</div>
+                                                    <div class="text-sm font-semibold text-gray-900">
+                                                        {{ $stat['perbantuan'] }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Action Button -->
+                                    <div class="mt-4 pt-3 border-t flex justify-end">
+                                        <button onclick="editProdi('{{ $stat['id'] }}')"
+                                            class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500 text-white text-sm font-medium hover:bg-yellow-600 transition">
+                                            <i class="bi bi-pencil-square"></i>
+                                            Edit Statistik Dosen
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="px-6 py-8 text-center text-gray-500">
+                                Belum ada data program studi
+                            </td>
+                        </tr>
+                    @endforelse
+
+                    @if ($prodiStats->count() > 0)
+                        <!-- Baris Total -->
+                        <tr class="bg-gray-100 font-bold border-t-2 border-gray-300">
+                            <td colspan="2" class="px-4 py-3 text-center border">TOTAL</td>
+                            <td class="px-3 py-3 text-center border">{{ $totals['total_dosen'] }}</td>
+                            <td class="px-4 py-3 text-center border">
+                                <button onclick="toggleAllDetails()" class="btn-expand">
+                                    <i class="bi bi-eye"></i>
+                                    Lihat Semua
+>>>>>>> d8eafca (fix)
                                 </button>
 
                                 <!-- Delete Button -->
@@ -114,6 +434,196 @@
         });
     </script>
 
+<<<<<<< HEAD
+=======
+    <!-- Modal Edit Statistik Prodi -->
+    <div id="editStatsModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
+        onclick="closeEditModal(event)">
+        <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-2/3 shadow-lg rounded-lg bg-white"
+            onclick="event.stopPropagation()">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between pb-3 border-b">
+                <h3 class="text-xl font-semibold text-gray-900 flex items-center gap-2">
+                    <i class="bi bi-pencil-square text-gray-700"></i>
+                    Edit Statistik Dosen - <span id="editProdiName" class="text-gray-700"></span>
+                </h3>
+                <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-600 transition">
+                    <i class="bi bi-x-lg text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <form id="editStatsForm" onsubmit="saveStats(event)" class="mt-4">
+                <input type="hidden" id="editProdiId" name="prodi_id">
+                <!-- Status Kepegawaian Section -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h4 class="text-md font-bold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="bi bi-person-badge-fill"></i>
+                        Status Kepegawaian
+                    </h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-check-circle-fill"></i> Tetap
+                            </label>
+                            <input type="number" name="tetap" id="edit_tetap" min="0"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-clock-history"></i> Calon Tetap
+                            </label>
+                            <input type="number" name="calon_tetap" id="edit_calon_tetap" min="0"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-briefcase-fill"></i> Profesional
+                            </label>
+                            <input type="number" name="profesional" id="edit_profesional" min="0"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-arrows-move"></i> Perbantuan
+                            </label>
+                            <input type="number" name="perbantuan" id="edit_perbantuan" min="0"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                                required>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pendidikan Section -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h4 class="text-md font-bold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="bi bi-mortarboard-fill"></i>
+                        Pendidikan
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-book"></i> S2 (Magister)
+                            </label>
+                            <input type="number" name="s2" id="edit_s2" min="0"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-book-fill"></i> S3 (Doktor)
+                            </label>
+                            <input type="number" name="s3" id="edit_s3" min="0"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-percent"></i> Persentase S3 (Auto)
+                            </label>
+                            <input type="text" id="edit_persen_s3" readonly
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100"
+                                placeholder="Otomatis">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jabatan Fungsional Section -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h4 class="text-md font-bold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="bi bi-award-fill"></i>
+                        Jabatan Fungsional Akademik
+                    </h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-person"></i> Non-JFA
+                            </label>
+                            <input type="number" name="njad" id="edit_njad" min="0"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-star"></i> Asisten Ahli
+                            </label>
+                            <input type="number" name="aa" id="edit_aa" min="0"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-star-fill"></i> Lektor
+                            </label>
+                            <input type="number" name="l" id="edit_l" min="0"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-stars"></i> Lektor Kepala
+                            </label>
+                            <input type="number" name="lk" id="edit_lk" min="0"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-trophy-fill"></i> Guru Besar
+                            </label>
+                            <input type="number" name="gb" id="edit_gb" min="0"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-graph-up"></i> LLKGB (Auto)
+                            </label>
+                            <input type="text" id="edit_llkgb" readonly
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100"
+                                placeholder="Otomatis">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="bi bi-graph-up-arrow"></i> JFA (Auto)
+                            </label>
+                            <input type="text" id="edit_jfa" readonly
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100"
+                                placeholder="Otomatis">
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Summary -->
+                <div class="p-4 bg-gray-100 rounded-lg border border-gray-300 mb-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-semibold text-gray-700">
+                            <i class="bi bi-people-fill"></i> Total Dosen (Auto):
+                        </span>
+                        <span id="edit_total_dosen" class="text-lg font-bold text-blue-600">0</span>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="flex items-center justify-end gap-3 pt-4 border-t">
+                    <button type="button" onclick="closeEditModal()"
+                        class="px-5 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition font-medium">
+                        <i class="bi bi-x-circle"></i> Batal
+                    </button>
+                    <button type="submit"
+                        class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+                        <i class="bi bi-check-circle"></i> Simpan Perubahan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+>>>>>>> d8eafca (fix)
     <!-- Include Create Modal -->
     @include('kelola_data.prodi.create')
 
