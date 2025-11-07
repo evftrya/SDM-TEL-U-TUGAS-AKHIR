@@ -1,5 +1,5 @@
 <!-- DUPAK Sidebar Component -->
-<aside class="fixed left-0 z-50 flex flex-col w-64 m-12 text-white transition-transform duration-300 ease-in-out rounded shadow-lg top-20 bg-blue-950">
+<aside class="fixed left-0 top-16  z-50 flex flex-col w-64 m-6 text-white transition-transform duration-300 ease-in-out rounded shadow-lg bg-blue-950">
 
 	<!-- Navigation Links -->
 	<nav class="flex-1 mt-5 overflow-y-auto">

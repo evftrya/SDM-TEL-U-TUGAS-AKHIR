@@ -36,11 +36,8 @@ class PengajuanController extends Controller
         //     'pengajuan_count' => $pengajuan->count()
         // ]);
 
-        return view(
-            'dupak.pengajuan.index',
-            // compact('pengajuan',
-            
-        );
+        // Render the pengajuan index view. Data will be added later when the listing is enabled.
+        return view('dupak.pengajuan.index');
     }
 
     /**

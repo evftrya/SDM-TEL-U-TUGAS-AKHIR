@@ -1,15 +1,50 @@
-/* resources/css/app.css */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-    /* {
-            @apply transition-all duration-300;
-        } */
+/* ---------------------------------------------------------------------- */
+/* GLOBAL SCROLLBAR FIX: Targets HTML and Body directly for complete coverage */
+/* ---------------------------------------------------------------------- */
 
+/* Target WebKit browsers (Chrome, Safari, newer Edge) on the root elements */
+html::-webkit-scrollbar, 
+body::-webkit-scrollbar {
+    display: none !important; /* Added !important for stronger override */
+}
+
+/* Target Firefox and IE/Edge directly on the root elements */
+html, body {
+    /* IMPORTANT FIX: Removed 'overflow: hidden;' which was preventing all scrolling. */
+
+    /* Firefox/IE fix for the root viewport */
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Targeted Class Fix (for your inner div.hide-scrollbar) */
+/* This element is now responsible for scrolling and hiding the bar. */
+/* ---------------------------------------------------------------------- */
+
+.hide-scrollbar {
+    /* FIX: Explicitly allows vertical scrolling on the element where content overflow occurs */
+    overflow-y: auto; 
+    
+    /* Retained rules for Firefox/IE compatibility on the inner element */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* WebKit fix for the specific class (applied to your inner div) */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Removed the .min-h-screen specific rule as it is covered by .hide-scrollbar on the div */
+
+@layer components {
     .active-sidebar {
         @apply border-blue-600 border-l-4 bg-gray-600 hover:bg-gray-800 text-white !important;
     }

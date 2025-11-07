@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
-    style="height: fit-content !important; min-height: fit-content !important;">
+    > <!-- REMOVED style="height: fit-content !important; min-height: fit-content !important;" -->
 
 <head>
     <meta charset="utf-8">
@@ -15,8 +15,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased bg-[#DEDEDE] h-auto">
-    <div class="flex-shrink w-full min-h-screen bg-gray-100 dark:bg-gray-900">
+<body class="font-sans antialiased bg-[#DEDEDE] h-auto hide-scrollbar">
+    <div class="flex-shrink w-full min-h-screen bg-gray-100 dark:bg-gray-900 hide-scrollbar">
         @include('layouts.navigation')
 
         <!-- Page Heading -->

@@ -19,11 +19,11 @@
                     </x-nav-link>
 
                     <x-nav-link :href="url('/presensi')" :active="request()->is('presensi*')">
-                        Presensi
+                        PDK
                     </x-nav-link>
 
                     <x-nav-link :href="url('/manage')" :active="request()->is('pencatatan*')">
-                        Pencatatan Kinerja
+                        Kinerja Pegawai
                     </x-nav-link>
 
                     
@@ -32,14 +32,14 @@
                     </x-nav-link>
                     
                     @auth
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                    <!-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        Dashboard
+                    </x-nav-link> -->
                     @endauth
                     
-                    <x-nav-link :href="url('/bantuan')" :active="request()->is('bantuan*')">
+                    <!-- <x-nav-link :href="url('/bantuan')" :active="request()->is('bantuan*')">
                         Bantuan
-                    </x-nav-link>
+                    </x-nav-link> -->
                 </div>
             </div>
 

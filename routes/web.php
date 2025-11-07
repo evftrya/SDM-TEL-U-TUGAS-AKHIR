@@ -25,7 +25,7 @@ Route::get('/dashboard', function () {
         'email' => $user->email_institusi,
         'session_id' => Session::getId()
     ]);
-    
+
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -173,6 +173,9 @@ Route::middleware('auth')->group(function () {
         // Validasi DUPAK (for admin/validator)
         Route::resource('validasi', \App\Http\Controllers\Dupak\ValidasiController::class)
             ->only(['index', 'show', 'update']);
+
+        // Pengisian Detil Formulir Pengajuan
+        Route::resource('detil_pengajuan', \App\Http\Controllers\Dupak\DetilPengajuanController::class);
     });
 
     // Kinerja Pegawai Routes (separated from manage)

@@ -57,7 +57,7 @@ class AuthenticatedSessionController extends Controller
             ]);
 
             // Return to dashboard with session cookie
-            return redirect()->intended(route('dashboard'))
+            return redirect()->intended(route('home'))
                 ->withCookie(cookie()->forever('auth_check', true));
                 
         } catch (\Exception $e) {
