@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Faculty>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\refJabatanFungsionalTpa>
  */
-class FacultyFactory extends Factory
+class RefJabatanFungsionalTpaFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,8 @@ class FacultyFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama_fakultas'=>null,
-            'fakultas_id' => null,
+            'nama_jabatan' => $this->faker->jobTitle(),
         ];
     }
+    protected $model = \App\Models\refJabatanFungsionalKeahlian::class;
 }

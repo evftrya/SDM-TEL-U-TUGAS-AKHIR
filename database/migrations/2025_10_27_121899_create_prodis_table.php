@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ref_status_pegawais', function (Blueprint $table) {
+        Schema::create('prodis', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('status_pegawai');
-            $table->timestamps();
+            $table->uuid('fakultas_id')->nullable();
+            $table->string('nama_prodi', 100);
+            $table->foreign('fakultas_id')->references('id')->on('faculties')->onDelete('set null');
         });
     }
 
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('status_pegawais');
+        Schema::dropIfExists('prodis');
     }
 };

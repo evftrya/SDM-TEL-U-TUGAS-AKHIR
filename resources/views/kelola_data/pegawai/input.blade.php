@@ -98,7 +98,7 @@
 
                 <x-itxt lbl="Nomor Induk Pegawai" plc="1234567890" nm="nip" max="30"></x-itxt>
 
-                <x-itxt type="date" lbl="Tanggal Berlaku NIP" plc="dd/mm/yyyy" nm="tanggal_berlaku" max="1990-01-01"
+                <x-itxt type="date" lbl="Tanggal Berlaku NIP" plc="dd/mm/yyyy" nm="tmt_mulai" max="1990-01-01"
                     rules="none"></x-itxt>
 
                 <x-islc lbl="Status Kepegawaian" nm="status_kepegawaian">

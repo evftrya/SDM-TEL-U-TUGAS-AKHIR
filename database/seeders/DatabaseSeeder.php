@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\RefJabatanFungsional;
+use App\Models\refJabatanFungsionalKeahlian;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,6 +20,10 @@ public function run(): void
         RefJenjangPendidikanSeeder::class,
         RefPangkatGolonganSeeder::class,
         RefStatusPegawaiSeeder::class,
+        RefJabatanFungsionalAkademikSeeder::class,
+        RefJabatanFungsionalKeahlianSeeder::class,
+        FakultasSeeder::class,
+        ProdiSeeder::class,
         UserSeeder::class,
     ]);
 

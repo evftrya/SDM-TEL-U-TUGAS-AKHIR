@@ -6,9 +6,25 @@
         [
             ['Profile User','Profile'],
             [
-                ['Personal Information', (session('account')['is_admin']&&($user['id']!=session('account')['id']))?route('manage.pegawai.view.personal-info',['idUser' => $user['id']]):route('profile.personal-info', ['idUser' => session('account')['id']]), 'fa-solid fa-id-card'],
-                // ['Riwayat Jabatan', (session('account')['is_admin']&&($user['id']!=session('account')['id']))?route('manage.pegawai.view.riwayat-jabatan',['idUser' => $user['id']]):route('profile.personal-info', ['idUser' => session('account')['id']]), 'fa-solid fa-timeline'],
-                ['Ubah Password', (session('account')['is_admin']&&($user['id']!=session('account')['id']))?route('manage.pegawai.view.change-password', ['idUser' => $user['id'] ]):route('profile.change-password', ['idUser' => session('account')['id']]), 'fa-solid fa-key'],
+                ['Personal Information',
+                    (session('account')['is_admin'] && ($user['id'] != session('account')['id']))
+                        ? route('manage.pegawai.view.personal-info', ['idUser' => $user['id']])
+                        : route('profile.personal-info', ['idUser' => session('account')['id']]),
+                    'fa-solid fa-id-card'
+                ],
+
+                ['Ubah Password',
+                    (session('account')['is_admin'] && ($user['id'] != session('account')['id']))
+                        ? route('manage.pegawai.view.change-password', ['idUser' => $user['id']])
+                        : route('profile.change-password', ['idUser' => session('account')['id']]),
+                    'fa-solid fa-key'
+                ],
+
+                ['History Jabatan Struktural', 'tes', 'fa-solid fa-sitemap'],   // struktur organisasi
+                ['History Kepegawaian', 'tes', 'fa-solid fa-briefcase'],        // riwayat kerja / kepegawaian
+                ['History Pemetaan Jabatan', 'tes', 'fa-solid fa-network-wired'], // pemetaan posisi
+                ['History Pendidikan', 'tes', 'fa-solid fa-graduation-cap'] // riwayat pendidikan
+
             ],
         ]
     ];

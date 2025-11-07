@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\emergency_contact;
 use App\Models\riwayatJenjangPendidikan;
 use App\Models\RiwayatNip;
 use App\Models\SK;
@@ -37,9 +38,15 @@ class UserSeeder extends Seeder
             'email_institusi' => 'siti.nurhaliza@telkomuniversity.ac.id',
         ]);
 
+        User::factory()->count(30)->create();
+
         $refJenjangPendidikan = \App\Models\RefJenjangPendidikan::all();
         $refPangkatGolongan = \App\Models\RefPangkatGolongan::all();
         $refStatusPegawai = \App\Models\RefStatusPegawai::all();
+        $refJFA = \App\models\refJabatanFungsionalAkademik::all();
+        $refJFK = \App\models\refJabatanFungsionalKeahlian::all();
+        $refProdi = \App\models\Prodi::all();
+        
 
         $users = User::all();
         // dd($users);
@@ -50,6 +57,13 @@ class UserSeeder extends Seeder
             $indexRefStatusPegawai = fake()->numberBetween(0, count($refStatusPegawai)-1);
             // dd($refStatusPegawai[$indexRefStatusPegawai]);
 
+            //buat 2 emergency contact
+            emergency_contact::factory(2)->create([
+                'users_id' => $user->id,
+            ]);
+
+            //tetapkan dosen di prodi apa
+            
 
             RiwayatNip::factory()->create([
                 'users_id' => $user->id,
@@ -64,10 +78,14 @@ class UserSeeder extends Seeder
                 'jenjang_pendidikan_id' => $refJenjangPendidikan[fake()->numberBetween(0, count($refJenjangPendidikan)-1)]->id,
             ]);
 
-            if($refStatusPegawai[$indexRefStatusPegawai]->tipe_pegawai === 'Dosen'){
+            if($user->tipe_pegawai === 'Dosen'){
                 $indexRefPangkatGolongan = fake()->numberBetween(0, count($refPangkatGolongan)-1);
+                $indexRefJFA = fake()->numberBetween(0, count($refJFA)-1);
+                $indexProdi =  fake()->numberBetween(0, count($refProdi)-1);
                 $dosen = \App\Models\Dosen::factory()->create([
                     'users_id' => $user->id,
+                    'prodi_id' => $refProdi[$indexProdi]->id,
+
                 ]);
 
                 $skLLKDIKTI = SK::factory()->create([
@@ -75,21 +93,49 @@ class UserSeeder extends Seeder
                     'tipe_sk' => 'LLDIKTI',
                 ]);
 
+                $skYPT = SK::factory()->create([
+                    'users_id' => $user->id,
+                    'tipe_sk' => 'Pengakuan YPT',
+                ]);
+
                 // dd($refPangkatGolongan[$indexRefPangkatGolongan]->id);
                 \App\Models\riwayatPangkatGolongan::factory()->create([
                     'dosen_id' => $dosen->id,
                     'pangkat_golongan_id' => $refPangkatGolongan[$indexRefPangkatGolongan]->id,
                     'sk_llkdikti_id' => $skLLKDIKTI->id,
-                    'sk_pengakuan_ypt_id' => null,
+                    'sk_pengakuan_ypt_id' => $skYPT->id,
+                ]);
 
+                \App\Models\riwayatJabatanFungsionalAkademik::factory()->create([
+                    'dosen_id' => $dosen->id,
+                    'ref_jfa_id' => $refJFA[$indexRefJFA]->id,
+                    'sk_llkdikti_id' => $skLLKDIKTI->id,
+                    'sk_pengakuan_ypt_id' => $skYPT->id,
+                    'tmt_mulai'=>now(),
                 ]);
 
             }
             else{
-                Tpa::factory()->create([
-                'users_id' => $user->id,
-                'nitk' => fake()->unique()->numerify('#############'),
-            ]);
+                $skLLKDIKTI = SK::factory()->create([
+                    'users_id' => $user->id,
+                    'tipe_sk' => 'LLDIKTI',
+                ]);
+                $tpa_models = Tpa::factory()->create([
+                    'users_id' => $user->id,
+                    'nitk' => fake()->unique()->numerify('#############'),
+                ]);
+                // dd($tpa_models);
+
+                $indexRefJFK = fake()->numberBetween(0, count($refJFK)-1);
+                // dD($indexRefJFK);
+                \App\Models\riwayatJabatanFungsionalKeahlian::factory()->create([
+                    'tpa_id' => $tpa_models->id,
+                    'ref_jfk_id' => $refJFK[$indexRefJFK]->id,
+                    'sk_llkdikti_id' => $skLLKDIKTI->id,
+                    'sk_pengakuan_ypt_id' => null,
+                    'tmt_mulai'=>now(),
+                    'tmt_selesai'=>null,
+                ]);
             }
         }
     }
