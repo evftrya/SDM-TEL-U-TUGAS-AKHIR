@@ -61,7 +61,7 @@ class PegawaiController extends Controller
             return view('kelola_data.pegawai.list',compact('send','users'));
         }
     }
-    
+
     public function new()
     {
         $jenjang_pendidikan_options = refJenjangPendidikan::all();
@@ -69,7 +69,7 @@ class PegawaiController extends Controller
         $jenjang_jfa_options=RefPangkatGolongan::all();
         $send = null;
         return view('kelola_data.pegawai.input',compact('send','jenjang_pendidikan_options','status_pegawai_options','jenjang_jfa_options'));
-        
+
     }
 
 
@@ -85,7 +85,8 @@ class PegawaiController extends Controller
             // Data diri (umum)
             'nama_lengkap'        => ['required', 'string', 'max:100'],
             'username'            => ['required', 'alpha_dash', 'min:3', 'max:20'],
-            'telepon'             => ['nullable', 'regex:/^0\d{9,12}$/'], // 10–13 digit, dimulai 0
+            'telepon'             => ['nullable', 'regex:/^0\d{9,12}$/'],
+            'emergency_contact_phone' => ['nullable', 'regex:/^0\d{9,12}$/'],
             'alamat'              => ['nullable', 'string', 'max:300'],
 
             'email_pribadi'       => ['nullable', 'email:rfc,dns', 'max:150'],
@@ -144,6 +145,7 @@ class PegawaiController extends Controller
 
             // Pesan khusus
             'telepon.regex' => 'Nomor telepon harus diawali 0 dan berjumlah 10–13 digit.',
+            'emergency_contact_phone.regex' => 'Nomor telepon darurat harus diawali 0 dan berjumlah 10–13 digit.',
             'nidn.required' => 'NIDN wajib diisi untuk Dosen.',
             'nomor_induk_pegawai.required' => 'Nomor Induk Pegawai/NUPTK wajib diisi untuk Dosen.',
             'jfa.required' => 'JFA wajib dipilih untuk Dosen.',
@@ -158,7 +160,7 @@ class PegawaiController extends Controller
             $validated['password'] = strtolower(str_replace(' ', '', $validated['telepon'].'&'.$validated['nama_lengkap']));
             $validated['tgl_bergabung'] = $validated['tmt_mulai'];
             $validated['status_pegawai_id'] = $validated['status_kepegawaian'];
-            
+
             // Create User
             $validated['users_id'] = null;
             try {
@@ -212,7 +214,7 @@ class PegawaiController extends Controller
 
             // Jika semua berhasil
             DB::commit();
-            
+
             return redirect(route('manage.pegawai.view.personal-info', ['idUser' => $validated['users_id']]))->with('success', 'Data pegawai berhasil disimpan!');
 
 
@@ -285,7 +287,7 @@ class PegawaiController extends Controller
     }
 
 
-    
+
 
     /**
      * Store a newly created resource in storage.

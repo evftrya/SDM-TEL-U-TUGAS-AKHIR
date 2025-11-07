@@ -1,0 +1,86 @@
+@php
+    $active_sidebar = 'Sertifikasi Dosen';
+@endphp
+
+@extends('kelola_data.base')
+
+@section('header-base')
+    <style>
+        .max-w-100 {
+            max-width: 100% !important;
+        }
+    </style>
+@endsection
+
+@section('page-name')
+    <div
+        class="flex flex-col md:flex-row items-center gap-[11.749480247497559px] self-stretch px-1 pt-[14.686850547790527px] pb-[13.952507972717285px]">
+        <div class="flex w-full flex-col gap-[2.9373700618743896px] grow">
+            <div class="flex items-center gap-[5.874740123748779px] self-stretch">
+                <span class="font-medium text-2xl leading-[20.56159019470215px] text-[#101828]">
+                    Detail Sertifikasi Dosen
+                </span>
+            </div>
+        </div>
+        <div class="flex items-center w-full justify-end gap-[11.749480247497559px]">
+            <a href="{{ route('manage.sertifikasi-dosen.edit', $sertifikasi->id) }}"
+                class="flex rounded-[5.874740123748779px]">
+                <div
+                    class="flex justify-center items-center gap-[5.874740123748779px] bg-[#f59e0b] px-[11.749480247497559px] py-[7.343425273895264px] rounded-[5.874740123748779px] border border-[#f59e0b] hover:bg-[#d97706] transition">
+                    <i class="bi bi-pencil text-sm text-white"></i>
+                    <span class="font-medium text-[10.28px] leading-[14.68px] text-white">Edit</span>
+                </div>
+            </a>
+        </div>
+    </div>
+@endsection
+
+@section('content-base')
+    <div class="flex flex-col gap-8 w-full max-w-100 mx-auto">
+        <div class="flex flex-col gap-8 rounded-md border p-6 bg-white">
+            <h2 class="text-lg font-semibold text-black border-b pb-3">Informasi Sertifikasi</h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="flex flex-col gap-2">
+                    <span class="text-sm text-gray-500">Nama Dosen</span>
+                    <span
+                        class="text-base font-medium text-gray-900">{{ $sertifikasi->dosen->pegawai->nama_lengkap ?? '-' }}</span>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <span class="text-sm text-gray-500">NIDN</span>
+                    <span class="text-base font-medium text-gray-900">{{ $sertifikasi->dosen->nidn ?? '-' }}</span>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <span class="text-sm text-gray-500">Program Studi</span>
+                    <span
+                        class="text-base font-medium text-gray-900">{{ $sertifikasi->dosen->prodi->nama_prodi ?? '-' }}</span>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <span class="text-sm text-gray-500">Nomor Registrasi</span>
+                    <span class="text-base font-medium text-gray-900">{{ $sertifikasi->nomor_registrasi ?? '-' }}</span>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <span class="text-sm text-gray-500">No SK</span>
+                    <span class="text-base font-medium text-gray-900">{{ $sertifikasi->no_sk ?? '-' }}</span>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <span class="text-sm text-gray-500">Tanggal SK</span>
+                    <span
+                        class="text-base font-medium text-gray-900">{{ $sertifikasi->tanggal_sk ? $sertifikasi->tanggal_sk->format('d F Y') : '-' }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-end gap-4">
+            <a href="{{ route('manage.sertifikasi-dosen.list') }}"
+                class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">
+                Kembali
+            </a>
+        </div>
+    </div>
+@endsection
