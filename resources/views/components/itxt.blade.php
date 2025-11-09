@@ -33,7 +33,7 @@
             @if ($step != '') step="{{ $step }}" @endif
             @if ($type == 'number') inputmode="decimal" @endif
             @if ($max !== 'none') maxlength="{{ $max }}" @endif
-            @if($max == 'none' && $type == 'date') max = {{ $max }}  @endif
+            @if($max != 'none' && $type == 'date') max = {{ $max }}  @endif
             class="peer h-10 border border-gray-300 rounded-md px-3 text-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-400">
     @else
         <textarea name="{{ $nm }}" rows="4" placeholder="{{ $plc }}"

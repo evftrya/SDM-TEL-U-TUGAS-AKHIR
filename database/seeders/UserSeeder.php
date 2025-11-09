@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             'email_institusi' => 'siti.nurhaliza@telkomuniversity.ac.id',
         ]);
 
-        User::factory()->count(30)->create();
+        // User::factory()->count(30)->create();
 
         $refJenjangPendidikan = \App\Models\RefJenjangPendidikan::all();
         $refPangkatGolongan = \App\Models\RefPangkatGolongan::all();

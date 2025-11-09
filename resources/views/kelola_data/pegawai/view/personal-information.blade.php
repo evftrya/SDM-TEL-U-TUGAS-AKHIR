@@ -13,21 +13,21 @@
 
         /* Ukuran teks disesuaikan */
         /* .profile-wrapper {
-                    font-size: 16px;
-                    line-height: 1.7;
-                }
-                .profile-wrapper dt {
-                    font-size: 14px;
-                }
-                .profile-wrapper dd {
-                    font-size: 16px;
-                }
-                .profile-wrapper h2 {
-                    font-size: 20px;
-                }
-                .profile-wrapper h3 {
-                    font-size: 18px;
-                } */
+                                font-size: 16px;
+                                line-height: 1.7;
+                            }
+                            .profile-wrapper dt {
+                                font-size: 14px;
+                            }
+                            .profile-wrapper dd {
+                                font-size: 16px;
+                            }
+                            .profile-wrapper h2 {
+                                font-size: 20px;
+                            }
+                            .profile-wrapper h3 {
+                                font-size: 18px;
+                            } */
     </style>
 
     <div class="w-full max-w-full profile-wrapper">
@@ -66,27 +66,32 @@
                         </div>
                         <div class="flex items-start justify-between gap-4">
                             <dt class="text-gray-500 dark:text-gray-400">NIP</dt>
-                            <dd class="truncate font-medium text-gray-900 dark:text-gray-100">
-                                {{ $user['pegawai_detail']['nip'] }}</dd>
+                            <dd class="truncate font-medium text-gray-900 dark:text-gray-100"
+                                {{ $user['pegawai_detail']['nip'] ?? 'opacity-55' }}>
+                                {{ $user['pegawai_detail']['nip'] ?? 'Belum ada data' }}</dd>
                         </div>
 
                         @if ($user['pegawai_detail']['status_pegawai']['tipe_pegawai'] === 'Dosen')
                             <div class="flex items-start justify-between gap-4">
                                 <dt class="text-gray-500 dark:text-gray-400">NIDN</dt>
-                                <dd class="truncate font-medium text-gray-900 dark:text-gray-100">
-                                    {{ $user['pegawai_detail']['data_dosen']['nidn'] }}</dd>
+                                <dd
+                                    class="truncate font-medium text-gray-900 dark:text-gray-100 {{ $user['pegawai_detail']['data_dosen']['nidn'] ?? 'opacity-55' }}">
+                                    {{ $user['pegawai_detail']['data_dosen']['nidn'] ?? 'Belum ada data' }}</dd>
                             </div>
                             <div class="flex items-start justify-between gap-4">
                                 <dt class="text-gray-500 dark:text-gray-400">NUPTK</dt>
-                                <dd class="truncate font-medium text-gray-900 dark:text-gray-100">
-                                    {{ $user['pegawai_detail']['data_dosen']['nuptk'] }}</dd>
+                                <dd
+                                    class="truncate font-medium text-gray-900 dark:text-gray-100 {{ $user['pegawai_detail']['data_dosen']['nuptk'] ?? 'opacity-55' }}">
+                                    {{ $user['pegawai_detail']['data_dosen']['nuptk'] ?? 'Belum ada data' }}</dd>
                             </div>
                         @else
                             <div class="flex items-start justify-between gap-4">
                                 <dt class="text-gray-500 dark:text-gray-400">NITK</dt>
-                                <dd class="truncate font-medium text-gray-900 dark:text-gray-100">
+                                <dd
+                                    class="truncate font-medium text-gray-900 dark:text-gray-100 {{ $user['pegawai_detail']['data_tpa']['nitk'] ?? 'opacity-55' }}">
                                     {{-- {{ dd($user['pegawai_detail']['data_tpa']) }} --}}
-                                    {{ $user['pegawai_detail']['data_tpa']['nitk'] }}</dd>
+                                    {{-- {{ dd(isset($user['pegawai_detail']['data_tpa']['nitk'])) }}</dd> --}}
+                                    {{ $user['pegawai_detail']['data_tpa']['nitk'] ?? 'Belum ada data' }}</dd>
                             </div>
                         @endif
                     </dl>
@@ -137,7 +142,9 @@
                 <div
                     class="rounded-2xl border border-gray-200 bg-white pt-0 p-6 shadow-md dark:border-gray-800 dark:bg-gray-900">
                     <div class="mb-6 flex items-center justify-between gap-2">
-                        <h3 class="font-semibold tracking-wide shadow-sm py-3 px-5 rounded-b-lg bg-blue-500 text-white dark:text-gray-100">Data Personal</h3>
+                        <h3
+                            class="font-semibold tracking-wide shadow-sm py-3 px-5 rounded-b-lg bg-blue-500 text-white dark:text-gray-100">
+                            Data Personal</h3>
                         <div class="flex md:items-center pt-2 items-end justify-end gap-2">
                             <a href="#"
                                 class="inline-flex items-center gap-2 rounded-lg bg-gradient-to-b border-blue-200 border-1 px-3.5 py-2 text-xs font-medium text-blue-600 shadow-sm hover:from-blue-500 hover:to-blue-400 hover:text-white active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
@@ -175,7 +182,9 @@
                 <div
                     class="rounded-2xl border border-gray-200 bg-white pt-0 p-6 shadow-md dark:border-gray-800 dark:bg-gray-900">
                     <div class="mb-6 flex items-center justify-between">
-                        <h3 class="font-semibold tracking-wideshadow-sm py-3 px-5 rounded-b-lg bg-blue-500 text-white dark:text-gray-100">Kontak</h3>
+                        <h3
+                            class="font-semibold tracking-wideshadow-sm py-3 px-5 rounded-b-lg bg-blue-500 text-white dark:text-gray-100">
+                            Kontak</h3>
                     </div>
 
                     <dl class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-5">
@@ -219,42 +228,23 @@
                     </dl>
                 </div>
 
-                {{-- Section: Emergency Contact --}}
-                <div
-                    class="rounded-2xl border border-gray-200 bg-white p-6 shadow-md dark:border-gray-800 dark:bg-gray-900">
-                    <div class="mb-6 flex items-center justify-between">
-                        <h3 class="font-semibold tracking-wide text-gray-900 dark:text-gray-100">Kontak Darurat</h3>
-                    </div>
 
-                    <dl class="grid grid-cols-1 gap-x-8 gap-y-5">
-                        <div>
-                            <dt class="text-gray-500 dark:text-gray-400">No Telepon Darurat</dt>
-                            <dd class="mt-1 flex items-center gap-3 font-medium text-gray-900 dark:text-gray-100">
-                                @if ($user['emergency_contact_phone'])
-                                    <a href="https://wa.me/{{ PhoneHelper::toIntlID($user['emergency_contact_phone']) }}"
-                                        class="hover:underline">{{ $user['emergency_contact_phone'] }}</a>
-                                    <button type="button"
-                                        class="ml-1 rounded-md border border-gray-300 px-2 py-0.5 text-sm text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 copy"
-                                        onclick="navigator.clipboard.writeText('{{ $user['emergency_contact_phone'] }}')">Salin</button>
-                                @else
-                                    <span class="text-gray-400">-</span>
-                                @endif
-                            </dd>
-                        </div>
-                    </dl>
-                </div>
 
                 {{-- Section: Status Kepegawaian --}}
                 <div
                     class="rounded-2xl border border-gray-200 bg-white pt-0 p-6 shadow-md dark:border-gray-800 dark:bg-gray-900">
                     <div class="mb-6 flex items-start justify-start">
-                        <h3 class="font-semibold tracking-wide py-3 shadow-sm px-5 rounded-b-lg bg-blue-500 text-white dark:text-gray-100">Data
+                        <h3
+                            class="font-semibold tracking-wide py-3 shadow-sm px-5 rounded-b-lg bg-blue-500 text-white dark:text-gray-100">
+                            Data
                             Kepegawaian</h3>
                     </div>
                     <dl class="grid grid-cols-1 gap-x-8 gap-y-4 mb-4 sm:grid-cols-2">
                         <div>
                             <dt class="text-gray-500 dark:text-gray-400">Nomor Induk Pegawai (NIP)</dt>
-                            <dd class="mt-1 font-semibold text-gray-900">{{ $user['pegawai_detail']['nip'] }}</dd>
+                            <dd
+                                class="mt-1 font-semibold text-gray-900 {{ $user['pegawai_detail']['nip'] ?? 'opacity-55' }}">
+                                {{ $user['pegawai_detail']['nip'] ?? 'Belum ada data' }}</dd>
                         </div>
                         <div>
                             <dt class="text-gray-500 dark:text-gray-400">Status Kepegawaian</dt>
@@ -278,7 +268,7 @@
 
                     <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
                         <div>
-                            <dt class="text-gray-500 dark:text-gray-400">Tanggal Bergabung</dt>
+                            <dt class="text-gray-500 dark:text-gray-400">Terhitung Mulai Tanggal (TMT)</dt>
                             <dd class="mt-1 font-medium text-gray-900 dark:text-gray-100">
                                 {{ $user['pegawai_detail']['tmt_mulai'] }}
                             </dd>
@@ -291,6 +281,81 @@
                         @endif
                     </dl>
                 </div>
+
+                {{-- Kontak Darurat — View-only, Tailwind-only --}}
+                <div
+                    class="rounded-2xl border border-gray-200 bg-white p-6 shadow-md dark:border-gray-800 dark:bg-gray-900">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold tracking-wide text-gray-900 dark:text-gray-100">Kontak Darurat
+                        </h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Pilih salah satu kontak saat keadaan darurat.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+                        @foreach ($user['emergency_contacts'] as $contact)
+                        <!-- Card 1 -->
+                        <div
+                            class="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-5 shadow-sm ring-1 ring-transparent transition-all hover:shadow-md dark:border-gray-800/80 dark:bg-gray-900/70">
+                            <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-blue-500/80 to-indigo-500/80">
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                {{-- <div
+                                    class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 text-white text-sm font-semibold">
+                                    JP
+                                </div> --}}
+                                {{-- {{ dd($contact) }} --}}
+                                    <div class="min-w-0">
+                                        <div class="flex items-center gap-2">
+                                            <h4 class="truncate text-base font-semibold text-gray-900 dark:text-gray-100">{{$contact['nama_lengkap']}}</h4>
+                                            <span
+                                                class="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 ring-1 ring-blue-200 dark:bg-blue-950/30 dark:text-blue-200 dark:ring-blue-900/40">
+                                                {{ $contact['status_hubungan'] }}
+                                            </span>
+                                        </div>
+                                        <div class="mt-3 space-y-2 text-sm">
+                                            <div class="flex gap-2 text-gray-700 dark:text-gray-300">
+                                                <svg class="mt-0.5 h-4 w-4" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="1.5"
+                                                        d="M2 5.5C2 4.672 2.672 4 3.5 4h2.1c.6 0 1.117.39 1.28.966l.83 2.986a1.35 1.35 0 01-.387 1.382l-1.14 1.04a12.06 12.06 0 006.843 6.842l1.041-1.14c.353-.388.9-.544 1.382-.387l2.986.83c.575.163.966.68.966 1.28v2.1c0 .828-.672 1.5-1.5 1.5H18C9.716 21 3 14.284 3 6V5.5z" />
+                                                </svg>
+                                                <span>{{ $contact['telepon'] }}</span>
+                                            </div>
+                                            <div class="flex gap-2 text-gray-700 dark:text-gray-300">
+                                                <svg class="mt-0.5 h-4 w-4" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor">
+                                                    <path stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round" d="M4 6l8 6 8-6M4 6v12h16V6" />
+                                                </svg>
+                                                <span>{{ $contact['email'] }}</span>
+                                            </div>
+                                            <div class="flex gap-2 text-gray-700 dark:text-gray-300">
+                                                <svg class="mt-0.5 h-4 w-4" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor">
+                                                    <path stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        d="M12 21s-6-4.35-6-9a6 6 0 1112 0c0 4.65-6 9-6 9z" />
+                                                    <circle cx="12" cy="12" r="2" fill="currentColor" />
+                                                </svg>
+                                                <span>{{ $contact['alamat'] }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                                @endforeach
+
+                    </div>
+                </div>
+
+
+
+
+
 
                 {{-- Section: Catatan --}}
                 <div

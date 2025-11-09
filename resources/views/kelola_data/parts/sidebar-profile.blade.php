@@ -23,7 +23,8 @@
                 ['History Jabatan Struktural', 'tes', 'fa-solid fa-sitemap'],   // struktur organisasi
                 ['History Kepegawaian', 'tes', 'fa-solid fa-briefcase'],        // riwayat kerja / kepegawaian
                 ['History Pemetaan Jabatan', 'tes', 'fa-solid fa-network-wired'], // pemetaan posisi
-                ['History Pendidikan', 'tes', 'fa-solid fa-graduation-cap'] // riwayat pendidikan
+                ['History Pendidikan', 'tes', 'fa-solid fa-graduation-cap'], // riwayat pendidikan
+                ['Kontak Darurat', 'tes', 'fa-solid fa-graduation-cap'] // riwayat pendidikan
 
             ],
         ]

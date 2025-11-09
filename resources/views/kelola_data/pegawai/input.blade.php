@@ -61,6 +61,8 @@
 
                 {{-- Kolom Kanan --}}
                 <div class="flex flex-col gap-4">
+                    <x-itxt lbl="Nomor Induk Kependudukan (NIK)" plc="3568165xxxxxxxxx" nm="nik" max="20"></x-itxt>
+
                     <x-itxt type="email" lbl="Email Pribadi" plc="johndoe@gmail.com" nm="email_pribadi"
                         max="150"></x-itxt>
 
@@ -97,7 +99,7 @@
                     <option value="TPA" {{ $selectedType === 'Tpa' ? 'selected' : '' }}>TPA</option>
                 </x-islc>
 
-                <x-islc lbl="Status Kepegawaian" nm="status_kepegawaian" :req=false>
+                <x-islc lbl="Status Kepegawaian" nm="status_kepegawaian">
                     {{-- {{ dd($status_pegawai_options) }} --}}
                     @foreach ($status_pegawai_options as $status)
                         <option value="{{ (string) data_get($status, 'id') }}"
@@ -108,8 +110,8 @@
 
                 <x-itxt lbl="Nomor Induk Pegawai" plc="1234567890" nm="nip" max="30" :req=false></x-itxt>
 
-                <x-itxt type="date" lbl="Tanggal Berlaku NIP" plc="dd/mm/yyyy" nm="tmt_mulai" max="1990-01-01"
-                    rules="none" :req=false></x-itxt>
+                <x-itxt type="date" lbl="Tanggal Berlaku NIP" plc="dd/mm/yyyy" nm="tmt_mulai" max="none"
+                    :rules="['Silahkan masukkan tanggal pertama karyawan aktif bekerja.']"></x-itxt>
 
             </div>
 
