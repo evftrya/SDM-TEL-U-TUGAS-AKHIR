@@ -10,7 +10,10 @@ class Fakultas extends Model
 {
     use HasFactory;
 
-    protected $table = 'fakultas';
+    protected $table = 'faculties';
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
+    public $incrementing = false;
     public $timestamps = false;
 
 

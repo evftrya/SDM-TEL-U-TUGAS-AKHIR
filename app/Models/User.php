@@ -61,6 +61,24 @@ class User extends Authenticatable
     ];
 
     /**
+     * Relationships
+     */
+    public function dosen()
+    {
+        return $this->hasOne(Dosen::class, 'users_id');
+    }
+
+    public function riwayatNip()
+    {
+        return $this->hasMany(RiwayatNip::class, 'users_id');
+    }
+
+    public function riwayatJenjangPendidikan()
+    {
+        return $this->hasMany(riwayatJenjangPendidikan::class, 'users_id');
+    }
+
+    /**
      * Auto-generate UUID when creating new User
      */
     protected static function boot()

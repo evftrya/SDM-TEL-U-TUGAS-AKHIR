@@ -61,21 +61,21 @@
 =======
         /* Ukuran teks disesuaikan */
         /* .profile-wrapper {
-            font-size: 16px;
-            line-height: 1.7;
-        }
-        .profile-wrapper dt {
-            font-size: 14px;
-        }
-        .profile-wrapper dd {
-            font-size: 16px;
-        }
-        .profile-wrapper h2 {
-            font-size: 20px;
-        }
-        .profile-wrapper h3 {
-            font-size: 18px;
-        } */
+                    font-size: 16px;
+                    line-height: 1.7;
+                }
+                .profile-wrapper dt {
+                    font-size: 14px;
+                }
+                .profile-wrapper dd {
+                    font-size: 16px;
+                }
+                .profile-wrapper h2 {
+                    font-size: 20px;
+                }
+                .profile-wrapper h3 {
+                    font-size: 18px;
+                } */
     </style>
 >>>>>>> d436cf625835e0f0ee7d558e1be9ae3b9bb9dcd3
 
@@ -331,7 +331,7 @@
         </div>
     </div>
 
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const copyButtons = document.querySelectorAll('.copy');

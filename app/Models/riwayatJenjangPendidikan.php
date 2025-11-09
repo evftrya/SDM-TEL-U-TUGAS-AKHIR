@@ -27,6 +27,8 @@ class riwayatJenjangPendidikan extends Model
 
     protected $casts = [
         'id' => 'string',
+        'users_id' => 'string',
+        'jenjang_pendidikan_id' => 'string',
     ];
 
     public function pegawai()
@@ -50,5 +52,13 @@ class riwayatJenjangPendidikan extends Model
         });
     }
 
-    
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\RiwayatJenjangPendidikanFactory::new();
+    }
+
+
 }

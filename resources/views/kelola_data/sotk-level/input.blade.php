@@ -36,8 +36,8 @@
         <div class="grid gap-8 ">
             <!-- Kolom Kiri -->
             <div class="flex flex-col gap-4">
-                <x-itxt lbl="Nama Level" plc="Direktur" nm='nama_level'></x-itxt>
-                <x-itxt lbl="Singkatan Level" plc="DIR" nm='singkatan_level'></x-itxt>
+                <x-itxt lbl="Nama Level" plc="Direktur" nm='nama_level' max="30"></x-itxt>
+                <x-itxt lbl="Singkatan Level" plc="DIR" nm='singkatan_level' max="12"></x-itxt>
                 <x-islc lbl="Atasan Level" nm='atasan'>
                     <option value="">Direktur</option>
                     <option value="">Kepala Bagian</option>

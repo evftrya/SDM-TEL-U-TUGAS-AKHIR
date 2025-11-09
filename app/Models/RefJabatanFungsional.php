@@ -16,6 +16,7 @@ class RefJabatanFungsional extends Model
 
     protected $casts = [
         'id' => 'string',
+        ''
     ];
 
 

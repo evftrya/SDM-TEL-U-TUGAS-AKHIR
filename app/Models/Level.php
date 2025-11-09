@@ -11,9 +11,22 @@ class Level extends Model
     /** @use HasFactory<\Database\Factories\LevelFactory> */
     use HasFactory;
 
+    protected $table = 'levels';
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+    public $timestamps = true;
+    protected $fillable = [
+        'nama_level',
+        'singkatan_level',
+        'atasan_level',
+    ];
+
 
     protected $casts = [
         'id' => 'string',
+        'atasan_level' => 'string',
+        
     ];
 
     protected static function boot()

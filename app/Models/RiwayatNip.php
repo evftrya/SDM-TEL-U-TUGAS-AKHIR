@@ -24,6 +24,8 @@ class RiwayatNip extends Model
         'tanggal_berlaku' => 'date',
         'is_active' => 'boolean',
         'id' => 'string',
+        'status_pegawai_id' => 'string',
+        'users_id' => 'string',
     ];
 
 

@@ -17,18 +17,22 @@ class Dosen extends Model
     protected $table = 'dosens';
     protected $casts = [
         'id' => 'string',
+        'users_id' => 'string',
+        'nidn' => 'string',
+        'nuptk' => 'string',
     ];
 
     protected $fillable = [
         'nidn',
         'nuptk',
         'users_id',
+
     ];
 
     // Relationships
     public function pegawai()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'users_id');
     }
 
     public function prodi()

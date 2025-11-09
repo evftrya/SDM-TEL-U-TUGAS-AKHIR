@@ -9,13 +9,8 @@
                 ['Dashboard Pegawai', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-gauge'],
                 ['Daftar Pegawai', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-users'],
                 ['Tambah Pegawai Baru', route('manage.pegawai.new'), 'fa-solid fa-user-plus'],
-<<<<<<< HEAD
                 ['Tambah Dosen Baru', route('manage.pegawai.new', ['type' => 'Dosen']), 'fa-solid fa-chalkboard-user'],
                 ['Tambah TPA Baru', route('manage.pegawai.new', ['type' => 'Tpa']), 'fa-solid fa-user-tie'],
-=======
-                ['Tambah Dosen Baru', route('manage.pegawai.new',['type'=>'Dosen']), 'fa-solid fa-chalkboard-user'],
-                ['Tambah TPA Baru', route('manage.pegawai.new',['type'=>'Tpa']), 'fa-solid fa-user-tie'],
->>>>>>> d436cf625835e0f0ee7d558e1be9ae3b9bb9dcd3
                 ['Import Pegawai', route('manage.pegawai.new'), 'fa-solid fa-file-import'],
             ],
         ],

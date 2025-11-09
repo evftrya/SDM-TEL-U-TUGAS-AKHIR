@@ -10,7 +10,10 @@ class Prodi extends Model
 {
     use HasFactory;
 
-    protected $table = 'prodi';
+    protected $table = 'prodis';
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
+    public $incrementing = false;
     public $timestamps = false;
 
     protected $fillable = [
@@ -20,6 +23,8 @@ class Prodi extends Model
 
     protected $casts = [
         'id' => 'string',
+        'fakultas_id' => 'string',
+
     ];
 
     // Relationships
