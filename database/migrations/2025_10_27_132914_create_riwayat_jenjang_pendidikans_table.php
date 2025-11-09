@@ -15,14 +15,14 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('users_id')->nullable();
             $table->foreignUuid('jenjang_pendidikan_id')->nullable();
-            $table->string('bidang_pendidikan')->nullable();
-            $table->string('jurusan')->nullable();
-            $table->string('nama_kampus')->nullable();
-            $table->string('alamat_kampus')->nullable();
-            $table->string('tahun_lulus')->nullable();
-            $table->string('nilai')->nullable();
-            $table->string('gelar')->nullable();
-            $table->string('singkatan_gelar')->nullable();
+            $table->string('bidang_pendidikan');
+            $table->string('jurusan');
+            $table->string('nama_kampus');
+            $table->string('alamat_kampus');
+            $table->string('tahun_lulus');
+            $table->string('nilai');
+            $table->string('gelar');
+            $table->string('singkatan_gelar');
             $table->string('ijazah')->nullable();
             $table->timestamps();
 

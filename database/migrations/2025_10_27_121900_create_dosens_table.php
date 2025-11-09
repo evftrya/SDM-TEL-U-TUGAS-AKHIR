@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('dosens', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('nidn')->nullable();
-            $table->string('nuptk')->nullable();
+            $table->string('nidn');
+            $table->string('nuptk');
             $table->foreignUuid('users_id')->nullable();
             $table->timestamps();
 

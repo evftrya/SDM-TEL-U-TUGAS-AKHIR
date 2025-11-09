@@ -4,7 +4,7 @@
 
 @extends('kelola_data.base-profile')
 
-@section('content-base')
+@section('content-profile')
 <div class="w-full space-y-6">
     {{-- Header --}}
     <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

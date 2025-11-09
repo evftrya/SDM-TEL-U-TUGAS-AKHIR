@@ -19,7 +19,12 @@ class SKFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'no_sk' => $this->faker->optional()->numerify('SK-###/YPT'),
+            'tanggal_berlaku' => $this->faker->optional()->date(),
+            'file_sk' => $this->faker->optional()->lexify('file_????.pdf'),
+            'tipe_sk' => $this->faker->randomElement(['LLDIKTI', 'Pengakuan YPT']),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

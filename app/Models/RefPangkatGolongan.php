@@ -14,6 +14,12 @@ class RefPangkatGolongan extends Model
 
     protected $fillable = ['pangkat', 'golongan'];
 
+    protected $casts = [
+        'id' => 'string',
+    ];
+
+    
+
     protected static function boot()
     {
         parent::boot();

@@ -66,7 +66,7 @@
                                         {{ __('User Dashboard') }}
                                     </x-dropdown-link>
 
-                                    <x-dropdown-link :href="route('profile.edit')">
+                                    <x-dropdown-link :href="route('profile.personal-info', ['idUser' => Auth::user()->id])">
                                         {{ __('Profile') }}
                                     </x-dropdown-link>
 

@@ -11,6 +11,11 @@ class Level extends Model
     /** @use HasFactory<\Database\Factories\LevelFactory> */
     use HasFactory;
 
+
+    protected $casts = [
+        'id' => 'string',
+    ];
+
     protected static function boot()
     {
         parent::boot();

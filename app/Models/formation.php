@@ -11,7 +11,9 @@ class formation extends Model
     /** @use HasFactory<\Database\Factories\FormationFactory> */
     use HasFactory;
 
-
+    protected $casts = [
+        'id' => 'string',
+    ];
     protected static function boot()
     {
         parent::boot();

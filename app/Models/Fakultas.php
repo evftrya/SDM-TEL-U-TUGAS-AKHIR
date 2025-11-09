@@ -13,6 +13,10 @@ class Fakultas extends Model
     protected $table = 'fakultas';
     public $timestamps = false;
 
+
+    protected $casts = [
+        'id' => 'string',
+    ];
     protected $fillable = ['nama_fakultas'];
 
     // Relationships

@@ -15,6 +15,9 @@ class Dosen extends Model
     protected $keyType = 'string';
 
     protected $table = 'dosens';
+    protected $casts = [
+        'id' => 'string',
+    ];
 
     protected $fillable = [
         'nidn',

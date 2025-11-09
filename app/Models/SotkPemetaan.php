@@ -22,6 +22,7 @@ class SotkPemetaan extends Model
     protected $casts = [
         'tmt_mulai' => 'date',
         'tmt_selesai' => 'date',
+        'id' => 'string',
     ];
 
     // Relationships

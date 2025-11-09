@@ -15,11 +15,14 @@ public function run(): void
 {
     $this->call([
         // FakultasSeeder::class,
-        UserSeeder::class,
         RefJenjangPendidikanSeeder::class,
         RefPangkatGolonganSeeder::class,
         RefStatusPegawaiSeeder::class,
+        UserSeeder::class,
     ]);
+
+
+    
 }
 
 }

@@ -2,11 +2,14 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\Dosen;
+use App\Models\Tpa;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
+use App\Models\User;
 use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
@@ -57,6 +60,16 @@ class LoginRequest extends FormRequest
                 'email_institusi' => trans('auth.failed'),
             ]);
         }
+
+
+
+        //set session  
+        $user = User::where('email_institusi', $credentials['email_institusi'])->first();
+        $user['role']=null;
+        if($user){
+            $user['role'] = [Tpa::where('users_id', $user->id)->first()?'TPA':'Dosen'];
+        }
+        session(['account' => $user]);
     }
 
     /**

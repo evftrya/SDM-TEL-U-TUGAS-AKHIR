@@ -21,6 +21,10 @@ class riwayatPangkatGolongan extends Model
         'no_sk_pengakuan_ypt',
     ];
 
+    protected $casts = [
+        'id' => 'string',
+    ];
+
     public function dosen()
     {
         return $this->belongsTo(Dosen::class, 'dosen_id');

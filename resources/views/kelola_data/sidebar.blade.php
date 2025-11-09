@@ -6,11 +6,16 @@
         [
             ['Manajemen Data Pegawai', 'Pegawai'],
             [
-                ['Dashboard Pegawai', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-chart-line'],
+                ['Dashboard Pegawai', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-gauge'],
                 ['Daftar Pegawai', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-users'],
                 ['Tambah Pegawai Baru', route('manage.pegawai.new'), 'fa-solid fa-user-plus'],
+<<<<<<< HEAD
                 ['Tambah Dosen Baru', route('manage.pegawai.new', ['type' => 'Dosen']), 'fa-solid fa-chalkboard-user'],
                 ['Tambah TPA Baru', route('manage.pegawai.new', ['type' => 'Tpa']), 'fa-solid fa-user-tie'],
+=======
+                ['Tambah Dosen Baru', route('manage.pegawai.new',['type'=>'Dosen']), 'fa-solid fa-chalkboard-user'],
+                ['Tambah TPA Baru', route('manage.pegawai.new',['type'=>'Tpa']), 'fa-solid fa-user-tie'],
+>>>>>>> d436cf625835e0f0ee7d558e1be9ae3b9bb9dcd3
                 ['Import Pegawai', route('manage.pegawai.new'), 'fa-solid fa-file-import'],
             ],
         ],
@@ -18,14 +23,14 @@
             ['Manajemen Fakultas', 'Fakultas'],
             [
                 ['Daftar Fakultas', route('manage.fakultas.index'), 'fa-solid fa-building-columns'],
-                ['Tambah Fakultas', route('manage.fakultas.create'), 'fa-solid fa-circle-plus'],
+                ['Tambah Fakultas', route('manage.fakultas.create'), 'fa-solid fa-plus-circle'],
             ],
         ],
         [
             ['Manajemen Prodi', 'Prodi'],
             [
                 ['Daftar Prodi', route('manage.prodi.index'), 'fa-solid fa-book-open'],
-                ['Tambah Prodi', route('manage.prodi.create'), 'fa-solid fa-circle-plus'],
+                ['Tambah Prodi', route('manage.prodi.create'), 'fa-solid fa-plus-circle'],
             ],
         ],
         [
@@ -40,14 +45,14 @@
             ['Manajemen Level', 'Level'],
             [
                 ['Daftar Level', route('manage.level.list'), 'fa-solid fa-layer-group'],
-                ['Tambah Level', route('manage.level.new'), 'fa-solid fa-circle-plus'],
+                ['Tambah Level', route('manage.level.new'), 'fa-solid fa-plus-circle'],
             ],
         ],
         [
             ['Manajemen Formasi', 'Formasi'],
             [
-                ['Daftar Formasi', route('manage.formasi.list'), 'fa-solid fa-table-list'],
-                ['Tambah Formasi', route('manage.formasi.list'), 'fa-solid fa-circle-plus'],
+                ['Daftar Formasi', route('manage.formasi.list'), 'fa-solid fa-list-check'],
+                ['Tambah Formasi', route('manage.formasi.list'), 'fa-solid fa-plus-circle'],
             ],
         ],
         [
@@ -70,6 +75,7 @@
         ],
     ];
 @endphp
+
 
 
 @foreach ($sidebars as $sidebar)

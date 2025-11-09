@@ -11,6 +11,10 @@ class pengawakan extends Model
     /** @use HasFactory<\Database\Factories\PengawakanFactory> */
     use HasFactory;
 
+    protected $casts = [
+        'id' => 'string',
+    ];
+
     protected static function boot()
     {
         parent::boot();

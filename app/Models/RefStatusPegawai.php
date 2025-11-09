@@ -19,6 +19,10 @@ class RefStatusPegawai extends Model
         return $this->hasMany(RiwayatNip::class, 'status_pegawai_id');
     }
 
+    protected $casts = [
+        'id' => 'string',
+    ];
+
     protected static function boot()
     {
         parent::boot();

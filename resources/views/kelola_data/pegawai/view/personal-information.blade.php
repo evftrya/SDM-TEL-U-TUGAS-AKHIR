@@ -1,19 +1,17 @@
 @php
+    use App\Helpers\PhoneHelper;
     $active_sidebar = 'Personal Information';
 @endphp
 
 @extends('kelola_data.base-profile')
 
-@section('content-base')
-    <div class="w-full max-w-full">
-        {{-- Responsive size helper (optional, remove if not needed) --}}
-        <p class="sr-only">
-            <span class="inline sm:hidden">Ukuran: xs</span>
-            <span class="hidden sm:inline md:hidden">Ukuran: sm</span>
-            <span class="hidden md:inline lg:hidden">Ukuran: md</span>
-            <span class="hidden lg:inline">Ukuran: lg+</span>
-        </p>
+@section('content-profile')
+    <style>
+        .bg-primary-bs {
+            background-color: #1C2762 !important;
+        }
 
+<<<<<<< HEAD
         {{-- Header / Title Bar --}}
         <div
             class="sticky top-0 z-10 mb-4 -mx-4 border-b border-gray-200/70 bg-white/70 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-white/50 dark:border-gray-800 dark:bg-gray-950/60">
@@ -60,48 +58,89 @@
                     font-size: 18px;
                 } */
         </style>
+=======
+        /* Ukuran teks disesuaikan */
+        /* .profile-wrapper {
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        .profile-wrapper dt {
+            font-size: 14px;
+        }
+        .profile-wrapper dd {
+            font-size: 16px;
+        }
+        .profile-wrapper h2 {
+            font-size: 20px;
+        }
+        .profile-wrapper h3 {
+            font-size: 18px;
+        } */
+    </style>
+>>>>>>> d436cf625835e0f0ee7d558e1be9ae3b9bb9dcd3
 
+    <div class="w-full max-w-full profile-wrapper">
         {{-- Content Layout --}}
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+
             {{-- Left column: Identity card --}}
-            <section class="lg:col-span-1">
+            <section class="lg:col-span-1 min-h-full">
                 <div
-                    class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+                    class="rounded-2xl border min-h-full border-gray-200 bg-white p-6 shadow-md dark:border-gray-800 dark:bg-gray-900">
                     <div class="flex items-start gap-4">
                         <div
-                            class="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white ring-2 ring-white dark:ring-gray-900">
-                            <div class="flex h-full w-full items-center justify-center text-base font-semibold">TA</div>
+                            class="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white ring-2 ring-white dark:ring-gray-900">
+                            <div class="flex h-full w-full items-center justify-center text-2xl font-semibold">TA</div>
                         </div>
                         <div class="min-w-0">
-                            <h2 class="truncate text-base font-semibold text-gray-900 dark:text-gray-100">Tirex Alfred</h2>
-                            <p class="truncate text-sm text-gray-500 dark:text-gray-400">Tirex Alfred, S.T., M.T.</p>
-                            <span
-                                class="mt-2 inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-medium text-blue-700 ring-1 ring-inset ring-blue-200 dark:bg-blue-950/40 dark:text-blue-200 dark:ring-blue-900">Software</span>
+                            <h2 class="truncate font-semibold text-gray-900 dark:text-gray-100">
+                                {{ $user['nama_lengkap'] }}</h2>
+                            <p class="truncate text-gray-500 dark:text-gray-400">Tirex Alfred, S.T., M.T.</p>
                         </div>
                     </div>
 
-                    <dl class="mt-6 space-y-3">
+                    <dl class="mt-8 space-y-4">
                         <div class="flex items-start justify-between gap-4">
-                            <dt class="text-xs text-gray-500 dark:text-gray-400">Username</dt>
-                            <dd class="truncate text-sm font-medium text-gray-900 dark:text-gray-100">trxalf</dd>
+                            <dt class="text-gray-500 dark:text-gray-400">Username</dt>
+                            <dd class="truncate font-medium text-gray-900 dark:text-gray-100">{{ $user['username'] }}</dd>
                         </div>
                         <div class="flex items-start justify-between gap-4">
-                            <dt class="text-xs text-gray-500 dark:text-gray-400">NIDN</dt>
-                            <dd class="truncate text-sm font-medium text-gray-900 dark:text-gray-100">2155465654 hgjh</dd>
+                            <dt class="text-gray-500 dark:text-gray-400">Password</dt>
+                            <dd class="truncate font-medium text-gray-900 dark:text-gray-100">********</dd>
                         </div>
                         <div class="flex items-start justify-between gap-4">
-                            <dt class="text-xs text-gray-500 dark:text-gray-400">NUPTK</dt>
-                            <dd class="truncate text-sm font-medium text-gray-900 dark:text-gray-100">321565462</dd>
+                            <dt class="text-gray-500 dark:text-gray-400">NIP</dt>
+                            <dd class="truncate font-medium text-gray-900 dark:text-gray-100">
+                                {{ $user['pegawai_detail']['nip'] }}</dd>
                         </div>
+
+                        @if ($user['pegawai_detail']['status_pegawai']['tipe_pegawai'] == 'Dosen')
+                            <div class="flex items-start justify-between gap-4">
+                                <dt class="text-gray-500 dark:text-gray-400">NIDN</dt>
+                                <dd class="truncate font-medium text-gray-900 dark:text-gray-100">
+                                    {{ $user['pegawai_detail']['data_dosen']['nidn'] }}</dd>
+                            </div>
+                            <div class="flex items-start justify-between gap-4">
+                                <dt class="text-gray-500 dark:text-gray-400">NUPTK</dt>
+                                <dd class="truncate font-medium text-gray-900 dark:text-gray-100">
+                                    {{ $user['pegawai_detail']['data_dosen']['nuptk'] }}</dd>
+                            </div>
+                        @else
+                            <div class="flex items-start justify-between gap-4">
+                                <dt class="text-gray-500 dark:text-gray-400">NITK</dt>
+                                <dd class="truncate font-medium text-gray-900 dark:text-gray-100">
+                                    {{ $user['pegawai_detail']['data_tpa']['nitk'] }}</dd>
+                            </div>
+                        @endif
                     </dl>
 
-                    <div class="mt-6 grid grid-cols-2 gap-2">
-                        <a href="mailto:trx@telkomuniversity.ac.id"
-                            class="group inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-xs font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
+                    <div class="mt-8 grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-3">
+                        <a href="{{ $user['email_institusi'] }}"
+                            class="group inline-flex items-center text-sm justify-center gap-3 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
                             📧 <span class="group-hover:underline">Email Institusi</span>
                         </a>
-                        <a href="tel:0895263241235"
-                            class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-xs font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
+                        <a href="wa.me/{{ PhoneHelper::toIntlID($user['telepon']) }}"
+                            class="inline-flex items-center text-sm justify-center gap-3 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
                             📱 <span>Telepon</span>
                         </a>
                     </div>
@@ -109,71 +148,82 @@
             </section>
 
             {{-- Right column: details --}}
-            <section class="lg:col-span-2 space-y-6">
+            <section class="lg:col-span-2 space-y-8">
+
                 {{-- Section: Data Personal --}}
                 <div
-                    class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
-                    <div class="mb-4 flex items-center justify-between">
-                        <h3 class="text-sm font-semibold tracking-wide text-gray-900 dark:text-gray-100">Data Personal</h3>
+                    class="rounded-2xl border border-gray-200 bg-white p-6 shadow-md dark:border-gray-800 dark:bg-gray-900">
+                    <div class="mb-6 flex items-center justify-between">
+                        <h3 class="font-semibold tracking-wide text-gray-900 dark:text-gray-100">Data Personal</h3>
                     </div>
 
                     <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
                         <div>
-                            <dt class="text-xs text-gray-500 dark:text-gray-400">Gelar Depan</dt>
-                            <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">Sarjana Teknik (S.T.)</dd>
+                            <dt class="text-gray-500 dark:text-gray-400">Nama Lengkap</dt>
+                            <dd class="mt-1 font-medium text-gray-900 dark:text-gray-100">{{ $user['nama_lengkap'] }}</dd>
                         </div>
                         <div>
-                            <dt class="text-xs text-gray-500 dark:text-gray-400">Gelar Belakang</dt>
-                            <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">Magister Teknik (S.T)</dd>
+                            <dt class="text-gray-500 dark:text-gray-400">Tempat Lahir</dt>
+                            <dd class="mt-1 font-medium text-gray-900 dark:text-gray-100">{{ $user['tempat_lahir'] }}</dd>
                         </div>
                         <div>
-                            <dt class="text-xs text-gray-500 dark:text-gray-400">Tempat Lahir</dt>
-                            <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">Surabaya</dd>
+                            <dt class="text-gray-500 dark:text-gray-400">Tanggal Lahir</dt>
+                            <dd class="mt-1 font-medium text-gray-900 dark:text-gray-100">{{ $user['tgl_lahir'] }}</dd>
                         </div>
                         <div>
-                            <dt class="text-xs text-gray-500 dark:text-gray-400">Tanggal Lahir</dt>
-                            <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">25 Maret 2000</dd>
+                            <dt class="text-gray-500 dark:text-gray-400">Jenis Kelamin</dt>
+                            <dd class="mt-1 font-medium text-gray-900 dark:text-gray-100">{{ $user['jenis_kelamin'] }}</dd>
                         </div>
-                        <div class="sm:col-span-2">
-                            <dt class="text-xs text-gray-500 dark:text-gray-400">Alamat</dt>
-                            <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">Jl. Kenangan Barat</dd>
+                        <div class="flex flex-row justify-start items-end gap-3">
+                            <div>
+                                <dt class="text-gray-500 dark:text-gray-400">No Handphone</dt>
+                                <dd class="mt-1 font-medium text-gray-900 dark:text-gray-100">{{ $user['telepon'] }}</dd>
+                            </div>
+                            <button type="button"
+                                class="ml-1 rounded-md border border-gray-300 px-2 py-0.5 text-sm text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 copy"
+                                onclick="navigator.clipboard.writeText({{ $user['telepon'] }})">Salin</button>
                         </div>
                         <div>
-                            <dt class="text-xs text-gray-500 dark:text-gray-400">Jenis Kelamin</dt>
-                            <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">Laki-laki</dd>
-                        </div>
-                        <div>
-                            <dt class="text-xs text-gray-500 dark:text-gray-400">No Handphone</dt>
-                            <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">0895263241235</dd>
+                            <dt class="text-gray-500 dark:text-gray-400">Alamat</dt>
+                            <dd class="mt-1 font-medium text-gray-900 dark:text-gray-100">{{ $user['alamat'] }}</dd>
                         </div>
                     </dl>
                 </div>
 
                 {{-- Section: Kontak --}}
                 <div
-                    class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
-                    <div class="mb-4 flex items-center justify-between">
-                        <h3 class="text-sm font-semibold tracking-wide text-gray-900 dark:text-gray-100">Kontak</h3>
+                    class="rounded-2xl border border-gray-200 bg-white p-6 shadow-md dark:border-gray-800 dark:bg-gray-900">
+                    <div class="mb-6 flex items-center justify-between">
+                        <h3 class="font-semibold tracking-wide text-gray-900 dark:text-gray-100">Kontak</h3>
                     </div>
 
-                    <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
+                    <dl class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-5">
                         <div>
-                            <dt class="text-xs text-gray-500 dark:text-gray-400">Email Institusi</dt>
-                            <dd class="mt-1 flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                            <dt class="text-gray-500 dark:text-gray-400">Email Institusi</dt>
+                            <dd class="mt-1 flex items-center gap-3 font-medium text-gray-900 dark:text-gray-100">
                                 <a href="mailto:trx@telkomuniversity.ac.id"
-                                    class="hover:underline">trx@telkomuniversity.ac.id</a>
+                                    class="hover:underline">{{ $user['email_institusi'] }}</a>
                                 <button type="button"
-                                    class="ml-1 rounded-md border border-gray-300 px-1.5 py-0.5 text-[10px] text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
-                                    onclick="navigator.clipboard.writeText('trx@telkomuniversity.ac.id')">Salin</button>
+                                    class="ml-1 rounded-md border border-gray-300 px-2 py-0.5 text-sm text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 copy"
+                                    onclick="navigator.clipboard.writeText({{ $user['email_institusi'] }})">Salin</button>
                             </dd>
                         </div>
                         <div>
-                            <dt class="text-xs text-gray-500 dark:text-gray-400">Email Pribadi</dt>
-                            <dd class="mt-1 flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                <a href="mailto:trx@gmail.com" class="hover:underline">trx@gmail.com</a>
+                            <dt class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                                Email Pribadi
+                                @if ($user['email_verified_at'] == null)
+                                    <span
+                                        class="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-200 dark:bg-red-950/40 dark:text-red-200 dark:ring-red-900">
+                                        Belum terverifikasi
+                                    </span>
+                                @endif
+                            </dt>
+                            <dd class="mt-1 flex items-center gap-3 font-medium text-gray-900 dark:text-gray-100">
+                                <a href="mailto:{{ $user['email_pribadi'] }}"
+                                    class="hover:underline">{{ $user['email_pribadi'] }}</a>
                                 <button type="button"
-                                    class="ml-1 rounded-md border border-gray-300 px-1.5 py-0.5 text-[10px] text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
-                                    onclick="navigator.clipboard.writeText('trx@gmail.com')">Salin</button>
+                                    class="ml-1 rounded-md border border-gray-300 px-2 py-0.5 text-sm text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 copy"
+                                    onclick="navigator.clipboard.writeText({{ $user['email_pribadi'] }})">Salin</button>
                             </dd>
                         </div>
                     </dl>
@@ -206,77 +256,117 @@
 
                 {{-- Section: Status Kepegawaian --}}
                 <div
-                    class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
-                    <div class="mb-4 flex items-center justify-between">
-                        <h3 class="text-sm font-semibold tracking-wide text-gray-900 dark:text-gray-100">Status Kepegawaian
-                        </h3>
+                    class="rounded-2xl border border-gray-200 bg-white p-6 shadow-md dark:border-gray-800 dark:bg-gray-900">
+                    <div class="mb-6 flex items-center justify-center">
+                        <h3 class="font-semibold text-center tracking-wide text-gray-900 dark:text-gray-100">Data
+                            Kepegawaian</h3>
                     </div>
+                    <dl class="grid grid-cols-1 gap-x-8 gap-y-4 mb-4 sm:grid-cols-2">
+                        <div>
+                            <dt class="text-gray-500 dark:text-gray-400">Nomor Induk Pegawai (NIP)</dt>
+                            <dd class="mt-1 font-semibold text-gray-900">{{ $user['pegawai_detail']['nip'] }}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-gray-500 dark:text-gray-400">Status Kepegawaian</dt>
+                            <dd class="mt-1">
+                                <span
+                                    class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-200">
+                                    {{ $user['pegawai_detail']['status_pegawai']['status_pegawai'] }}
+                                </span>
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-gray-500 dark:text-gray-400">Jenis Kepegawaian</dt>
+                            <dd class="mt-1">
+                                <span
+                                    class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-200">
+                                    {{ $user['pegawai_detail']['status_pegawai']['tipe_pegawai'] }}
+                                </span>
+                            </dd>
+                        </div>
+                    </dl>
 
                     <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
                         <div>
-                            <dt class="text-xs text-gray-500 dark:text-gray-400">Tanggal Bergabung</dt>
-                            <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">23 Februari 2025</dd>
+                            <dt class="text-gray-500 dark:text-gray-400">Tanggal Bergabung</dt>
+                            <dd class="mt-1 font-medium text-gray-900 dark:text-gray-100">
+                                {{ $user['pegawai_detail']['tanggal_berlaku'] }}
+                            </dd>
                         </div>
                         <div>
-                            <dt class="text-xs text-gray-500 dark:text-gray-400">Tanggal Berhenti</dt>
-                            <dd class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">-</dd>
+                            <dt class="text-gray-500 dark:text-gray-400">Tanggal Berhenti</dt>
+                            <dd class="mt-1 font-medium text-gray-900 dark:text-gray-100">-</dd>
                         </div>
                     </dl>
                 </div>
 
-                {{-- Section: Catatan (optional) --}}
+                {{-- Section: Catatan --}}
                 <div
-                    class="rounded-2xl border border-dashed border-gray-200 bg-gray-50 p-5 text-sm text-gray-600 dark:border-gray-800 dark:bg-gray-900/40 dark:text-gray-300">
-                    <p>Tip: Gunakan tombol <span
-                            class="rounded bg-gray-200 px-1 py-0.5 text-[11px] dark:bg-gray-800">Salin</span> untuk cepat
-                        menyalin email. Klik <span
-                            class="rounded bg-blue-100 px-1 py-0.5 text-[11px] text-blue-700 dark:bg-blue-950/40 dark:text-blue-200">Ubah
-                            Data</span> untuk memperbarui informasi.</p>
+                    class="rounded-2xl border border-dashed border-gray-200 bg-gray-50 p-6 text-gray-600 dark:border-gray-800 dark:bg-gray-900/40 dark:text-gray-300">
+                    <p>
+                        Tip: Gunakan tombol
+                        <span class="rounded bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-800">Salin</span>
+                        untuk cepat menyalin email. Klik
+                        <span
+                            class="rounded bg-blue-100 px-2 py-0.5 text-xs text-blue-700 dark:bg-blue-950/40 dark:text-blue-200">Ubah
+                            Data</span>
+                        untuk memperbarui informasi.
+                    </p>
                 </div>
             </section>
         </div>
     </div>
-    <div class="w-full space-y-6">
-        {{-- Header --}}
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h2 class="text-2xl font-semibold text-gray-900">Employee Information</h2>
 
-            <div class="flex">
-                <a href="#"
-                    class="inline-flex items-center gap-2 rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 active:bg-blue-800">
-                    ✏️ <span>Ubah Data</span>
-                </a>
+    <!-- Toast -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+        <div id="copyToast" class="toast align-items-center bg-blue-950 border-0" role="alert" aria-live="assertive"
+            aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body text-white" id="copyToastBody">
+                    Teks berhasil disalin ke clipboard!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
             </div>
         </div>
-
-        {{-- Card --}}
-        <div class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
-            <dl class="grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2">
-                <div>
-                    <dt class="text-xs font-medium text-gray-500">Nomor Induk Pegawai (NIP)</dt>
-                    <dd class="mt-1 text-sm font-semibold text-gray-900">123165465421</dd>
-                </div>
-
-                <div>
-                    <dt class="text-xs font-medium text-gray-500">Jenis Kepegawaian</dt>
-                    <dd class="mt-1">
-                        <span
-                            class="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-medium text-blue-700 ring-1 ring-inset ring-blue-200">
-                            TPA
-                        </span>
-                    </dd>
-                </div>
-
-                <div>
-                    <dt class="text-xs font-medium text-gray-500">Status Kepegawaian</dt>
-                    <dd class="mt-1">
-                        <span
-                            class="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-medium text-emerald-700 ring-1 ring-inset ring-emerald-200">
-                            Pegawai Tetap
-                        </span>
-                    </dd>
-                </div>
-            </dl>
-        </div>
     </div>
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyButtons = document.querySelectorAll('.copy');
+            const toastEl = document.getElementById('copyToast');
+            const toastBody = document.getElementById('copyToastBody');
+            const toast = new bootstrap.Toast(toastEl, {
+                delay: 2000,
+                autohide: true
+            });
+
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (!navigator.clipboard) {
+                        toastBody.textContent = '⚠️ Browser tidak mendukung Clipboard API.';
+                        toastEl.classList.add('bg-blue-950');
+                        toast.show();
+                        return;
+                    }
+
+                    setTimeout(async () => {
+                        try {
+                            toastBody.textContent =
+                                'Teks berhasil disalin ke clipboard!';
+                            toastEl.classList.remove('bg-danger');
+                            toastEl.classList.add('bg-blue-950');
+                            toast.show();
+                        } catch (err) {
+                            toastBody.textContent = 'Gagal mengakses clipboard.';
+                            toastEl.classList.remove('bg-blue-950');
+                            toastEl.classList.add('bg-danger');
+                            toast.show();
+                        }
+                    }, 150);
+                });
+            });
+        });
+    </script>
 @endsection
