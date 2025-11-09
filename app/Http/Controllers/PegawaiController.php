@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Models\Dosen;
+use App\Models\Prodi;
+use App\Models\RefBagian;
 use App\Models\refJabatanFungsionalAkademik;
 use App\Models\refJenjangPendidikan;
 use App\Models\RefPangkatGolongan;
@@ -42,7 +44,9 @@ class PegawaiController extends Controller
                 }
             }
             foreach($users as $user){
-                $user['JFA']=null;
+                $user['bagian']=null;
+                $user['kode']=null;
+                // $user['kode_bagian']=null;
                 $nip = RiwayatNip::where('users_id',$user->id)->first();
                 $user['nip'] = $nip==null?'-':$nip->nip;
                 // dd($user);
@@ -50,14 +54,20 @@ class PegawaiController extends Controller
                 
                 // dd($tes);
                 if($user['tipe_pegawai']==='Dosen'){
-                    // dd(riwayatJabatanFungsionalAkademik::where('dosen_id',Dosen::where('users_id',$user->id)->first()->id)->first()->ref_jfa_id);
-                    // dd(refJabatanFungsionalAkademik::where('id','33cb9c0f-2b0d-4c35-af54-ec4112cf2663')->first());
-                    $user['JFA']=refJabatanFungsionalAkademik::where('id',riwayatJabatanFungsionalAkademik::where('dosen_id',Dosen::where('users_id',$user->id)->first()->id)->first()->ref_jfa_id)->first()->nama_jabatan;
                     // dd($user);
+                    $bagian = Prodi::where('id',Dosen::where('users_id',$user['id'])->first()->prodi_id)->first();
+                    $user['bagian'] = $bagian->nama_prodi;
+                    $user['kode'] = $bagian->kode;
+                }
+                else{
+                    $bagian = RefBagian::where('id',Tpa::where('users_id',$user['id'])->first()->bagian_id)->first();
+                    $user['bagian'] = $bagian->nama_bagian;
+                    $user['kode'] = $bagian->kode;
                 }
             }
             
             $send = [$text];
+            // dd($users);
             return view('kelola_data.pegawai.list',compact('send','users'));
         }
     }

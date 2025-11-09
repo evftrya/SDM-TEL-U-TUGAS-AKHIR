@@ -7,24 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 
-class riwayatJabatanFungsionalKeahlian extends Model
+class RefBagian extends Model
 {
-    /** @use HasFactory<\Database\Factories\RiwayatJabatanFungsionalTpaFactory> */
+    /** @use HasFactory<\Database\Factories\BagianFactory> */
     use HasFactory;
+    protected $table = 'ref_bagians';
 
-    protected $table = 'riwayat_jabatan_fungsional_keahlians';
-    protected $fillable = [
-        'ref_jfk_id',
-        'tpa_id',
-        'tmt_mulai',
-        'tmt_selesai',
-        // 'sk_llkdikti_id',
-        'sk_pengakuan_ypt_id',
-    ];
-
+    protected $fillable = ['nama_bagian'];
     protected $casts = [
-        'ref_jfk_id' => 'boolean',
-        'tpa_id' => 'string',
+        'id' => 'string',
+        'nama_bagian' => 'string',
     ];
 
     protected static function boot()
@@ -37,6 +29,4 @@ class riwayatJabatanFungsionalKeahlian extends Model
             }
         });
     }
-
-    
 }

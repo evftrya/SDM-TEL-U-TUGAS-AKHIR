@@ -18,7 +18,6 @@ class riwayatPangkatGolongan extends Model
         'dosen_id',
         'tmt_pangkat',
         'no_sk_llkdikti',
-        'no_sk_pengakuan_ypt',
     ];
 
     protected $casts = [

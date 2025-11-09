@@ -103,7 +103,7 @@ class UserSeeder extends Seeder
                     'dosen_id' => $dosen->id,
                     'pangkat_golongan_id' => $refPangkatGolongan[$indexRefPangkatGolongan]->id,
                     'sk_llkdikti_id' => $skLLKDIKTI->id,
-                    'sk_pengakuan_ypt_id' => $skYPT->id,
+                    // 'sk_pengakuan_ypt_id' => $skYPT->id,
                 ]);
 
                 \App\Models\riwayatJabatanFungsionalAkademik::factory()->create([
@@ -131,7 +131,7 @@ class UserSeeder extends Seeder
                 \App\Models\riwayatJabatanFungsionalKeahlian::factory()->create([
                     'tpa_id' => $tpa_models->id,
                     'ref_jfk_id' => $refJFK[$indexRefJFK]->id,
-                    'sk_llkdikti_id' => $skLLKDIKTI->id,
+                    // 'sk_llkdikti_id' => $skLLKDIKTI->id,
                     'sk_pengakuan_ypt_id' => null,
                     'tmt_mulai'=>now(),
                     'tmt_selesai'=>null,

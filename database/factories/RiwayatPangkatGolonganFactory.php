@@ -23,7 +23,7 @@ class RiwayatPangkatGolonganFactory extends Factory
             // Foreign keys (nullable)
             'pangkat_golongan_id' => null, // nanti bisa diisi manual di seeder
             'sk_llkdikti_id' => null,
-            'sk_pengakuan_ypt_id' => null,
+            // 'sk_pengakuan_ypt_id' => null,
 
             // tmt_pangkat: tanggal mulai berlaku pangkat
             'tmt_pangkat' => $this->faker->dateTimeBetween('-10 years', 'now')->format('Y-m-d'),

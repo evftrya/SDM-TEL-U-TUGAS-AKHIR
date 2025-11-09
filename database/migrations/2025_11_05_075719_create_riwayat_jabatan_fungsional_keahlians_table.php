@@ -17,12 +17,12 @@ return new class extends Migration
             $table->foreignUuid('tpa_id')->nullable();
             $table->date('tmt_mulai');
             $table->date('tmt_selesai')->nullable();
-            $table->foreignUuid('sk_llkdikti_id')->nullable();
+            // $table->foreignUuid('sk_llkdikti_id')->nullable();
             $table->foreignUuid('sk_pengakuan_ypt_id')->nullable();
             
             $table->timestamps();
             
-            $table->foreign('sk_llkdikti_id')->references('id')->on('sks')->onDelete('set null');
+            // $table->foreign('sk_llkdikti_id')->references('id')->on('sks')->onDelete('set null');
             $table->foreign('sk_pengakuan_ypt_id')->references('id')->on('sks')->onDelete('set null');
             $table->foreign('tpa_id')->references('id')->on('tpas')->onDelete('set null');
             $table->foreign('ref_jfk_id')->references('id')->on('ref_jabatan_fungsional_keahlians')->onDelete('set null');

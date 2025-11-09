@@ -97,103 +97,92 @@
                     <option value="TPA" {{ $selectedType === 'Tpa' ? 'selected' : '' }}>TPA</option>
                 </x-islc>
 
-
-                <x-itxt lbl="Nomor Induk Pegawai" plc="1234567890" nm="nip" max="30"></x-itxt>
-
-                <x-itxt type="date" lbl="Tanggal Berlaku NIP" plc="dd/mm/yyyy" nm="tmt_mulai" max="1990-01-01"
-                    rules="none"></x-itxt>
-
-                <x-islc lbl="Status Kepegawaian" nm="status_kepegawaian">
+                <x-islc lbl="Status Kepegawaian" nm="status_kepegawaian" :req=false>
+                    {{-- {{ dd($status_pegawai_options) }} --}}
                     @foreach ($status_pegawai_options as $status)
                         <option value="{{ (string) data_get($status, 'id') }}"
                             class="opsi-kepegawaian {{ $status->tipe_pegawai }}">
                             {{ $status->status_pegawai }}</option>
                     @endforeach
                 </x-islc>
+
+                <x-itxt lbl="Nomor Induk Pegawai" plc="1234567890" nm="nip" max="30" :req=false></x-itxt>
+
+                <x-itxt type="date" lbl="Tanggal Berlaku NIP" plc="dd/mm/yyyy" nm="tmt_mulai" max="1990-01-01"
+                    rules="none" :req=false></x-itxt>
+
             </div>
 
+            
+
             {{-- Data Kepegawaian (TPA) --}}
-            <div class="hidden flex flex-col gap-8 flex-1 flex-grow min-h-full md:mx-auto rounded-md border p-3"
+            {{-- <div class="hidden flex flex-col gap-8 flex-1 flex-grow min-h-full md:mx-auto rounded-md border p-3"
                 id="data-tpa">
                 <h2 class="text-lg font-semibold text-black text-center">Data TPA</h2>
 
                 <div class="grid gap-8">
                     <div class="flex flex-col gap-4 sm:w-full">
 
-                        <x-itxt lbl="Nomor Induk Tenaga Kerja (NITK)" plc="1234567890" nm="nitk"
+                        <x-itxt lbl="Nomor Induk Tenaga Kerja (NITK)" plc="1234567890" nm="nitk" :req=false
                             max="15"></x-itxt>
 
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- Data Dosen --}}
-            <div class="flex flex-col gap-8 flex-1 flex-grow w-full min-h-full md:mx-auto rounded-md border p-3"
+            {{-- <div class="flex flex-col gap-8 flex-1 flex-grow w-full min-h-full md:mx-auto rounded-md border p-3"
                 id="data-dosen">
                 <h2 class="text-lg font-semibold text-black text-center">Data Dosen</h2>
 
                 <div class="grid gap-8">
                     <div class="flex flex-col gap-4 sm:w-full">
-                        <x-itxt lbl="Nomor Induk Dosen Nasional (NIDN)" plc="12547651232" nm="nidn"
+                        <x-itxt lbl="Nomor Induk Dosen Nasional (NIDN)" plc="12547651232" nm="nidn" :req=false
                             max="20"></x-itxt>
-
-                        <x-itxt lbl="Nomor (NUPTK)" plc="1234567890" nm="nuptk" max="20"></x-itxt>
-
-                        <x-islc lbl="JFA Dosen" nm="jfa">
-                            @foreach ($jenjang_jfa_options as $options)
-                                <option value="{{ $options->id }}">
-                                    {{ $options->pangkat }}</option>
-                            @endforeach
-                        </x-islc>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         {{-- Data Pendidikan Pegawai --}}
         <div class="flex flex-col gap-8 w-full max-w-100 md:mx-auto rounded-md border p-3">
-            <h2 class="text-lg font-semibold text-black text-center">Data Pendidikan Pegawai</h2>
+            <h2 class="text-lg font-semibold text-black text-center">Data Pendidikan Pegawai (Opsional)</h2>
 
             <div class="grid md:grid-cols-2 gap-8">
-                {{-- Kolom Kiri --}}
                 <div class="flex flex-col gap-4">
-                    <x-islc lbl="Jenjang Pendidikan" nm="jenjang_pendidikan_id">
+                    <x-islc lbl="Jenjang Pendidikan" nm="jenjang_pendidikan_id" :req=false>
                         @foreach ($jenjang_pendidikan_options as $option)
                             <option value="{{ $option->id }}">{{ $option->jenjang_pendidikan }}</option>
                         @endforeach
                     </x-islc>
 
                     <x-itxt lbl="Bidang Pendidikan / Fakultas" plc="Informatika" nm="bidang_pendidikan"
-                        max="150"></x-itxt>
+                        max="150" :req=false></x-itxt >
 
                     <x-itxt lbl="Jurusan / Program Studi" plc="Rekayasa Perangkat Lunak" nm="jurusan"
-                        max="150"></x-itxt>
+                        max="150" :req=false></x-itxt>
 
-                    <x-itxt lbl="Nama Kampus" plc="Telkom University" nm="nama_kampus" max="150"></x-itxt>
+                    <x-itxt lbl="Nama Kampus" plc="Telkom University" nm="nama_kampus" max="150" :req=false></x-itxt>
 
                     <x-itxt lbl="Alamat Kampus" plc="Jl. Telekomunikasi No. 1, Bandung" nm="alamat_kampus"
-                        max="300"></x-itxt>
+                        max="300" :req=false></x-itxt>
                 </div>
 
-                {{-- Kolom Kanan --}}
                 <div class="flex flex-col gap-4">
-                    {{-- Note: untuk type=number, "max" adalah nilai maksimum, bukan panjang karakter --}}
                     <x-itxt type="number" lbl="Tahun Lulus" plc="2024" nm="tahun_lulus" min="1900"
-                        max="{{ now()->year }}"></x-itxt>
+                        max="{{ now()->year }}"  :req=false></x-itxt>
 
-                    {{-- IPK desimal --}}
                     <x-itxt type="number" lbl="Nilai IPK" plc="3.75" nm="nilai" step="0.01" min="0"
-                        max="4" :rules="['maksimal ipk 4.00']" />
+                        max="4" :rules="['maksimal ipk 4.00']" :req=false />
 
 
                     <div class="flex flex-col xl:flex-row justify-between w-full gap-3">
                         <x-itxt lbl="Gelar yang Didapat" fill="flex-grow" plc="Sarjana Komputer" nm="gelar"
-                            max="50"></x-itxt>
+                            max="50" :req=false></x-itxt>
                         <x-itxt lbl="Singkatan Gelar" plc="S.Kom." fill="flex-grow" nm="singkatan_gelar"
-                            max="20"></x-itxt>
+                            max="20" :req=false></x-itxt>
                     </div>
 
-                    {{-- Ijazah / Sertifikat Kelulusan: upload file --}}
                     <label class="text-sm font-medium text-gray-700">Ijazah / Sertifikat Kelulusan (PDF/JPG)</label>
                     <input type="file" name="ijazah_file" accept=".pdf,.jpg,.jpeg,.png"
                         class="block w-full rounded-md border px-3 py-2 text-sm" />
@@ -215,11 +204,7 @@
                 return;
             }
 
-            // Simpan referensi awal options (bukan untuk rebuild, hanya baca class)
-            const statusOptions = Array.from(statusKepegawaian.options).map(opt => ({
-                el: opt,
-                classes: opt.className // contoh: "opsi-kepegawaian Dosen"
-            }));
+
 
             function setSectionRequired(sectionEl, isRequired) {
                 if (!sectionEl) return;

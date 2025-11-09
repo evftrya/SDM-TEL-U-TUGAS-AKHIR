@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('prodis', function (Blueprint $table) {
+        Schema::create('ref_bagians', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('fakultas_id')->nullable();
-            $table->string('nama_prodi', 100);
-            $table->string('kode', 100);
-            $table->foreign('fakultas_id')->references('id')->on('faculties')->onDelete('set null');
+            $table->string('nama_bagian');
+            $table->string('kode');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('prodis');
+        Schema::dropIfExists('bagians');
     }
 };

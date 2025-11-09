@@ -55,10 +55,6 @@
                 class="h-[17.508777618408203px] {{ $send[0] == 'Active' ? 'nav-active' : null }} flex justify-center items-center gap-[6.253134727478027px] p-[6.253134727478027px] rounded-tl-[1.8759405612945557px] rounded-tr-[1.8759405612945557px]">
                 <span class="font-semibold text-xs text-center text-[#1c2762]">Active</span>
             </a>
-            <a href="{{ route('manage.pegawai.list', ['destination' => 'Nonactive']) }}"
-                class="h-[17.508777618408203px] {{ $send[0] == 'Nonactive' ? 'nav-active' : null }} flex justify-center items-center gap-[6.253134727478027px] p-[6.253134727478027px]">
-                <span class="font-semibold text-xs text-center text-[#1c2762]">Nonactive</span>
-            </a>
             <a href="{{ route('manage.pegawai.list', ['destination' => 'Semua']) }}"
                 class="h-[17.508777618408203px] {{ $send[0] == 'Semua' ? 'nav-active' : null }} flex justify-center items-center gap-[6.253134727478027px] p-[6.253134727478027px]">
                 <span class="font-semibold text-xs text-center text-[#1c2762]">Semua</span>
@@ -74,8 +70,10 @@
                 <x-tb-td nama="nik" sorting=true>NIK</x-tb-td>
                 <x-tb-td nama="hp" sorting=true>No. HP</x-tb-td>
                 <x-tb-td type="select" nama="tipe" sorting=true>Tipe Pegawai</x-tb-td>
-                <x-tb-td type="select" nama="jfa" sorting=true>JFA</x-tb-td>
-                <x-tb-td type="select" nama="aktif" sorting=true>Is Active</x-tb-td>
+                <x-tb-td type="select" nama="bagian" sorting=true>Prodi/Bagian</x-tb-td>
+                @if ($send[0] == 'Semua')
+                    <x-tb-td type="select" nama="aktif" sorting=true>Is Active</x-tb-td>
+                @endif
                 <x-tb-td nama="action" sorting=false>Action</x-tb-td>
             </x-slot:table_header>
             <x-slot:table_column>
@@ -91,21 +89,24 @@
                             <x-tb-cl-fill>{{ $user['nik'] }}</x-tb-cl-fill>
                             <x-tb-cl-fill>{{ $user['telepon'] }}</x-tb-cl-fill>
                             <x-tb-cl-fill>{{ $user['tipe_pegawai'] }}</x-tb-cl-fill>
-                            <x-tb-cl-fill>{{ $user['JFA'] }}</x-tb-cl-fill>
+                            <x-tb-cl-fill><p class="cursor-pointer hover:font-bold" title="{{ $user['bagian'] }}" >{{ $user['kode'] }}</p></x-tb-cl-fill>
+                            {{-- {{ dd($send) }} --}}
+                            @if ($send[0] == 'Semua')
                             <x-tb-cl-fill>
-                                @if ($user['is_active'] == true)
-                                    <span
-                                        class="inline-flex items-center justify-center px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                        Active
-                                    </span>
-                                @else
-                                    <span
-                                        class="inline-flex items-center justify-center px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                                        Nonactive
-                                    </span>
+                                    @if ($user['is_active'] == true)
+                                        <span
+                                            class="inline-flex items-center justify-center px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                            Active
+                                        </span>
+                                    @else
+                                        <span
+                                            class="inline-flex items-center justify-center px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
+                                            Nonactive
+                                        </span>
+                                    @endif
+                                    
+                                </x-tb-cl-fill>
                                 @endif
-
-                            </x-tb-cl-fill>
                             <x-tb-cl-fill>
                                 <div class="flex items-center justify-center gap-3">
                                     <!-- WhatsApp Button -->
@@ -128,9 +129,12 @@
                                             ⋮
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item hover:bg-blue-500 hover:text-white" href="#">Tambah Pendidikan</a></li>
-                                            <li><a class="dropdown-item hover:bg-blue-500 hover:text-white" href="#">Ubah Struktural Jabatan</a></li>
-                                            <li><a class="dropdown-item hover:bg-blue-500 hover:text-white" href="#">Ubah Fungsional Jabatan</a></li>
+                                            <li><a class="dropdown-item hover:bg-blue-500 hover:text-white"
+                                                    href="#">Tambah Pendidikan</a></li>
+                                            <li><a class="dropdown-item hover:bg-blue-500 hover:text-white"
+                                                    href="#">Ubah Struktural Jabatan</a></li>
+                                            <li><a class="dropdown-item hover:bg-blue-500 hover:text-white"
+                                                    href="#">Ubah Fungsional Jabatan</a></li>
                                         </ul>
                                     </div>
 

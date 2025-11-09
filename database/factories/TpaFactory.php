@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\RefBagian;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,9 +17,12 @@ class TpaFactory extends Factory
      */
     public function definition(): array
     {
+        $RefBagian = RefBagian::all();
+        $indexRefBagian = fake()->numberBetween(0, count($RefBagian)-1);
         return [
             'users_id' => null,
             'nitk' => $this->faker->unique()->numerify('#############'),
+            'bagian_id'=>$RefBagian[$indexRefBagian]['id'],
             'created_at' => now(),
             'updated_at' => now(),
         ];

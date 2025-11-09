@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('tpas', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('users_id')->nullable();
-            $table->string('nitk')->unique();
+            $table->string('nitk')->unique()->nullable();
+            $table->string('bagian_id')->nullable();
             $table->timestamps();
 
             $table->foreign('users_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('bagian_id')->references('id')->on('ref_bagians')->onDelete('set null');
         });
     }
 

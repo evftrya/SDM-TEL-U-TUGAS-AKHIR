@@ -11,17 +11,17 @@ class ProdiSeeder extends Seeder
     public function run(): void
     {
         $data = $data = [
-            ['nama_prodi' => 'Teknik Telekomunikasi', 'fakultas_id' => 'Fakultas Teknik Elektro'],
-            ['nama_prodi' => 'Teknik Elektro',         'fakultas_id' => 'Fakultas Teknik Elektro'],
-            ['nama_prodi' => 'Teknik Komputer',       'fakultas_id' => 'Fakultas Teknik Elektro'],
-            ['nama_prodi' => 'Teknik Industri',       'fakultas_id' => 'Fakultas Rekayasa Industri'],
-            ['nama_prodi' => 'Sistem Informasi',      'fakultas_id' => 'Fakultas Rekayasa Industri'],
-            ['nama_prodi' => 'Teknik Logistik',       'fakultas_id' => 'Fakultas Rekayasa Industri'],
-            ['nama_prodi' => 'Informatika',           'fakultas_id' => 'Fakultas Informatika'],
-            ['nama_prodi' => 'Teknologi Informasi',   'fakultas_id' => 'Fakultas Informatika'],
-            ['nama_prodi' => 'Rekayasa Perangkat Lunak', 'fakultas_id' => 'Fakultas Informatika'],
-            ['nama_prodi' => 'Sains Data',             'fakultas_id' => 'Fakultas Informatika'],
-            ['nama_prodi' => 'Bisnis Digital',         'fakultas_id' => 'Fakultas Ekonomi dan Bisnis']
+            ['nama_prodi' => 'Teknik Telekomunikasi','kode'=>'TT', 'fakultas_id' => 'Fakultas Teknik Elektro'],
+            ['nama_prodi' => 'Teknik Elektro','kode'=>'TE',         'fakultas_id' => 'Fakultas Teknik Elektro'],
+            ['nama_prodi' => 'Teknik Komputer','kode'=>'TK',       'fakultas_id' => 'Fakultas Teknik Elektro'],
+            ['nama_prodi' => 'Teknik Industri','kode'=>'TI',       'fakultas_id' => 'Fakultas Rekayasa Industri'],
+            ['nama_prodi' => 'Sistem Informasi','kode'=>'SI',      'fakultas_id' => 'Fakultas Rekayasa Industri'],
+            ['nama_prodi' => 'Teknik Logistik','kode'=>'TL',       'fakultas_id' => 'Fakultas Rekayasa Industri'],
+            ['nama_prodi' => 'Informatika','kode'=>'IF',           'fakultas_id' => 'Fakultas Informatika'],
+            ['nama_prodi' => 'Teknologi Informasi','kode'=>'IT',   'fakultas_id' => 'Fakultas Informatika'],
+            ['nama_prodi' => 'Rekayasa Perangkat Lunak','kode'=>'RPL', 'fakultas_id' => 'Fakultas Informatika'],
+            ['nama_prodi' => 'Sains Data','kode'=>'DS',             'fakultas_id' => 'Fakultas Informatika'],
+            ['nama_prodi' => 'Bisnis Digital','kode'=>'DB',         'fakultas_id' => 'Fakultas Ekonomi dan Bisnis']
         ];
 
         $allFakultas = Fakultas::all();
