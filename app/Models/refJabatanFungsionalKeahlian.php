@@ -4,33 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
-class SK extends Model
+class refJabatanFungsionalKeahlian extends Model
 {
-    /** @use HasFactory<\Database\Factories\SKFactory> */
+    /** @use HasFactory<\Database\Factories\RefJabatanFungsionalTpaFactory> */
     use HasFactory;
-    protected $table = 'sks';
-    protected $fillable = [
-        'users_id',
-        'no_sk',
-        'tmt_mulai',
-        'file_sk',
-        'tipe_sk',
-    ];
+    protected $table = 'ref_jabatan_fungsional_keahlians';
     
     public $incrementing = false;
-
     protected $keyType = 'string';
 
+    protected $fillable = [
+        'nama_jabatan',
+    ];
+
     protected $casts = [
+        'nama_jabatan' => 'string',
         'id' => 'string',
     ];
 
-    protected static function newFactory()
-    {
-        return \Database\Factories\SKFactory::new();
-    }
+
 
     protected static function boot()
     {
@@ -38,7 +31,7 @@ class SK extends Model
 
         static::creating(function ($model) {
             if (empty($model->{$model->getKeyName()})) {
-                $model->{$model->getKeyName()} = (string) Str::uuid();
+                $model->{$model->getKeyName()} = (string) \Illuminate\Support\Str::uuid();
             }
         });
     }

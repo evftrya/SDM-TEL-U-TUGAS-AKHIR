@@ -6,8 +6,8 @@
         [
             ['Manajemen Data Pegawai', 'Pegawai'],
             [
-                ['Dashboard Pegawai', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-gauge'],
-                ['Daftar Pegawai', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-users'],
+                ['Dashboard Pegawai', route('manage.pegawai.list', ['destination' => 'Active']), 'fa-solid fa-gauge'],
+                ['Daftar Pegawai', route('manage.pegawai.list', ['destination' => 'Active']), 'fa-solid fa-users'],
                 ['Tambah Pegawai Baru', route('manage.pegawai.new'), 'fa-solid fa-user-plus'],
                 ['Tambah Dosen Baru', route('manage.pegawai.new', ['type' => 'Dosen']), 'fa-solid fa-chalkboard-user'],
                 ['Tambah TPA Baru', route('manage.pegawai.new', ['type' => 'Tpa']), 'fa-solid fa-user-tie'],
@@ -51,10 +51,10 @@
             ],
         ],
         [
-            ['Pengawakan', 'Pengawakan'],
+            ['Pemetaan', 'Pemetaan'],
             [
-                ['Daftar Pengawakan', route('manage.pengawakan.list'), 'fa-solid fa-users-gear'],
-                ['Tambah Pengawakan', route('manage.pengawakan.list'), 'fa-solid fa-user-plus'],
+                ['Daftar Pemetaan', route('manage.pengawakan.list'), 'fa-solid fa-users-gear'],
+                ['Tambah Pemetaan', route('manage.pengawakan.list'), 'fa-solid fa-user-plus'],
                 ['Struktur Jabatan', route('manage.pengawakan.list'), 'fa-solid fa-sitemap'],
             ],
         ],

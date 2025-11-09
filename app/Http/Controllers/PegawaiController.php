@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Models\Dosen;
+use App\Models\refJabatanFungsionalAkademik;
 use App\Models\refJenjangPendidikan;
 use App\Models\RefPangkatGolongan;
 use App\Models\RefStatusPegawai;
+use App\Models\riwayatJabatanFungsionalAkademik;
 use App\Models\riwayatJenjangPendidikan;
 use App\Models\RiwayatNip;
 use App\Models\Tpa;
@@ -28,12 +30,35 @@ class PegawaiController extends Controller
     {
         $text = ucwords(strtolower($destination));
         // dd($text);
-        if(!in_array($text, ['All', 'Tpa', 'Dosen'])){
+        if(!in_array($text, ['Active', 'Nonactive', 'Semua'])){
             return redirect('/manage/pegawai/list/All');
         }
         else{
             $users = User::all();
-            // dd($users,$users[1]['email_institusi']);
+            if($destination!='Semua'){
+                if($destination=='Active'){
+                    $users = $users->where('is_active',1);
+                }
+                else{
+                    $users = $users->where('is_active',0);
+                }
+            }
+            foreach($users as $user){
+                $user['JFA']=null;
+                $nip = RiwayatNip::where('users_id',$user->id)->first();
+                $user['nip'] = $nip==null?'-':$nip->nip;
+                // dd($user);
+                
+                
+                // dd($tes);
+                if($user['tipe_pegawai']==='Dosen'){
+                    // dd(riwayatJabatanFungsionalAkademik::where('dosen_id',Dosen::where('users_id',$user->id)->first()->id)->first()->ref_jfa_id);
+                    // dd(refJabatanFungsionalAkademik::where('id','33cb9c0f-2b0d-4c35-af54-ec4112cf2663')->first());
+                    $user['JFA']=refJabatanFungsionalAkademik::where('id',riwayatJabatanFungsionalAkademik::where('dosen_id',Dosen::where('users_id',$user->id)->first()->id)->first()->ref_jfa_id)->first()->nama_jabatan;
+                    // dd($user);
+                }
+            }
+            
             $send = [$text];
             return view('kelola_data.pegawai.list',compact('send','users'));
         }
@@ -75,7 +100,7 @@ class PegawaiController extends Controller
 
             // Tipe & status kepegawaian
             'tipe_pegawai'        => ['required', Rule::in(['Dosen', 'TPA'])],
-            'tanggal_berlaku'       => ['nullable', 'date', 'after:tgl_lahir'],
+            'tmt_mulai'       => ['nullable', 'date', 'after:tgl_lahir'],
             'status_kepegawaian'  => 'required',
             'nip'                  => ['nullable', 'string', 'max:30'], // opsional, tidak dipaksa required
 

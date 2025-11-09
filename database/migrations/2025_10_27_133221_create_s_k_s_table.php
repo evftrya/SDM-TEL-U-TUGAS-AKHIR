@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('users_id')->nullable();
             $table->string('no_sk')->nullable();
-            $table->date('tanggal_berlaku')->nullable();
+            $table->date('tmt_mulai')->nullable();
             $table->string('file_sk')->nullable();
             $table->enum('tipe_sk', ['LLDIKTI', 'Pengakuan YPT'])->nullable();
             $table->timestamps();

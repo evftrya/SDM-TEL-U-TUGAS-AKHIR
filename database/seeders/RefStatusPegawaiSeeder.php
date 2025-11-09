@@ -18,20 +18,17 @@ class RefStatusPegawaiSeeder extends Seeder
     public function run(): void
     {
         $statuses = [
-            ['Dosen Tetap','Dosen'],
-            ['Dosen Tamu','Dosen'],
-            [   'Honorer','Dosen'],
-            ['Dosen Paruh Waktu'    ,'Dosen'],
-            ['Pegawai Tetap','TPA'],
-            ['Pegawai Kontrak','TPA'],
-            ['Magang','TPA'],
-            ['Outsourcing','TPA'],
+            'TENAGA LEPAS HARIAN', 
+            'PEGAWAI PROFESSIONAL', 
+            'PEGAWAI TETAP', 
+            'CALON PEGAWAI TETAP',
+            'TENAGA PERBANTUAN',
+            'OURSOURCING'
         ];
 
         foreach ($statuses as $status) {
             RefStatusPegawai::create([
-                'status_pegawai' => $status[0],
-                'tipe_pegawai' => $status[1],
+                'status_pegawai' => $status,
             ]);
         }
     }

@@ -20,13 +20,14 @@ class Dosen extends Model
         'users_id' => 'string',
         'nidn' => 'string',
         'nuptk' => 'string',
+        'prodi_id'=>'string'
     ];
 
     protected $fillable = [
         'nidn',
         'nuptk',
         'users_id',
-
+        'prodi_id',
     ];
 
     // Relationships

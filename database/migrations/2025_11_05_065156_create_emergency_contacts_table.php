@@ -11,17 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dosens', function (Blueprint $table) {
+        Schema::create('emergency_contacts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('nidn');
-            $table->string('nuptk');
             $table->foreignUuid('users_id')->nullable();
-            $table->foreignUuid('prodi_id')->nullable();
+            $table->string('nama_lengkap');
+            $table->string('status_hubungan');
+            $table->string('telepon');
+            $table->string('alamat');
+            $table->string('email')->nullable();
             $table->timestamps();
 
-
             $table->foreign('users_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('prodi_id')->references('id')->on('prodis')->onDelete('set null');
+
         });
     }
 
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dosens');
+        Schema::dropIfExists('emergency_contacts');
     }
 };

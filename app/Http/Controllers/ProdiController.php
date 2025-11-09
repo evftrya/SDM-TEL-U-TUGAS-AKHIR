@@ -105,7 +105,7 @@ class ProdiController extends Controller
                 if ($dosen->pegawai && $dosen->pegawai->riwayatNip) {
                     $latestNip = $dosen->pegawai->riwayatNip
                         ->where('is_active', true)
-                        ->sortByDesc('tanggal_berlaku')
+                        ->sortByDesc('tmt_mulai')
                         ->first();
 
                     if ($latestNip && $latestNip->statusPegawai) {

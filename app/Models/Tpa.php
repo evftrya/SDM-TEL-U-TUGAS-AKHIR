@@ -11,6 +11,10 @@ class Tpa extends Model
     use HasFactory;
 
     protected $table = 'tpas';
+    protected $keyType = 'string';
+    public $incrementing = false;
+
+
 
     protected $fillable = [
         'users_id',

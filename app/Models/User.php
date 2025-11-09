@@ -27,6 +27,7 @@ class User extends Authenticatable
         'telepon',
         'emergency_contact_phone',
         'alamat',
+        'nik',
         'email_institusi',
         'jenis_kelamin',
         'tempat_lahir',

@@ -6,19 +6,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class RefJabatanFungsional extends Model
+
+class riwayatJabatanFungsionalKeahlian extends Model
 {
+    /** @use HasFactory<\Database\Factories\RiwayatJabatanFungsionalTpaFactory> */
     use HasFactory;
 
-    protected $table = 'ref_jabatan_fungsional';
-
-    protected $fillable = ['nama_jafung'];
-
-    protected $casts = [
-        'id' => 'string',
-        ''
+    protected $table = 'riwayat_jabatan_fungsional_keahlians';
+    protected $fillable = [
+        'ref_jfk_id',
+        'tpa_id',
+        'tmt_mulai',
+        'tmt_selesai',
+        'sk_llkdikti_id',
+        'sk_pengakuan_ypt_id',
     ];
 
+    protected $casts = [
+        'ref_jfk_id' => 'boolean',
+        'tpa_id' => 'string',
+    ];
 
     protected static function boot()
     {
@@ -30,4 +37,6 @@ class RefJabatanFungsional extends Model
             }
         });
     }
+
+    
 }

@@ -9,15 +9,18 @@ class FakultasSeeder extends Seeder
 {
     public function run(): void
     {
-        $data = [
-            ['nama_fakultas' => 'Fakultas Teknik'],
-            ['nama_fakultas' => 'Fakultas Ekonomi dan Bisnis'],
-            ['nama_fakultas' => 'Fakultas Ilmu Komputer'],
-            ['nama_fakultas' => 'Fakultas Komunikasi dan Desain'],
-            ['nama_fakultas' => 'Fakultas Industri Kreatif'],
+        $data = 
+        [
+            ['nama_fakultas' => 'Fakultas Teknik Elektro'],
+            ['nama_fakultas' => 'Fakultas Rekayasa Industri'],
+            ['nama_fakultas' => 'Fakultas Informatika'],
+            ['nama_fakultas' => 'Fakultas Ekonomi dan Bisnis']
         ];
 
+
+
         foreach ($data as $item) {
+            // dd($item);
             Fakultas::create($item);
         }
     }

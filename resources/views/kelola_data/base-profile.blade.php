@@ -21,9 +21,15 @@
                 </div>
                 <div>
                     <h1 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-gray-100">Profil
-                        {{ session('account')['nama_lengkap'] }}</h1>
+                        
+                        {{isset($user)?$user['nama_lengkap']:session('account')['nama_lengkap'] }}</h1>
                     <div class="flex flex-row gap-2 w-full">
-                        @if (session('account')['is_admin'] == 1)
+                        @if((isset($user)&&$user['is_admin']==1))
+                            <span
+                                class="mt-2 inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-[11px] font-medium text-red-700 ring-1 ring-inset ring-red-200 dark:bg-red-950/40 dark:text-red-200 dark:ring-red-900">
+                                Super Admin
+                            </span>
+                        @elseif ((!isset($user))&&session('account')['is_admin'] == 1)
                             <span
                                 class="mt-2 inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-[11px] font-medium text-red-700 ring-1 ring-inset ring-red-200 dark:bg-red-950/40 dark:text-red-200 dark:ring-red-900">
                                 Super Admin
@@ -53,40 +59,6 @@
                 </div>
             </div>
             <div class="flex md:items-center w-full items-end justify-end gap-2">
-
-
-
-                @if ($user['is_active'] == true)
-                    <form id="form-nonaktif-{{ $user['id'] }}"
-                        action="{{ route('manage.pegawai.set-non-active', ['idUser' => $user['id']]) }}" method="POST"
-                        class="inline">
-                        @csrf
-                        <a href="#" onclick="event.preventDefault(); konfirmasiNonaktif('{{ $user['id'] }}')"
-                            class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-gradient-to-b from-gray-100 to-gray-50
-                        px-3.5 py-2 text-xs font-medium text-gray-700 shadow-sm hover:from-gray-200 hover:to-gray-100
-                        focus:outline-none focus:ring-2 focus:ring-gray-400 active:scale-95 transition-all duration-200
-                        dark:from-gray-800 dark:to-gray-700 dark:text-gray-100">
-                            <i class="fa-solid fa-power-off text-[13px] text-[#EF4444]"></i>
-                            Nonaktifkan Akun
-                        </a>
-                    </form>
-                @else
-                    <form id="form-aktif-{{ $user['id'] }}"
-                        action="{{ route('manage.pegawai.set-active', ['idUser' => $user['id']]) }}" method="POST"
-                        class="inline">
-                        @csrf
-                        <a href="#" onclick="event.preventDefault(); konfirmasiAktif('{{ $user['id'] }}')"
-                            class="inline-flex items-center gap-2 rounded-lg border border-green-200 
-                        bg-gradient-to-b from-green-100 to-green-50 px-3.5 py-2 text-xs font-medium text-green-700 
-                        shadow-sm hover:from-green-200 hover:to-green-100 focus:outline-none focus:ring-2 
-                        focus:ring-green-400 active:scale-95 transition-all duration-200
-                        dark:from-green-800 dark:to-green-700 dark:text-green-100">
-                            <i class="fa-solid fa-power-off text-[13px] text-[#10B981]"></i>
-                            Aktifkan Akun
-                        </a>
-                    </form>
-                @endif
-
                 <a href="#"
                     class="inline-flex items-center gap-2 rounded-lg bg-gradient-to-b from-blue-600 to-blue-500 px-3.5 py-2 text-xs font-medium text-white shadow-sm hover:from-blue-500 hover:to-blue-400 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
                     ✏️ <span>Ubah Data</span>
