@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="flex items-center w-full justify-end gap-[11.749480247497559px]">
-            <x-export-csv-tb target_id="pegawaiTable"></x-export-csv-tb>
+            {{-- <x-export-csv-tb target_id="pegawaiTable"></x-export-csv-tb> --}}
         </div>
     </div>
 @endsection
@@ -113,7 +113,7 @@
 
             </div>
 
-            
+
 
             {{-- Data Kepegawaian (TPA) --}}
             {{-- <div class="hidden flex flex-col gap-8 flex-1 flex-grow min-h-full md:mx-auto rounded-md border p-3"
@@ -144,8 +144,105 @@
             </div> --}}
         </div>
 
+        <div id="emergency-contacts" class="flex flex-col gap-6 border p-3">
+            <div class="flex items-center justify-between">
+                <h3 class="text-base font-semibold">Emergency Contact</h3>
+                <button type="button" id="add-contact" class="px-3 py-1 border rounded text-sm">+ Tambah</button>
+            </div>
+            
+
+            <div id="contacts-container" class=""></div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const container = document.getElementById('contacts-container');
+                const addBtn = document.getElementById('add-contact');
+                let index = 0;
+
+                function contactTemplate(i) {
+                    return `
+                        <div class="rounded-md border p-3 mt-4 space-y-4" data-index="${i}">
+                            <div class="flex items-center justify-between">
+                            <span class="text-sm font-medium">Kontak #${i + 1}</span>
+                            <button type="button" class="text-red-600 text-xs remove-contact">Hapus</button>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-4">
+                            <label>
+                                <span>Nama Lengkap</span>
+                                <input type="text" name="emergency_contacts[${i}][nama_lengkap]" placeholder="Jane Doe" maxlength="100" class="border p-2 rounded w-full">
+                            </label>
+
+                            <label>
+                                <span>Status Hubungan</span>
+                                <select name="emergency_contacts[${i}][status_hubungan]" class="border p-2 rounded w-full">
+                                <option value="">-- Pilih --</option>
+                                <option value="Orang Tua">Orang Tua</option>
+                                <option value="Suami/Istri">Suami/Istri</option>
+                                <option value="Saudara">Saudara</option>
+                                <option value="Teman">Teman</option>
+                                <option value="Lainnya">Lainnya</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                <span>Telepon</span>
+                                <input type="text" name="emergency_contacts[${i}][telepon]" placeholder="081234567890" maxlength="13" class="border p-2 rounded w-full">
+                            </label>
+
+                            <label>
+                                <span>Email</span>
+                                <input type="email" name="emergency_contacts[${i}][email]" placeholder="jane.doe@gmail.com" maxlength="150" class="border p-2 rounded w-full">
+                            </label>
+
+                            <label class="md:col-span-2">
+                                <span>Alamat</span>
+                                <textarea name="emergency_contacts[${i}][alamat]" placeholder="Jl. Telekomunikasi No. 1, Bandung" maxlength="300" class="border p-2 rounded w-full"></textarea>
+                            </label>
+                            </div>
+                        </div>
+                `;
+                }
+
+                function addContact() {
+                    container.insertAdjacentHTML('beforeend', contactTemplate(index));
+                    index++;
+                    updateRemoveButtons();
+                }
+
+                function updateRemoveButtons() {
+                    const removeButtons = container.querySelectorAll('.remove-contact');
+                    removeButtons.forEach(btn => {
+                        btn.onclick = function() {
+                            const block = this.closest('[data-index]');
+                            block.remove();
+                            renumberContacts();
+                        };
+                    });
+                }
+
+                function renumberContacts() {
+                    const blocks = container.querySelectorAll('[data-index]');
+                    blocks.forEach((block, i) => {
+                        block.setAttribute('data-index', i);
+                        block.querySelector('span.text-sm').textContent = `Kontak #${i + 1}`;
+                        block.querySelectorAll('input, select, textarea').forEach(input => {
+                            input.name = input.name.replace(/\[\d+\]/, `[${i}]`);
+                        });
+                    });
+                    index = blocks.length;
+                }
+
+                addBtn.addEventListener('click', addContact);
+
+                // default satu kontak
+                addContact();
+            });
+        </script>
+
         {{-- Data Pendidikan Pegawai --}}
-        <div class="flex flex-col gap-8 w-full max-w-100 md:mx-auto rounded-md border p-3">
+        {{-- <div class="flex flex-col gap-8 w-full max-w-100 md:mx-auto rounded-md border p-3">
             <h2 class="text-lg font-semibold text-black text-center">Data Pendidikan Pegawai (Opsional)</h2>
 
             <div class="grid md:grid-cols-2 gap-8">
@@ -188,7 +285,7 @@
                         class="block w-full rounded-md border px-3 py-2 text-sm" />
                 </div>
             </div>
-        </div>
+        </div> --}}
     </x-form>
 
     <script>

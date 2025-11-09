@@ -86,6 +86,7 @@ class PegawaiController extends Controller
     public function create(Request $request)
     {
         // Jalankan validasi
+        dd($request);
         // dd($request->status_kepegawaian, $request->jenjang_pendidikan_id);
 
 
@@ -96,7 +97,7 @@ class PegawaiController extends Controller
             'nama_lengkap'        => ['required', 'string', 'max:100'],
             'username'            => ['required', 'alpha_dash', 'min:3', 'max:20'],
             'telepon'             => ['nullable', 'regex:/^0\d{9,12}$/'],
-            'emergency_contact_phone' => ['nullable', 'regex:/^0\d{9,12}$/'],
+            // 'emergency_contact_phone' => ['nullable', 'regex:/^0\d{9,12}$/'],
             'alamat'              => ['nullable', 'string', 'max:300'],
 
             'email_pribadi'       => ['nullable', 'email:rfc,dns', 'max:150'],
@@ -110,7 +111,7 @@ class PegawaiController extends Controller
             'tipe_pegawai'        => ['required', Rule::in(['Dosen', 'TPA'])],
             'tmt_mulai'       => ['nullable', 'date', 'after:tgl_lahir'],
             'status_kepegawaian'  => 'required',
-            'nip'                  => ['nullable', 'string', 'max:30'], // opsional, tidak dipaksa required
+            'nip'                  => ['nullable', 'string', 'max:30'], 
 
             // Data kepegawaian khusus per tipe
             'nidn'  => ['nullable','string','max:20', Rule::requiredIf($tipe === 'dosen')],
