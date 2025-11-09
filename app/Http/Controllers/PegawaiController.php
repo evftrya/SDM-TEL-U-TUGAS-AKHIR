@@ -87,6 +87,7 @@ class PegawaiController extends Controller
     {
         // Jalankan validasi
         dd($request);
+        // tes
         // dd($request->status_kepegawaian, $request->jenjang_pendidikan_id);
 
 
