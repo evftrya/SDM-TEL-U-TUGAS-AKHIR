@@ -11,7 +11,6 @@
             background-color: #1C2762 !important;
         }
 
-<<<<<<< HEAD
         {{-- Header / Title Bar --}}
         <div
             class="sticky top-0 z-10 mb-4 -mx-4 border-b border-gray-200/70 bg-white/70 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-white/50 dark:border-gray-800 dark:bg-gray-950/60">
@@ -58,26 +57,6 @@
                     font-size: 18px;
                 } */
         </style>
-=======
-        /* Ukuran teks disesuaikan */
-        /* .profile-wrapper {
-                    font-size: 16px;
-                    line-height: 1.7;
-                }
-                .profile-wrapper dt {
-                    font-size: 14px;
-                }
-                .profile-wrapper dd {
-                    font-size: 16px;
-                }
-                .profile-wrapper h2 {
-                    font-size: 20px;
-                }
-                .profile-wrapper h3 {
-                    font-size: 18px;
-                } */
-    </style>
->>>>>>> d436cf625835e0f0ee7d558e1be9ae3b9bb9dcd3
 
     <div class="w-full max-w-full profile-wrapper">
         {{-- Content Layout --}}

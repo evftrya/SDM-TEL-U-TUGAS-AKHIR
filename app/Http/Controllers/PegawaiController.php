@@ -15,7 +15,7 @@ use Illuminate\Database\Events\TransactionBeginning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\Password;
 
 class PegawaiController extends Controller
@@ -135,20 +135,12 @@ class PegawaiController extends Controller
             DB::beginTransaction();
             // password default: telepon&namalengkap (tanpa spasi)
             $validated['password'] = strtolower(str_replace(' ', '', $validated['telepon'].'&'.$validated['nama_lengkap']));
-<<<<<<< HEAD
             $validated['tgl_bergabung'] = $validated['tmt_mulai'];
             $validated['status_pegawai_id'] = $validated['status_kepegawaian'];
 
             // Create User
             $users_id = null;
             DB::transaction();
-=======
-            $validated['tgl_bergabung'] = $validated['tanggal_berlaku'];
-            $validated['status_pegawai_id'] = $validated['status_kepegawaian'];
-            
-            // Create User
-            $validated['users_id'] = null;
->>>>>>> d436cf625835e0f0ee7d558e1be9ae3b9bb9dcd3
             try {
                 $user = User::create($validated);
                 $validated['users_id'] = $user->id;
@@ -200,11 +192,7 @@ class PegawaiController extends Controller
 
             // Jika semua berhasil
             DB::commit();
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> d436cf625835e0f0ee7d558e1be9ae3b9bb9dcd3
             return redirect(route('manage.pegawai.view.personal-info', ['idUser' => $validated['users_id']]))->with('success', 'Data pegawai berhasil disimpan!');
 
 
@@ -277,11 +265,7 @@ class PegawaiController extends Controller
     }
 
 
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> d436cf625835e0f0ee7d558e1be9ae3b9bb9dcd3
 
     /**
      * Store a newly created resource in storage.
