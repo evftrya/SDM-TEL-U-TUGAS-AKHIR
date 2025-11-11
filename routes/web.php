@@ -158,9 +158,8 @@ Route::middleware('auth')->group(function () {
         // 'middleware' => ['auth'],
     ], function () {
         // Dashboard
-        Route::get('/dashboard', function () {
-            return view('dupak.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [App\Http\Controllers\Dupak\DashboardController::class, 'index'])
+            ->name('dashboard');
 
         // Pengajuan DUPAK
         Route::resource('pengajuan', \App\Http\Controllers\Dupak\PengajuanController::class)

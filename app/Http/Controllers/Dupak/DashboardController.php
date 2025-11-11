@@ -41,10 +41,10 @@ class DashboardController extends Controller
         
         // --- Admin/Validator Data ---
         $adminData = [];
-        if (isset($user->is_admin) && $user->is_admin) {
-            // Example: Count how many submissions need validation
-            $adminData['validationCount'] = Pengajuan::where('status', 'menunggu validasi')->count();
-        }
+        // if (isset($user->is_admin) && $user->is_admin) {
+        //     // Example: Count how many submissions need validation
+        //     $adminData['validationCount'] = Pengajuan::where('status', 'menunggu validasi')->count();
+        // }
 
         // --- Pass all calculated and fetched data to the view ---
         return view('dupak.dashboard', array_merge([
@@ -55,7 +55,7 @@ class DashboardController extends Controller
             'remaining' => $remaining,
             'statusColor' => $statusColor,
             'updatedAtFormatted' => $updatedAt, // Use the formatted string
-        ], $adminData));
+        ], $adminData ?? ""));
     }
     
     // ... create, store, etc.
