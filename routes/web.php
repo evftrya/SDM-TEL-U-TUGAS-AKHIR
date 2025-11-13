@@ -134,13 +134,17 @@ Route::middleware('auth')->group(function () {
             })->name('view');
 
             Route::get('/list/', [FormationController::class, 'index'])->name('list');
+            Route::get('/new/', [FormationController::class, 'new'])->name('new');
+            Route::post('/create/', [FormationController::class, 'create'])->name('create');
+            Route::get('/update/{idFormasi}', [FormationController::class, 'update'])->name('update');
+            Route::post('/update-data/{idFormasi}', [FormationController::class, 'update_data'])->name('update-data');
 
-            Route::get('/new', function () {
-                return view('kelola_data.formasi.view');
-            })->name('new');
-            Route::get('/dashboard', function () {
-                return view('kelola_data.manajemen_akun.dashboard');
-            })->name('dashboard');
+            // Route::get('/new', function () {
+            //     return view('kelola_data.formasi.view');
+            // })->name('new');
+            // Route::get('/dashboard', function () {
+            //     return view('kelola_data.manajemen_akun.dashboard');
+            // })->name('dashboard');
         });
 
         Route::group(['prefix' => 'pengawakan', 'as' => 'pengawakan.'], function () {

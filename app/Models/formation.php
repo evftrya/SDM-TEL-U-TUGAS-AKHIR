@@ -17,10 +17,10 @@ class formation extends Model
     protected $keyType = 'string';
     public $timestamps = true;
     protected $fillable = [
-        'nama_formation',
+        'nama_formasi',
         'level_id',
-        'atasan_formations_id',
-        'tmt_mulai',
+        'atasan_formasi_id',
+        // 'tmt_mulai',
         'bagian',
         'prodi',
         'fakultas',
@@ -32,8 +32,8 @@ class formation extends Model
     protected $casts = [
         'id' => 'string',
         'level_id' => 'string',
-        'atasan_formations_id' => 'string',
-        'tmt_mulai' => 'date',
+        'atasan_formasi_id' => 'string',
+        // 'tmt_mulai' => 'date',
         'bagian' => 'string',
         'kuota' => 'integer',
     ];
@@ -47,5 +47,27 @@ class formation extends Model
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
         });
+    }
+
+    public function level_id()
+    {
+        return $this->belongsTo(Level::class,'level_id','id');
+    }
+
+    public function atasan_formation()
+    {
+        return $this->belongsTo(formation::class, 'atasan_formasi_id','id');
+    }
+
+    public function bagian(){
+        return $this->belongsTo(RefBagian::class, 'bagian', 'id');
+    }
+
+    public function prodi(){
+        return $this->belongsTo(Prodi::class, 'prodi', 'id');
+    }
+
+    public function fakultas(){
+        return $this->belongsTo(Fakultas::class, 'fakultas', 'id');
     }
 }

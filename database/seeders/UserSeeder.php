@@ -20,25 +20,25 @@ class UserSeeder extends Seeder
 
 
         // Create admin user
-        $user1 = User::factory()->admin()->create([
-            'nama_lengkap' => 'Admin Telkom University',
-            'email_institusi' => 'admin@telkomuniversity.ac.id',
-        ]);
+        // $user1 = User::factory()->admin()->create([
+        //     'nama_lengkap' => 'Admin Telkom University',
+        //     'email_institusi' => 'admin@telkomuniversity.ac.id',
+        // ]);
 
 
 
-        // Create test user accounts
-        $user2 = User::factory()->create([
-            'nama_lengkap' => 'Budi Santoso',
-            'email_institusi' => 'budi.santoso@telkomuniversity.ac.id',
-        ]);
+        // // Create test user accounts
+        // $user2 = User::factory()->create([
+        //     'nama_lengkap' => 'Budi Santoso',
+        //     'email_institusi' => 'budi.santoso@telkomuniversity.ac.id',
+        // ]);
 
-        $user3 = User::factory()->create([
-            'nama_lengkap' => 'Siti Nurhaliza',
-            'email_institusi' => 'siti.nurhaliza@telkomuniversity.ac.id',
-        ]);
+        // $user3 = User::factory()->create([
+        //     'nama_lengkap' => 'Siti Nurhaliza',
+        //     'email_institusi' => 'siti.nurhaliza@telkomuniversity.ac.id',
+        // ]);
 
-        // User::factory()->count(30)->create();
+        User::factory()->count(30)->create();
 
         $refJenjangPendidikan = \App\Models\RefJenjangPendidikan::all();
         $refPangkatGolongan = \App\Models\RefPangkatGolongan::all();

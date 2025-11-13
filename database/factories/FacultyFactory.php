@@ -19,6 +19,7 @@ class FacultyFactory extends Factory
         return [
             'nama_fakultas'=>null,
             'fakultas_id' => null,
+            'kode' => $this->faker->unique()->bothify('F-###??'),
         ];
     }
 }
