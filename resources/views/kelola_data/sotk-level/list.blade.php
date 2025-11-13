@@ -109,7 +109,7 @@
                         <x-tb-cl id="{{ $level->id }}" idTargetModal="level-update">
                             <x-tb-cl-fill id="nama-level">{{ $level['nama_level'] }}</x-tb-cl-fill>
                             <x-tb-cl-fill id="singkatan">{{ $level['singkatan_level'] }}</x-tb-cl-fill>
-                            <x-tb-cl-fill id="atasan">{{ $level['atasan_level'] }}</x-tb-cl-fill>
+                            <x-tb-cl-fill id="atasan">{{ $level['atasan']['nama_level']??'-'}}</x-tb-cl-fill>
                             <x-tb-cl-fill>
                                 <div class="flex items-center justify-center gap-3">
                                     <a href="{{ route('manage.level.update', ['idLevel' => $level->id]) }}"

@@ -39,12 +39,11 @@
                 <x-itxt lbl="Nama Level" plc="Direktur" nm='nama_level' max="30"></x-itxt>
                 <x-itxt lbl="Singkatan Level" plc="DIR" nm='singkatan_level' max="12"></x-itxt>
                 <x-islc lbl="Atasan Level" nm='atasan_level'>
-                    {{ dd($levels) }}
-                    <option value="">Direktur</option>
-                    <option value="">Kepala Bagian</option>
-                    <option value="">Dekan</option>
-                    <option value="">Kepala Urusan</option>
-                    <option value="">Kepala Program Studi</option>
+                    @forelse($levels as $level)
+                        <option value="{{ $level->id }}">{{ $level->nama_level }}</option>
+                    @empty
+                        <option value="-" disabled>-- No Data --</option>
+                    @endforelse
                 </x-islc>
             </div>
         </div>

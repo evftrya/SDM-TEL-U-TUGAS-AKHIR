@@ -116,7 +116,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/list/', [LevelController::class, 'index'])->name('list');
             Route::get('/new', [LevelController::class, 'new'])->name('new');
             Route::post('/create', [LevelController::class, 'create'])->name('create');
-            Route::post('/update-data', [LevelController::class, 'create'])->name('update-data');
+            Route::post('/update-data/{idLevel}', [LevelController::class, 'update_data'])->name('update-data');
             Route::get('/update/{idLevel}', [LevelController::class, 'update'])->name('update');
 
 

@@ -32,22 +32,24 @@
     </div>
 @endsection
 @section('content-base')
-    <x-form route="{{ route('manage.level.update-data') }}" id="level-edit">
+    <x-form route="{{ route('manage.level.update-data',['idLevel'=>$idLevel]) }}" id="level-edit">
         <div class="grid gap-8 ">
             <!-- Kolom Kiri -->
             <div class="flex flex-col gap-4">
-                <x-itxt :val="'Directur'" lbl="Nama Level" plc="Direktur" nm="nama_level"/>
-                <x-itxt :val="'DIR'" lbl="Singkatan Level" plc="DIR" nm="singkatan_level"/>
+                <x-itxt :val="$level_target->nama_level" lbl="Nama Level" plc="Direktur" nm="nama_level" max=50 />
+
+                {{-- <x-itxt :val="{{ $level_target->nama_level }}" lbl="Nama Level" plc="Direktur" nm="nama_level"/> --}}
+                <x-itxt :val="$level_target->singkatan_level" lbl="Singkatan Level" plc="DIR" nm="singkatan_level" max=20/>
                 
 
                 <!-- <x-itxt lbl="Nama Level" plc="Direktur" nm='nama_level' val=""></x-itxt> -->
                 {{-- <x-itxt lbl="Singkatan Level" plc="DIR" nm='singkatan_level'></x-itxt> --}}
-                <x-islc lbl="Atasan Level" nm='atasan'>
-                    <option value="" selected>Direktur</option>
-                    <option value="">Kepala Bagian</option>
-                    <option value="">Dekan</option>
-                    <option value="">Kepala Urusan</option>
-                    <option value="">Kepala Program Studi</option>
+                <x-islc lbl="Atasan Level" nm='atasan_level'>
+                    @forelse($levels as $level)
+                        <option value="{{ $level->id }}" {{ $level->id == $level_target->atasan_level ? 'selected' : '' }}>{{ $level->nama_level }}</option>
+                    @empty
+                        <option value="-" disabled>-- No Data --</option>
+                    @endforelse
                 </x-islc>
             </div>
         </div>
