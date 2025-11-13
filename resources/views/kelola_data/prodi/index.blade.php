@@ -119,7 +119,7 @@
     @endif
 
     @if ($totals['total_dosen'] == 0)
-        <div class="mb-4 bg-yellow-100 border border-yellow-400 text-yellow-800 px-4 py-3 rounded relative">
+        {{-- <div class="mb-4 bg-yellow-100 border border-yellow-400 text-yellow-800 px-4 py-3 rounded relative">
             <strong>Catatan:</strong> Tabel rekapitulasi masih kosong. Pastikan:
             <ul class="list-disc ml-5 mt-2">
                 <li>Tabel <code>dosens</code> memiliki kolom <code>prodi_id</code> untuk menghubungkan dosen dengan program
@@ -128,7 +128,7 @@
                 <li>Tabel <code>ref_jabatan_fungsional</code> dan <code>riwayat_jabatan_fungsional</code> sudah ada di
                     database</li>
             </ul>
-        </div>
+        </div> --}}
     @endif
 
     <div class="flex flex-grow-0 flex-col gap-2 max-w-100">

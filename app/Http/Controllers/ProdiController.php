@@ -319,7 +319,7 @@ class ProdiController extends Controller
 
             // Store statistics in cache with prodi id
             $statsKey = 'prodi_stats_' . $prodi->id;
-            cache()->put($statsKey, $validated, now()->addDays(30));
+            cache()->forever($statsKey, $validated);
 
             return response()->json([
                 'success' => true,
