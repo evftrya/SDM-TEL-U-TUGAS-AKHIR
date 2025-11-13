@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\EmergencyContactController;
 use App\Http\Controllers\FakultasController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\LevelController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PengawakanController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\SertifikasiDosenController;
+use App\Models\Emergency_contact;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,13 +22,22 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile/edit', [ProfileController::class, 'profileNormalisasi'])->name('profile.edit');
-    Route::get('/profile/personal-information/{idUser}', [ProfileController::class, 'personalInfo'])->name('profile.personal-info');
-    Route::get('/profile/change-password/{idUser}', [ProfileController::class, 'changePassword'])->name('profile.change-password');
-    Route::post('/profile/update-password/', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Route::get('/profile/edit', [ProfileController::class, 'profileNormalisasi'])->name('profile.edit');
+    // Route::get('/profile/personal-information/{idUser}', [ProfileController::class, 'personalInfo'])->name('profile.personal-info');
+    // Route::get('/profile/change-password/{idUser}', [ProfileController::class, 'changePassword'])->name('profile.change-password');
+    // Route::post('/profile/update-password/', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
+        Route::get('/edit', [ProfileController::class, 'profileNormalisasi'])->name('profile.edit');
+        Route::get('/personal-information/{idUser}', [ProfileController::class, 'personalInfo'])->name('personal-info');
+        Route::get('/change-password/{idUser}', [ProfileController::class, 'changePassword'])->name('change-password');
+        Route::post('/update-password/', [ProfileController::class, 'updatePassword'])->name('update-password');
+        Route::post('/emergency-contacts/{idUser}', [EmergencyContactController::class, 'emergencyContacts'])->name('emergency-contacts');
+        Route::patch('/', [ProfileController::class, 'update'])->name('update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
+    });
     Route::group(['prefix' => 'manage', 'as' => 'manage.'], function () {
         Route::get('/', function () {
                 return view('kelola_data.index');
@@ -69,6 +80,18 @@ Route::middleware('auth')->group(function () {
                 return view('kelola_data.manajemen_akun.dashboard');
             })->name('dashboard');
         });
+
+        Route::group(['prefix' => 'emergency-contact', 'as' => 'emergency-contact.'], function () {
+
+            Route::get('/{id_User}/list', [EmergencyContactController::class, 'list'])->name('list');
+
+        });
+
+        // Route::group(['prefix' => 'emergency-contact', 'as' => 'emergency-contact.'], function () {
+
+        //     Route::get('/{id_User}/list', [EmergencyContactController::class, 'list'])->name('list');
+
+        // });
 
         Route::group(['prefix' => 'fakultas', 'as' => 'fakultas.'], function () {
             Route::get('/view', function () {
@@ -122,17 +145,20 @@ Route::middleware('auth')->group(function () {
 
         Route::group(['prefix' => 'pengawakan', 'as' => 'pengawakan.'], function () {
             Route::get('/view', function () {
-                return view('kelola_data.formasi.view');
+                return view('kelola_data.sotk-pengawakan.view');
             })->name('view');
+            Route::get('/input', function () {
+                return view('kelola_data.sotk-pengawakan.input');
+            })->name('input');
 
             Route::get('/list/', [PengawakanController::class, 'index'])->name('list');
 
             Route::get('/new', function () {
-                return view('kelola_data.formasi.view');
+                return view('kelola_data.sotk-pengawakan.view');
             })->name('new');
-            Route::get('/dashboard', function () {
-                return view('kelola_data.manajemen_akun.dashboard');
-            })->name('dashboard');
+            // Route::get('/dashboard', function () {
+            //     return view('kelola_data.sotk-pengawakan.dashboard');
+            // })->name('dashboard');
         });
 
         // Fakultas Routes

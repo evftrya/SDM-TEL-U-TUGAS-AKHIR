@@ -103,28 +103,16 @@
 
 
                 <x-slot:table_column>
-                    @php
-                        $levels = [
-                            ['nama' => 'Direktur', 'singkatan' => 'DIR', 'atasan' => 0],
-                            ['nama' => 'Wakil Direktur', 'singkatan' => 'WADIR', 'atasan' => 1],
-                            ['nama' => 'Kepala Bagian', 'singkatan' => 'Kabag', 'atasan' => 2],
-                            ['nama' => 'Dekan', 'singkatan' => 'DEKAN', 'atasan' => 2],
-                            ['nama' => 'Kepala Urusan', 'singkatan' => 'KAUR', 'atasan' => 3],
-                            ['nama' => 'Kepala Program Studi', 'singkatan' => 'KAPRODI', 'atasan' => 4],
-                            ['nama' => 'Anggota Bagian', 'singkatan' => 'Anggota', 'atasan' => 5],
-                            ['nama' => 'Anggota Program Studi', 'singkatan' => 'Anggota', 'atasan' => 6],
-                        ];
-                    @endphp
-                    @foreach ($levels as $index => $level)
+                    @foreach ($levels as $level)
                         {{-- <x-tb-cl idTargetModal="level-update"> --}}
 
-                        <x-tb-cl id="{{ $index }}" idTargetModal="level-update">
-                            <x-tb-cl-fill id="nama-level">{{ $level['nama'] }}</x-tb-cl-fill>
-                            <x-tb-cl-fill id="singkatan">{{ $level['singkatan'] }}</x-tb-cl-fill>
-                            <x-tb-cl-fill id="atasan">{{ $level['atasan'] }}</x-tb-cl-fill>
+                        <x-tb-cl id="{{ $level->id }}" idTargetModal="level-update">
+                            <x-tb-cl-fill id="nama-level">{{ $level['nama_level'] }}</x-tb-cl-fill>
+                            <x-tb-cl-fill id="singkatan">{{ $level['singkatan_level'] }}</x-tb-cl-fill>
+                            <x-tb-cl-fill id="atasan">{{ $level['atasan_level'] }}</x-tb-cl-fill>
                             <x-tb-cl-fill>
                                 <div class="flex items-center justify-center gap-3">
-                                    <a href="{{ route('manage.level.update', ['idLevel' => $index]) }}"
+                                    <a href="{{ route('manage.level.update', ['idLevel' => $level->id]) }}"
                                         onclick="return overlayArahkan(event)"
                                         class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition duration-200">
                                         Ubah Data
@@ -222,7 +210,7 @@
                     const pid = cols[3]?.textContent.trim() || "0";
 
                     nodes.push({
-                        id: parseInt(id),
+                        id: id,
                         pid: pid !== "0" ? parseInt(pid) : null,
                         division: `${division} (${singkatan})`,
                         photo: `https://randomuser.me/api/portraits/${id % 2 === 0 ? "men" : "women"}/${20 + parseInt(id)}.jpg`

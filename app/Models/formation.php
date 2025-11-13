@@ -20,6 +20,11 @@ class formation extends Model
         'nama_formation',
         'level_id',
         'atasan_formations_id',
+        'tmt_mulai',
+        'bagian',
+        'prodi',
+        'fakultas',
+        'kuota'
     ];
 
 
@@ -28,7 +33,9 @@ class formation extends Model
         'id' => 'string',
         'level_id' => 'string',
         'atasan_formations_id' => 'string',
-        
+        'tmt_mulai' => 'date',
+        'bagian' => 'string',
+        'kuota' => 'integer',
     ];
 
     protected static function boot()

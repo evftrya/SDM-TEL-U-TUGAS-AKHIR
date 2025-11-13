@@ -28,6 +28,7 @@ public function run(): void
         FakultasSeeder::class,
         ProdiSeeder::class,
         UserSeeder::class,
+        LevelSeeder::class,
     ]);
 
 

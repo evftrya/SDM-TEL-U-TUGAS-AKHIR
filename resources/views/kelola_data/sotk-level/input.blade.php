@@ -38,7 +38,8 @@
             <div class="flex flex-col gap-4">
                 <x-itxt lbl="Nama Level" plc="Direktur" nm='nama_level' max="30"></x-itxt>
                 <x-itxt lbl="Singkatan Level" plc="DIR" nm='singkatan_level' max="12"></x-itxt>
-                <x-islc lbl="Atasan Level" nm='atasan'>
+                <x-islc lbl="Atasan Level" nm='atasan_level'>
+                    {{ dd($levels) }}
                     <option value="">Direktur</option>
                     <option value="">Kepala Bagian</option>
                     <option value="">Dekan</option>
