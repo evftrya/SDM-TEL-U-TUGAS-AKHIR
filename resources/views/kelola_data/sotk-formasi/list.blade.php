@@ -55,13 +55,13 @@
 
         <x-tb id="formasiTable">
             <x-slot:table_header>
-                <x-tb-td nama="nama" sorting=true>Level</x-tb-td>
-                <x-tb-td type="select" nama="gender" sorting=true>Nama Formasi</x-tb-td>
-                <x-tb-td nama="hp" sorting=true>Tipe Bagian</x-tb-td>
-                <x-tb-td nama="tipe" sorting=true>Bagian</x-tb-td>
-                <x-tb-td type="select" nama="status" sorting=true>Atasan</x-tb-td>
-                <x-tb-td type="select" nama="aktif" sorting=true>Kuota</x-tb-td>
-                <x-tb-td nama="email_pribadi" sorting=true>Action</x-tb-td>
+                <x-tb-td type="select" nama="level" sorting=true>Level</x-tb-td>
+                <x-tb-td nama="nama_formasi" sorting=true>Nama Formasi</x-tb-td>
+                <x-tb-td type="select" nama="tipe_bagian" sorting=true>Tipe Bagian</x-tb-td>
+                <x-tb-td type="select" nama="bagian" sorting=true>Bagian</x-tb-td>
+                <x-tb-td type="select" nama="atasan" sorting=true>Atasan</x-tb-td>
+                <x-tb-td nama="kuota" sorting=true>Kuota</x-tb-td>
+                <x-tb-td nama="email_pribadi" >Action</x-tb-td>
             </x-slot:table_header>
 
             <x-slot:table_column>
