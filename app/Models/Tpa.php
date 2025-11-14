@@ -19,6 +19,7 @@ class Tpa extends Model
     protected $fillable = [
         'users_id',
         'nitk',
+        'bagian_id'
     ];
 
     protected $casts = [
@@ -28,6 +29,11 @@ class Tpa extends Model
     public function pegawai()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function bagian()
+    {
+        return $this->belongsTo(work_position::class, 'bagian_id', 'id');
     }
 
     // public function riwayatJabatanFungsional()

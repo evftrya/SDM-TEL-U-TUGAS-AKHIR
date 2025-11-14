@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Prodi;
 use App\Models\Fakultas;
+use App\Models\work_position;
 use Illuminate\Http\Request;
 
 class ProdiController extends Controller
@@ -14,7 +15,14 @@ class ProdiController extends Controller
     public function index()
     {
         // Ambil semua prodi dengan relasi
-        $prodis = Prodi::with('fakultas')->get();
+        $prodis = Prodi::all();
+        foreach ($prodis as $prodi) {
+            $prodi['fakultas'] = work_position::find($prodi->fakultas_id);
+            $prd = work_position::find($prodi->prodi_id);
+            $prodi['nama_prodi'] = $prd ? $prd->position_name : '-';
+            $prodi['kode'] = $prd ? $prd->singkatan : '-';
+        }
+        // dd($prodis);
 
         // Hitung statistik untuk setiap prodi
         $prodiStats = $prodis->map(function ($prodi) {
@@ -157,7 +165,7 @@ class ProdiController extends Controller
             return [
                 'id' => $prodi->id,
                 'nama_prodi' => $prodi->nama_prodi,
-                'fakultas' => $prodi->fakultas->nama_fakultas ?? '-',
+                'fakultas' => $prodi['fakultas']['position_name'] ?? '-',
                 'total_dosen' => $totalDosen,
                 's2' => $s2Count,
                 's3' => $s3Count,

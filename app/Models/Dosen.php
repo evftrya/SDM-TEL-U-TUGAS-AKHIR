@@ -36,9 +36,13 @@ class Dosen extends Model
         return $this->belongsTo(User::class, 'users_id');
     }
 
-    public function prodi()
-    {
-        return $this->belongsTo(Prodi::class);
+    // public function prodi()
+    // {
+    //     return $this->belongsTo(work_position::class);
+    // }
+
+    public function prodi(){
+        return $this->belongsTo(work_position::class, 'prodi_id', 'id');
     }
 
     public function kelompokKeahlian()

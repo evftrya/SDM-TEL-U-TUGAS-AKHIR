@@ -58,9 +58,10 @@
                 <x-tb-td nama="action">Action</x-tb-td>
             </x-slot:table_header>
             <x-slot:table_column>
+                {{-- {{ dd($fakultas) }} --}}
                 @forelse ($fakultas as $index => $f)
                     <x-tb-cl id="{{ $f->id }}">
-                        <x-tb-cl-fill>{{ $f->nama_fakultas }}</x-tb-cl-fill>
+                        <x-tb-cl-fill>{{ $f->position_name }}</x-tb-cl-fill>
                         <x-tb-cl-fill>{{ $f->prodi_count ?? 0 }} Prodi</x-tb-cl-fill>
                         <x-tb-cl-fill>
                             <div class="flex items-center justify-center gap-3">
