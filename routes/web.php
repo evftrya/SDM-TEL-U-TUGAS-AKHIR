@@ -148,18 +148,22 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::group(['prefix' => 'pengawakan', 'as' => 'pengawakan.'], function () {
-            Route::get('/view', function () {
-                return view('kelola_data.sotk-pengawakan.view');
-            })->name('view');
-            Route::get('/input', function () {
-                return view('kelola_data.sotk-pengawakan.input');
-            })->name('input');
+            // Route::get('/view', function () {
+            //     return view('kelola_data.sotk-pengawakan.view');
+            // })->name('view');
+            // Route::get('/input', function () {
+            //     return view('kelola_data.sotk-pengawakan.input');
+            // })->name('input');
 
             Route::get('/list/', [PengawakanController::class, 'index'])->name('list');
+            Route::get('/new/', [PengawakanController::class, 'new'])->name('new');
+            Route::post('/create/', [PengawakanController::class, 'create'])->name('create');
+            Route::get('/update/', [PengawakanController::class, 'update'])->name('update');
+            Route::post('/update-data/', [PengawakanController::class, 'update-data'])->name('update-data');
 
-            Route::get('/new', function () {
-                return view('kelola_data.sotk-pengawakan.view');
-            })->name('new');
+            // Route::get('/new', function () {
+            //     return view('kelola_data.sotk-pengawakan.view');
+            // })->name('new');
             // Route::get('/dashboard', function () {
             //     return view('kelola_data.sotk-pengawakan.dashboard');
             // })->name('dashboard');

@@ -217,8 +217,8 @@ INSERT INTO `tpas` (`id`, `users_id`, `nitk`, `bagian_id`, `created_at`, `update
 INSERT INTO `sks` (`id`, `users_id`, `no_sk`, `tmt_mulai`, `file_sk`, `tipe_sk`, `created_at`, `updated_at`) VALUES
 ('1901622c-7bab-4c05-921c-07bae55285f7', '8df3e359-3f19-4ce0-9340-f97764c15d7a', 'SK-882/YPT', '2010-11-04', 'file_tusv.pdf', 'LLDIKTI', '2025-11-13 10:59:34', '2025-11-13 10:59:34'),
 ('946eb647-1c4d-4827-974e-7cdc4537c478', '2d90604a-d1f7-49e8-bcfa-10b7523b0e66', 'SK-396/YPT', '1970-01-13', NULL, 'LLDIKTI', '2025-11-13 10:59:34', '2025-11-13 10:59:34'),
-('df735a5d-a317-428b-be84-6e26e3479d6b', '2d90604a-d1f7-49e8-bcfa-10b7523b0e66', NULL, '1992-08-14', NULL, 'Pengakuan YPT', '2025-11-13 10:59:34', '2025-11-13 10:59:34'),
-('f74ac9f0-110c-4faa-8739-013eca3606f7', '3feb55b2-75d0-4896-82e0-b18429105327', NULL, NULL, 'file_cxis.pdf', 'LLDIKTI', '2025-11-13 10:59:34', '2025-11-13 10:59:34');
+('df735a5d-a317-428b-be84-6e26e3479d6b', '2d90604a-d1f7-49e8-bcfa-10b7523b0e66', 'SK-397/YPT', '1992-08-14', NULL, 'Pengakuan YPT', '2025-11-13 10:59:34', '2025-11-13 10:59:34'),
+('f74ac9f0-110c-4faa-8739-013eca3606f7', '3feb55b2-75d0-4896-82e0-b18429105327', 'SK-398/YPT', NULL, 'file_cxis.pdf', 'LLDIKTI', '2025-11-13 10:59:34', '2025-11-13 10:59:34');
 
 
 --

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\emergency_contact;
+use App\Models\pengawakan;
 use App\Models\riwayatJenjangPendidikan;
 use App\Models\RiwayatNip;
 use App\Models\SK;
@@ -45,6 +46,7 @@ class UserSeeder extends Seeder
         $refStatusPegawai = \App\Models\RefStatusPegawai::all();
         $refJFA = \App\models\refJabatanFungsionalAkademik::all();
         $refJFK = \App\models\refJabatanFungsionalKeahlian::all();
+        $refFormasi = \App\models\formation::all();
         $refProdi = \App\models\Prodi::all();
         
 
@@ -137,6 +139,19 @@ class UserSeeder extends Seeder
                     'tmt_selesai'=>null,
                 ]);
             }
+
+            $skYPT = SK::factory()->create([
+                    'users_id' => $user->id,
+                    'tipe_sk' => 'Pengakuan YPT',
+                ]);
+
+            $indexRefFormasi = fake()->numberBetween(0, count($refFormasi)-1);
+            $pemetaan = pengawakan::factory()->create([
+                'users_id' => $user->id,
+                'formasi_id' => $refFormasi[$indexRefFormasi]->id,
+                'sk_ypt_id' => $skYPT->id,
+                'tmt_selesai' => null,
+            ]);
         }
     }
 }
