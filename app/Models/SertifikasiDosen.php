@@ -6,30 +6,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class SK extends Model
+class SertifikasiDosen extends Model
 {
-    /** @use HasFactory<\Database\Factories\SKFactory> */
     use HasFactory;
-    protected $table = 'sks';
-    protected $fillable = [
-        'users_id',
-        'no_sk',
-        'tmt_mulai',
-        'file_sk',
-        'tipe_sk',
-    ];
-    
-    public $incrementing = false;
 
-    protected $keyType = 'string';
+    protected $table = 'sertifikasi_dosens';
+
+    protected $fillable = [
+        'dosen_id',
+        'nomor_registrasi',
+        'no_sk',
+        'tanggal_sk',
+    ];
 
     protected $casts = [
         'id' => 'string',
+        'dosen_id' => 'string',
+        'tanggal_sk' => 'date',
     ];
 
-    protected static function newFactory()
+    public function dosen()
     {
-        return \Database\Factories\SKFactory::new();
+        return $this->belongsTo(Dosen::class, 'dosen_id');
     }
 
     protected static function boot()

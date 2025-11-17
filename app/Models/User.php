@@ -20,23 +20,14 @@ class User extends Authenticatable
     protected $keyType = 'string';
 
     /**
-     * The column name that should be used for authentication.
-     */
-    public const USERNAME_FIELD = 'email_institusi';
-
-    public function dosen()
-    {
-        // i need to get user name as well, it's stored in dosen table
-        return $this->hasOne(Dosen::class, 'users_id', 'id');
-    }
-
-    /**
      * Fillable attributes
      */
     protected $fillable = [
         'nama_lengkap',
         'telepon',
+        'emergency_contact_phone',
         'alamat',
+        'nik',
         'email_institusi',
         'jenis_kelamin',
         'tempat_lahir',
@@ -69,6 +60,34 @@ class User extends Authenticatable
         'is_admin' => 'boolean',
         'id' => 'string',
     ];
+
+    /**
+     * Relationships
+     */
+    public function dosen()
+    {
+        return $this->hasOne(Dosen::class, 'users_id');
+    }
+
+    public function riwayatNip()
+    {
+        return $this->hasMany(RiwayatNip::class, 'users_id');
+    }
+
+    public function riwayatJenjangPendidikan()
+    {
+        return $this->hasMany(riwayatJenjangPendidikan::class, 'users_id');
+    }
+
+    public function tpa()
+    {
+        return $this->hasOne(Tpa::class, 'users_id');
+    }
+
+    public function bagian()
+    {
+        return $this->hasOne(RefBagian::class, 'id', 'bagian_id');
+    }
 
     /**
      * Auto-generate UUID when creating new User

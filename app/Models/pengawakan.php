@@ -19,6 +19,7 @@ class pengawakan extends Model
     protected $fillable = [
         'users_id',
         'formasi_id',
+        'sk_ypt_id',
         'tmt_mulai',
         'tmt_selesai',
     ];
@@ -27,11 +28,23 @@ class pengawakan extends Model
         'id' => 'string',
         'users_id' => 'string',
         'formasi_id' => 'string',
+        'sk_ypt_id' => 'string',
         'tmt_mulai' => 'date',
         'tmt_selesai' => 'date',
     ];
 
     
+    public function users(){
+        return $this->belongsTo(User::class, 'users_id', 'id');
+    }
+
+    public function formasi(){
+        return $this->belongsTo(formation::class, 'formasi_id', 'id');
+    }
+
+    public function sk_ypt(){
+        return $this->belongsTo(Sk::class, 'sk_ypt_id', 'id');
+    }
 
     protected static function boot()
     {

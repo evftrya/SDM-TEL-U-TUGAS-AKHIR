@@ -20,24 +20,30 @@ class Dosen extends Model
         'users_id' => 'string',
         'nidn' => 'string',
         'nuptk' => 'string',
+        'prodi_id' => 'string'
     ];
 
     protected $fillable = [
         'nidn',
         'nuptk',
         'users_id',
-        
+        'prodi_id',
     ];
 
     // Relationships
     public function pegawai()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'users_id');
     }
+
+    // public function prodi()
+    // {
+    //     return $this->belongsTo(work_position::class);
+    // }
 
     public function prodi()
     {
-        return $this->belongsTo(Prodi::class);
+        return $this->belongsTo(work_position::class, 'prodi_id', 'id');
     }
 
     public function kelompokKeahlian()
@@ -55,6 +61,11 @@ class Dosen extends Model
         return $this->hasMany(RiwayatJabatanFungsional::class);
     }
 
+    public function sertifikasi()
+    {
+        return $this->hasOne(SertifikasiDosen::class);
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -65,14 +76,4 @@ class Dosen extends Model
             }
         });
     }
-
-    // public function riwayatPangkat()
-    // {
-    //     return $this->hasMany(RiwayatPangkat::class);
-    // }
-
-    // public function sertifikasi()
-    // {
-    //     return $this->hasOne(SertifikasiDosen::class);
-    // }
 }

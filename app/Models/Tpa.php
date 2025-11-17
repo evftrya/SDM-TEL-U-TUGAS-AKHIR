@@ -11,10 +11,15 @@ class Tpa extends Model
     use HasFactory;
 
     protected $table = 'tpas';
+    protected $keyType = 'string';
+    public $incrementing = false;
+
+
 
     protected $fillable = [
         'users_id',
         'nitk',
+        'bagian_id'
     ];
 
     protected $casts = [
@@ -24,6 +29,11 @@ class Tpa extends Model
     public function pegawai()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function bagian()
+    {
+        return $this->belongsTo(work_position::class, 'bagian_id', 'id');
     }
 
     // public function riwayatJabatanFungsional()

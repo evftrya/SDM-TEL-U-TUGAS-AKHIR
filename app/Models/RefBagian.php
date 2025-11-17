@@ -6,31 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class SK extends Model
+
+class RefBagian extends Model
 {
-    /** @use HasFactory<\Database\Factories\SKFactory> */
+    /** @use HasFactory<\Database\Factories\BagianFactory> */
     use HasFactory;
-    protected $table = 'sks';
-    protected $fillable = [
-        'users_id',
-        'no_sk',
-        'tmt_mulai',
-        'file_sk',
-        'tipe_sk',
-    ];
-    
-    public $incrementing = false;
+    protected $table = 'ref_bagians';
 
-    protected $keyType = 'string';
-
+    protected $fillable = ['nama_bagian'];
     protected $casts = [
         'id' => 'string',
+        'nama_bagian' => 'string',
     ];
-
-    protected static function newFactory()
-    {
-        return \Database\Factories\SKFactory::new();
-    }
 
     protected static function boot()
     {
