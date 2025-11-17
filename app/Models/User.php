@@ -24,6 +24,12 @@ class User extends Authenticatable
      */
     public const USERNAME_FIELD = 'email_institusi';
 
+    public function dosen()
+    {
+        // i need to get user name as well, it's stored in dosen table
+        return $this->hasOne(Dosen::class, 'users_id', 'id');
+    }
+
     /**
      * Fillable attributes
      */

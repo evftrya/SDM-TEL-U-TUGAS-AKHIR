@@ -18,13 +18,17 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
+        // get all  pengajuan list dari db dupak regardless user id
+        // $pengajuan = Pengajuan::all();
+        // dd($pengajuan);
+
         // --- KUM Calculation Logic (Moved from the View) ---
-        $currentKum = $user->kum ?? 35;
+        $currentKum = $user->kum;
         $goalKum = $user->kum_goal ?? 200;
-        
+
         $percent = $goalKum > 0 ? min(100, ($currentKum / $goalKum) * 100) : 0;
         $remaining = max(0, $goalKum - $currentKum);
-        
+
         // Determine status color (Tailwind classes)
         if ($percent >= 100) {
             $statusColor = 'bg-green-600';
@@ -33,12 +37,12 @@ class DashboardController extends Controller
         } else {
             $statusColor = 'bg-indigo-600';
         }
-        
+
         // Format the last updated time (using Carbon)
-        $updatedAt = $user->kum_updated_at 
-                   ? Carbon::parse($user->kum_updated_at)->diffForHumans() 
-                   : null;
-        
+        $updatedAt = $user->kum_updated_at
+            ? Carbon::parse($user->kum_updated_at)->diffForHumans()
+            : null;
+
         // --- Admin/Validator Data ---
         $adminData = [];
         // if (isset($user->is_admin) && $user->is_admin) {
@@ -48,7 +52,7 @@ class DashboardController extends Controller
 
         // --- Pass all calculated and fetched data to the view ---
         return view('dupak.dashboard', array_merge([
-            'user' => $user, 
+            'user' => $user,
             'currentKum' => $currentKum,
             'goalKum' => $goalKum,
             'percent' => $percent,
@@ -57,6 +61,4 @@ class DashboardController extends Controller
             'updatedAtFormatted' => $updatedAt, // Use the formatted string
         ], $adminData ?? ""));
     }
-    
-    // ... create, store, etc.
 }

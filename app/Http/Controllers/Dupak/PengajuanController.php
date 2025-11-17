@@ -16,28 +16,26 @@ class PengajuanController extends Controller
      */
     public function index()
     {
-        // Log::info('PengajuanController@index accessed', [
-        //     'user_id' => Auth::id(),
-        //     'url' => request()->fullUrl()
-        // ]);
+        // If admin open this, then admin can see all submission which called pengajuan.
+        // If user which is have to be dosen, then he/she can only his/her own submission.
+        $user = Auth::user();
 
-        // $dosen = Dosen::where('users_id', Auth::id())->first();
+        if ($user->is_admin) {
+            $pengajuan = Pengajuan::all();
+        } else if ($user->is_dosen) {
+            $pengajuan = Pengajuan::where('idDosen', $user->id);
+        }
 
-        // if (! $dosen) {
-        //     Log::warning('Dosen not found for user', ['user_id' => Auth::id()]);
-        //     return redirect()->back()->with('error', 'Data Dosen tidak ditemukan untuk pengguna ini.');
-        // }
 
-        // $pengajuan = Pengajuan::where('idDosen', $dosen->id)
-        //     ->orderBy('created_at', 'desc')
-        //     ->paginate(10);
+        // 1. Define the base query: fetch all submissions and eager load the cross-DB relationship ('dosen')
+        $pengajuanQuery = Pengajuan::with('dosen') // Eager load the Dosen
+            ->orderBy('id', 'desc');
 
-        // Log::info('PengajuanController@index returning view with data', [
-        //     'pengajuan_count' => $pengajuan->count()
-        // ]);
+        // 2. Execute the query and paginate the results
+        $pengajuan = $pengajuanQuery;
 
-        // Render the pengajuan index view. Data will be added later when the listing is enabled.
-        return view('dupak.pengajuan.index');
+        // 3. Pass the Paginator object to the view
+        return view('dupak.pengajuan.index', compact('pengajuan'));
     }
 
     /**
@@ -59,6 +57,7 @@ class PengajuanController extends Controller
         ]);
 
         // Resolve dosen for current user
+        // Note: Make sure Dosen model has the $connection set to 'sdm_tus'
         $dosen = Dosen::where('users_id', Auth::id())->first();
 
         if (! $dosen) {
