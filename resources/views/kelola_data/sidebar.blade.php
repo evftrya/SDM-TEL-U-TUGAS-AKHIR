@@ -29,6 +29,14 @@
             ],
         ],
         [
+            ['Dashboard Prodi', 'DashboardProdi'],
+            [
+                ['Dashboard Pendidikan', route('manage.dashboard-prodi.pendidikan'), 'fa-solid fa-graduation-cap'],
+                ['Dashboard Jabatan Fungsional', route('manage.dashboard-prodi.fungsional'), 'fa-solid fa-award'],
+                ['Dashboard Kepegawaian', route('manage.dashboard-prodi.kepegawaian'), 'fa-solid fa-id-card'],
+            ],
+        ],
+        [
             ['Sertifikasi Dosen', 'Sertifikasi'],
             [
                 ['Daftar Sertifikasi', route('manage.sertifikasi-dosen.list'), 'fa-solid fa-certificate'],

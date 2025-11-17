@@ -29,6 +29,19 @@
                 @csrf
                 @method('PUT')
 
+                <!-- Kode Fakultas -->
+                <div class="mb-4">
+                    <label for="kode" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Kode Fakultas <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" id="kode" name="kode" value="{{ old('kode', $fakulta->kode) }}" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition @error('kode') border-red-500 @enderror"
+                        placeholder="Contoh: FTI">
+                    @error('kode')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <!-- Nama Fakultas -->
                 <div class="mb-4">
                     <label for="nama_fakultas" class="block text-sm font-semibold text-gray-700 mb-2">

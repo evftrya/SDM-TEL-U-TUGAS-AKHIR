@@ -49,8 +49,8 @@
 
 <script>
     // Detail Modal logic
-    function openDetailModal(id, namaFakultas, jumlahProdi) {
-        document.getElementById('detail_kode_fakultas').textContent = id || '-';
+    function openDetailModal(kodeFakultas, namaFakultas, jumlahProdi) {
+        document.getElementById('detail_kode_fakultas').textContent = kodeFakultas || '-';
         document.getElementById('detail_nama_fakultas').textContent = namaFakultas || '-';
         document.getElementById('detail_jumlah_prodi').textContent = jumlahProdi + ' Prodi' || '0 Prodi';
 

@@ -53,6 +53,7 @@
                 <x-export-csv-tb target_id="fakultasTable"></x-export-csv-tb>
             </x-slot:put_something>
             <x-slot:table_header>
+                <x-tb-td nama="kode">Kode</x-tb-td>
                 <x-tb-td nama="nama">Nama Fakultas</x-tb-td>
                 <x-tb-td nama="jumlah_prodi">Jumlah Prodi</x-tb-td>
                 <x-tb-td nama="action">Action</x-tb-td>
@@ -60,6 +61,7 @@
             <x-slot:table_column>
                 @forelse ($fakultas as $index => $f)
                     <x-tb-cl id="{{ $f->id }}">
+                        <x-tb-cl-fill>{{ $f->kode }}</x-tb-cl-fill>
                         <x-tb-cl-fill>{{ $f->nama_fakultas }}</x-tb-cl-fill>
                         <x-tb-cl-fill>{{ $f->prodi_count ?? 0 }} Prodi</x-tb-cl-fill>
                         <x-tb-cl-fill>
@@ -74,7 +76,7 @@
 
                                 <!-- View Details Button -->
                                 <button type="button"
-                                    onclick="openDetailModal('{{ $f->id }}', '{{ addslashes($f->nama_fakultas) }}', {{ $f->prodi_count ?? 0 }})"
+                                    onclick="openDetailModal('{{ $f->kode }}', '{{ addslashes($f->nama_fakultas) }}', {{ $f->prodi_count ?? 0 }})"
                                     class="px-3 py-1.5 border border-[#1C2762] text-[#1C2762] rounded-md text-xs font-medium hover:bg-[#1C2762] hover:text-white transition duration-200">
                                     View Details
                                 </button>
@@ -92,7 +94,7 @@
                     </x-tb-cl>
                 @empty
                     <tr>
-                        <td colspan="3" class="px-6 py-4 text-center text-sm text-gray-500">
+                        <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">
                             Belum ada data fakultas
                         </td>
                     </tr>

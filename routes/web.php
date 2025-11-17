@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\DashboardProdiController;
 use App\Http\Controllers\EmergencyContactController;
 use App\Http\Controllers\FakultasController;
 use App\Http\Controllers\FormationController;
@@ -173,8 +174,16 @@ Route::middleware('auth')->group(function () {
         Route::resource('fakultas', FakultasController::class);
 
         // Prodi Routes
+        Route::get('prodi/{prodi}/get-cached-stats', [ProdiController::class, 'getCachedStats'])->name('prodi.getCachedStats');
         Route::post('prodi/{prodi}/update-stats', [ProdiController::class, 'updateStats'])->name('prodi.updateStats');
         Route::resource('prodi', ProdiController::class);
+
+        // Dashboard Prodi Routes
+        Route::group(['prefix' => 'dashboard-prodi', 'as' => 'dashboard-prodi.'], function () {
+            Route::get('/pendidikan', [DashboardProdiController::class, 'pendidikan'])->name('pendidikan');
+            Route::get('/fungsional', [DashboardProdiController::class, 'fungsional'])->name('fungsional');
+            Route::get('/kepegawaian', [DashboardProdiController::class, 'kepegawaian'])->name('kepegawaian');
+        });
 
         // Sertifikasi Dosen Routes
         Route::group(['prefix' => 'sertifikasi-dosen', 'as' => 'sertifikasi-dosen.'], function () {
