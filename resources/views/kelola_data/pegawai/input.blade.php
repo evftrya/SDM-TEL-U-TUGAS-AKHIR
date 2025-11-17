@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="flex items-center w-full justify-end gap-[11.749480247497559px]">
-            <x-export-csv-tb target_id="pegawaiTable"></x-export-csv-tb>
+            {{-- <x-export-csv-tb target_id="pegawaiTable"></x-export-csv-tb> --}}
         </div>
     </div>
 @endsection
@@ -46,12 +46,14 @@
             <div class="grid md:grid-cols-2 gap-8">
                 {{-- Kolom Kiri --}}
                 <div class="flex flex-col gap-4">
-                    <x-itxt lbl="Nama Lengkap" plc="John Doe" nm="nama_lengkap" max="100" ></x-itxt>
+                    <x-itxt lbl="Nama Lengkap" plc="John Doe" nm="nama_lengkap" max="100"></x-itxt>
 
-                    <x-itxt lbl="Username" plc="johndoe" nm="username" max="20" ></x-itxt>
+                    <x-itxt lbl="Username" plc="johndoe" nm="username" max="20"></x-itxt>
 
-                    <x-itxt lbl="Telepon" plc="081234567890" nm="telepon" max="13" 
-                    :rules="['Harus dimulai dengan 0', 'berjumlah 10-13 digit']"></x-itxt>
+                    <x-itxt lbl="Telepon" plc="081234567890" nm="telepon" max="13" :rules="['Harus dimulai dengan 0', 'berjumlah 10-13 digit']"></x-itxt>
+
+                    <x-itxt lbl="No Telepon Darurat" plc="081234567890" nm="emergency_contact_phone" max="13"
+                        :rules="['Harus dimulai dengan 0', 'berjumlah 10-13 digit']" :required="false"></x-itxt>
 
                     <x-itxt type="textarea" lbl="Alamat" plc="Jl. Telekomunikasi No. 1, Bandung" nm="alamat"
                         max="300" fill="flex-grow"></x-itxt>
@@ -59,6 +61,8 @@
 
                 {{-- Kolom Kanan --}}
                 <div class="flex flex-col gap-4">
+                    <x-itxt lbl="Nomor Induk Kependudukan (NIK)" plc="3568165xxxxxxxxx" nm="nik" max="20"></x-itxt>
+
                     <x-itxt type="email" lbl="Email Pribadi" plc="johndoe@gmail.com" nm="email_pribadi"
                         max="150"></x-itxt>
 
@@ -95,109 +99,195 @@
                     <option value="TPA" {{ $selectedType === 'Tpa' ? 'selected' : '' }}>TPA</option>
                 </x-islc>
 
-
-                <x-itxt lbl="Nomor Induk Pegawai" plc="1234567890" nm="nip" max="30"></x-itxt>
-
-                <x-itxt type="date" lbl="Tanggal Berlaku NIP" plc="dd/mm/yyyy" nm="tanggal_berlaku" max="1990-01-01"
-                    rules="none"></x-itxt>
-
                 <x-islc lbl="Status Kepegawaian" nm="status_kepegawaian">
+                    {{-- {{ dd($status_pegawai_options) }} --}}
                     @foreach ($status_pegawai_options as $status)
                         <option value="{{ (string) data_get($status, 'id') }}"
                             class="opsi-kepegawaian {{ $status->tipe_pegawai }}">
                             {{ $status->status_pegawai }}</option>
                     @endforeach
                 </x-islc>
+
+                <x-itxt lbl="Nomor Induk Pegawai" plc="1234567890" nm="nip" max="30" :req=false></x-itxt>
+
+                <x-itxt type="date" lbl="Tanggal Berlaku NIP" plc="dd/mm/yyyy" nm="tmt_mulai" max="none"
+                    :rules="['Silahkan masukkan tanggal pertama karyawan aktif bekerja.']"></x-itxt>
+
             </div>
 
+
+
             {{-- Data Kepegawaian (TPA) --}}
-            <div class="hidden flex flex-col gap-8 flex-1 flex-grow min-h-full md:mx-auto rounded-md border p-3"
+            {{-- <div class="hidden flex flex-col gap-8 flex-1 flex-grow min-h-full md:mx-auto rounded-md border p-3"
                 id="data-tpa">
                 <h2 class="text-lg font-semibold text-black text-center">Data TPA</h2>
 
                 <div class="grid gap-8">
                     <div class="flex flex-col gap-4 sm:w-full">
 
-                        <x-itxt lbl="Nomor Induk Tenaga Kerja (NITK)" plc="1234567890" nm="nitk"
+                        <x-itxt lbl="Nomor Induk Tenaga Kerja (NITK)" plc="1234567890" nm="nitk" :req=false
                             max="15"></x-itxt>
 
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- Data Dosen --}}
-            <div class="flex flex-col gap-8 flex-1 flex-grow w-full min-h-full md:mx-auto rounded-md border p-3"
+            {{-- <div class="flex flex-col gap-8 flex-1 flex-grow w-full min-h-full md:mx-auto rounded-md border p-3"
                 id="data-dosen">
                 <h2 class="text-lg font-semibold text-black text-center">Data Dosen</h2>
 
                 <div class="grid gap-8">
                     <div class="flex flex-col gap-4 sm:w-full">
-                        <x-itxt lbl="Nomor Induk Dosen Nasional (NIDN)" plc="12547651232" nm="nidn"
+                        <x-itxt lbl="Nomor Induk Dosen Nasional (NIDN)" plc="12547651232" nm="nidn" :req=false
                             max="20"></x-itxt>
-
-                        <x-itxt lbl="Nomor (NUPTK)" plc="1234567890" nm="nuptk" max="20"></x-itxt>
-
-                        <x-islc lbl="JFA Dosen" nm="jfa">
-                            @foreach ($jenjang_jfa_options as $options)
-                                <option value="{{ $options->id }}">
-                                    {{ $options->pangkat }}</option>
-                            @endforeach
-                        </x-islc>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
+        <div id="emergency-contacts" class="flex flex-col gap-6 border p-3">
+            <div class="flex items-center justify-between">
+                <h3 class="text-base font-semibold">Emergency Contact</h3>
+                <button type="button" id="add-contact" class="px-3 py-1 border rounded text-sm">+ Tambah</button>
+            </div>
+            
+
+            <div id="contacts-container" class=""></div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const container = document.getElementById('contacts-container');
+                const addBtn = document.getElementById('add-contact');
+                let index = 0;
+
+                function contactTemplate(i) {
+                    return `
+                        <div class="rounded-md border p-3 mt-4 space-y-4" data-index="${i}">
+                            <div class="flex items-center justify-between">
+                            <span class="text-sm font-medium">Kontak #${i + 1}</span>
+                            <button type="button" class="text-red-600 text-xs remove-contact">Hapus</button>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-4">
+                            <label>
+                                <span>Nama Lengkap</span>
+                                <input type="text" name="emergency_contacts[${i}][nama_lengkap]" placeholder="Jane Doe" maxlength="100" class="border p-2 rounded w-full">
+                            </label>
+
+                            <label>
+                                <span>Status Hubungan</span>
+                                <select name="emergency_contacts[${i}][status_hubungan]" class="border p-2 rounded w-full">
+                                <option value="">-- Pilih --</option>
+                                <option value="Orang Tua">Orang Tua</option>
+                                <option value="Suami/Istri">Suami/Istri</option>
+                                <option value="Saudara">Saudara</option>
+                                <option value="Teman">Teman</option>
+                                <option value="Lainnya">Lainnya</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                <span>Telepon</span>
+                                <input type="text" name="emergency_contacts[${i}][telepon]" placeholder="081234567890" maxlength="13" class="border p-2 rounded w-full">
+                            </label>
+
+                            <label>
+                                <span>Email</span>
+                                <input type="email" name="emergency_contacts[${i}][email]" placeholder="jane.doe@gmail.com" maxlength="150" class="border p-2 rounded w-full">
+                            </label>
+
+                            <label class="md:col-span-2">
+                                <span>Alamat</span>
+                                <textarea name="emergency_contacts[${i}][alamat]" placeholder="Jl. Telekomunikasi No. 1, Bandung" maxlength="300" class="border p-2 rounded w-full"></textarea>
+                            </label>
+                            </div>
+                        </div>
+                `;
+                }
+
+                function addContact() {
+                    container.insertAdjacentHTML('beforeend', contactTemplate(index));
+                    index++;
+                    updateRemoveButtons();
+                }
+
+                function updateRemoveButtons() {
+                    const removeButtons = container.querySelectorAll('.remove-contact');
+                    removeButtons.forEach(btn => {
+                        btn.onclick = function() {
+                            const block = this.closest('[data-index]');
+                            block.remove();
+                            renumberContacts();
+                        };
+                    });
+                }
+
+                function renumberContacts() {
+                    const blocks = container.querySelectorAll('[data-index]');
+                    blocks.forEach((block, i) => {
+                        block.setAttribute('data-index', i);
+                        block.querySelector('span.text-sm').textContent = `Kontak #${i + 1}`;
+                        block.querySelectorAll('input, select, textarea').forEach(input => {
+                            input.name = input.name.replace(/\[\d+\]/, `[${i}]`);
+                        });
+                    });
+                    index = blocks.length;
+                }
+
+                addBtn.addEventListener('click', addContact);
+
+                // default satu kontak
+                addContact();
+            });
+        </script>
+
         {{-- Data Pendidikan Pegawai --}}
-        <div class="flex flex-col gap-8 w-full max-w-100 md:mx-auto rounded-md border p-3">
-            <h2 class="text-lg font-semibold text-black text-center">Data Pendidikan Pegawai</h2>
+        {{-- <div class="flex flex-col gap-8 w-full max-w-100 md:mx-auto rounded-md border p-3">
+            <h2 class="text-lg font-semibold text-black text-center">Data Pendidikan Pegawai (Opsional)</h2>
 
             <div class="grid md:grid-cols-2 gap-8">
-                {{-- Kolom Kiri --}}
                 <div class="flex flex-col gap-4">
-                    <x-islc lbl="Jenjang Pendidikan" nm="jenjang_pendidikan_id">
+                    <x-islc lbl="Jenjang Pendidikan" nm="jenjang_pendidikan_id" :req=false>
                         @foreach ($jenjang_pendidikan_options as $option)
                             <option value="{{ $option->id }}">{{ $option->jenjang_pendidikan }}</option>
                         @endforeach
                     </x-islc>
 
                     <x-itxt lbl="Bidang Pendidikan / Fakultas" plc="Informatika" nm="bidang_pendidikan"
-                        max="150"></x-itxt>
+                        max="150" :req=false></x-itxt >
 
                     <x-itxt lbl="Jurusan / Program Studi" plc="Rekayasa Perangkat Lunak" nm="jurusan"
-                        max="150"></x-itxt>
+                        max="150" :req=false></x-itxt>
 
-                    <x-itxt lbl="Nama Kampus" plc="Telkom University" nm="nama_kampus" max="150"></x-itxt>
+                    <x-itxt lbl="Nama Kampus" plc="Telkom University" nm="nama_kampus" max="150" :req=false></x-itxt>
 
                     <x-itxt lbl="Alamat Kampus" plc="Jl. Telekomunikasi No. 1, Bandung" nm="alamat_kampus"
-                        max="300"></x-itxt>
+                        max="300" :req=false></x-itxt>
                 </div>
 
-                {{-- Kolom Kanan --}}
                 <div class="flex flex-col gap-4">
-                    {{-- Note: untuk type=number, "max" adalah nilai maksimum, bukan panjang karakter --}}
                     <x-itxt type="number" lbl="Tahun Lulus" plc="2024" nm="tahun_lulus" min="1900"
-                        max="{{ now()->year }}"></x-itxt>
+                        max="{{ now()->year }}"  :req=false></x-itxt>
 
-                    {{-- IPK desimal --}}
                     <x-itxt type="number" lbl="Nilai IPK" plc="3.75" nm="nilai" step="0.01" min="0"
-                        max="4" :rules="['maksimal ipk 4.00']" />
+                        max="4" :rules="['maksimal ipk 4.00']" :req=false />
 
 
                     <div class="flex flex-col xl:flex-row justify-between w-full gap-3">
                         <x-itxt lbl="Gelar yang Didapat" fill="flex-grow" plc="Sarjana Komputer" nm="gelar"
-                            max="50"></x-itxt>
+                            max="50" :req=false></x-itxt>
                         <x-itxt lbl="Singkatan Gelar" plc="S.Kom." fill="flex-grow" nm="singkatan_gelar"
-                            max="20"></x-itxt>
+                            max="20" :req=false></x-itxt>
                     </div>
 
-                    {{-- Ijazah / Sertifikat Kelulusan: upload file --}}
                     <label class="text-sm font-medium text-gray-700">Ijazah / Sertifikat Kelulusan (PDF/JPG)</label>
                     <input type="file" name="ijazah_file" accept=".pdf,.jpg,.jpeg,.png"
                         class="block w-full rounded-md border px-3 py-2 text-sm" />
                 </div>
             </div>
-        </div>
+        </div> --}}
     </x-form>
 
     <script>
@@ -213,11 +303,7 @@
                 return;
             }
 
-            // Simpan referensi awal options (bukan untuk rebuild, hanya baca class)
-            const statusOptions = Array.from(statusKepegawaian.options).map(opt => ({
-                el: opt,
-                classes: opt.className // contoh: "opsi-kepegawaian Dosen"
-            }));
+
 
             function setSectionRequired(sectionEl, isRequired) {
                 if (!sectionEl) return;

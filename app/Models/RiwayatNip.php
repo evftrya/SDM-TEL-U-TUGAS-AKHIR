@@ -16,12 +16,12 @@ class RiwayatNip extends Model
         'nip',
         'status_pegawai_id',
         'users_id',
-        'tanggal_berlaku',
+        'tmt_mulai',
         'is_active',
     ];
 
     protected $casts = [
-        'tanggal_berlaku' => 'date',
+        'tmt_mulai' => 'date',
         'is_active' => 'boolean',
         'id' => 'string',
         'status_pegawai_id' => 'string',

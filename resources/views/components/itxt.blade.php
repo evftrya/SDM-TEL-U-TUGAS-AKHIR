@@ -21,7 +21,7 @@
 <div class="flex flex-col gap-1 {{ $fill }}">
     <label class="text-sm text-gray-600 font-medium">
         {{ $lbl }}
-        @if ($req)
+        @if ($req==true)
             *
         @endif
     </label>
@@ -33,12 +33,12 @@
             @if ($step != '') step="{{ $step }}" @endif
             @if ($type == 'number') inputmode="decimal" @endif
             @if ($max !== 'none') maxlength="{{ $max }}" @endif
-            @if($max == 'none' && $type == 'date') max = {{ $max }}  @endif
-            class="peer h-10 border border-gray-300 rounded-md px-3 text-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-400">
+            @if($max != 'none' && $type == 'date') max = {{ $max }}  @endif
+            class="peer h-10 border @if($type=='file') py-1 @endif border-gray-300 rounded-md px-3 text-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-400">
     @else
         <textarea name="{{ $nm }}" rows="4" placeholder="{{ $plc }}"
             @if ($max !== 'none') maxlength="{{ $max }}" @endif
-            @if ($req) required @endif @if ($dis) disabled @endif
+            @if ($req==true) required @endif @if ($dis) disabled @endif
             class="peer border flex-grow-1 border-gray-300 rounded-md px-3 py-2 text-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-400">{{ old($nm, $val) }}</textarea>
     @endif
 

@@ -13,11 +13,19 @@ class RefPangkatGolonganSeeder extends Seeder
      */
     public function run(): void
     {
+        // $data = [
+        //     ['pangkat' => 'Asisten Ahli', 'golongan' => 'III/b'],
+        //     ['pangkat' => 'Lektor', 'golongan' => 'III/c'],
+        //     ['pangkat' => 'Lektor Kepala', 'golongan' => 'IV/a'],
+        //     ['pangkat' => 'Guru Besar (Profesor)', 'golongan' => 'IV/c'],
+        // ];
+
         $data = [
-            ['pangkat' => 'Asisten Ahli', 'golongan' => 'III/b'],
-            ['pangkat' => 'Lektor', 'golongan' => 'III/c'],
-            ['pangkat' => 'Lektor Kepala', 'golongan' => 'IV/a'],
-            ['pangkat' => 'Guru Besar (Profesor)', 'golongan' => 'IV/c'],
+            ['pangkat' => 'Pembina Tk. I', 'golongan' => 'IV/b'],
+            ['pangkat' => 'Pembina Utama Muda', 'golongan' => 'IV/c'],
+            ['pangkat' => 'Penata', 'golongan' => 'III/c'],
+            ['pangkat' => 'Penata Muda Tk. I', 'golongan' => 'III/b'],
+            ['pangkat' => 'Penata Tk. I', 'golongan' => 'IV/c'],
         ];
 
         foreach ($data as $item) {

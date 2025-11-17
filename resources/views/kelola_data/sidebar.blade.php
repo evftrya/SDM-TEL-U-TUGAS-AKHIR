@@ -6,11 +6,11 @@
         [
             ['Manajemen Data Pegawai', 'Pegawai'],
             [
-                ['Dashboard Pegawai', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-gauge'],
-                ['Daftar Pegawai', route('manage.pegawai.list', ['destination' => 'All']), 'fa-solid fa-users'],
+                ['Dashboard Pegawai', route('manage.pegawai.list', ['destination' => 'Active']), 'fa-solid fa-gauge'],
+                ['Daftar Pegawai', route('manage.pegawai.list', ['destination' => 'Active']), 'fa-solid fa-users'],
                 ['Tambah Pegawai Baru', route('manage.pegawai.new'), 'fa-solid fa-user-plus'],
-                ['Tambah Dosen Baru', route('manage.pegawai.new',['type'=>'Dosen']), 'fa-solid fa-chalkboard-user'],
-                ['Tambah TPA Baru', route('manage.pegawai.new',['type'=>'Tpa']), 'fa-solid fa-user-tie'],
+                ['Tambah Dosen Baru', route('manage.pegawai.new', ['type' => 'Dosen']), 'fa-solid fa-chalkboard-user'],
+                ['Tambah TPA Baru', route('manage.pegawai.new', ['type' => 'Tpa']), 'fa-solid fa-user-tie'],
                 ['Import Pegawai', route('manage.pegawai.new'), 'fa-solid fa-file-import'],
             ],
         ],
@@ -29,6 +29,22 @@
             ],
         ],
         [
+            ['Dashboard Prodi', 'DashboardProdi'],
+            [
+                ['Dashboard Pendidikan', route('manage.dashboard-prodi.pendidikan'), 'fa-solid fa-graduation-cap'],
+                ['Dashboard Jabatan Fungsional', route('manage.dashboard-prodi.fungsional'), 'fa-solid fa-award'],
+                ['Dashboard Kepegawaian', route('manage.dashboard-prodi.kepegawaian'), 'fa-solid fa-id-card'],
+            ],
+        ],
+        [
+            ['Sertifikasi Dosen', 'Sertifikasi'],
+            [
+                ['Daftar Sertifikasi', route('manage.sertifikasi-dosen.list'), 'fa-solid fa-certificate'],
+                ['Tambah Sertifikasi', route('manage.sertifikasi-dosen.input'), 'fa-solid fa-plus-circle'],
+                ['Upload Sertifikasi', route('manage.sertifikasi-dosen.upload'), 'fa-solid fa-file-upload'],
+            ],
+        ],
+        [
             ['Manajemen Level', 'Level'],
             [
                 ['Daftar Level', route('manage.level.list'), 'fa-solid fa-layer-group'],
@@ -39,14 +55,14 @@
             ['Manajemen Formasi', 'Formasi'],
             [
                 ['Daftar Formasi', route('manage.formasi.list'), 'fa-solid fa-list-check'],
-                ['Tambah Formasi', route('manage.formasi.list'), 'fa-solid fa-plus-circle'],
+                ['Tambah Formasi', route('manage.formasi.new'), 'fa-solid fa-plus-circle'],
             ],
         ],
         [
-            ['Pengawakan', 'Pengawakan'],
+            ['Pemetaan', 'Pemetaan'],
             [
-                ['Daftar Pengawakan', route('manage.pengawakan.list'), 'fa-solid fa-users-gear'],
-                ['Tambah Pengawakan', route('manage.pengawakan.list'), 'fa-solid fa-user-plus'],
+                ['Daftar Pemetaan', route('manage.pengawakan.list'), 'fa-solid fa-users-gear'],
+                ['Tambah Pemetaan', route('manage.pengawakan.list'), 'fa-solid fa-user-plus'],
                 ['Struktur Jabatan', route('manage.pengawakan.list'), 'fa-solid fa-sitemap'],
             ],
         ],

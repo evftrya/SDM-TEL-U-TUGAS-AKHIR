@@ -12,6 +12,6 @@ class RiwayatPangkatGolonganSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        
     }
 }

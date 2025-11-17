@@ -55,320 +55,81 @@
 
         <x-tb id="formasiTable">
             <x-slot:table_header>
-                <x-tb-td nama="nama" sorting=true>Level</x-tb-td>
-                <x-tb-td type="select" nama="gender" sorting=true>Nama Formasi</x-tb-td>
-                <x-tb-td nama="hp" sorting=true>Tipe Bagian</x-tb-td>
-                <x-tb-td nama="tipe" sorting=true>Bagian</x-tb-td>
-                <x-tb-td type="select" nama="status" sorting=true>Atasan</x-tb-td>
-                <x-tb-td type="select" nama="aktif" sorting=true>Kuota</x-tb-td>
-                <x-tb-td nama="email_pribadi" sorting=true>Action</x-tb-td>
+                <x-tb-td type="select" nama="level" sorting=true>Level</x-tb-td>
+                <x-tb-td nama="nama_formasi" sorting=true>Nama Formasi</x-tb-td>
+                <x-tb-td type="select" nama="tipe_bagian" sorting=true>Tipe Bagian</x-tb-td>
+                <x-tb-td type="select" nama="bagian" sorting=true>Bagian</x-tb-td>
+                <x-tb-td type="select" nama="atasan" sorting=true>Atasan</x-tb-td>
+                <x-tb-td nama="kuota" sorting=true>Kuota</x-tb-td>
+                <x-tb-td nama="email_pribadi" >Action</x-tb-td>
             </x-slot:table_header>
 
             <x-slot:table_column>
-                <x-tb-cl id="1">
-                    <x-tb-cl-fill>Direktur</x-tb-cl-fill>
-                    <x-tb-cl-fill>Direktur</x-tb-cl-fill>
-                    <x-tb-cl-fill></x-tb-cl-fill>
-                    <x-tb-cl-fill></x-tb-cl-fill>
-                    <x-tb-cl-fill>0</x-tb-cl-fill>
-                    <x-tb-cl-fill>1</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
+                @forelse ($formations as $formation)
+                    <x-tb-cl id="{{ $formation->id }}">
+                        <x-tb-cl-fill>{{ $formation->level_id->singkatan_level }}</x-tb-cl-fill>
+                        <x-tb-cl-fill><p class="text-wrap">{{ $formation->nama_formasi }}</p></x-tb-cl-fill>
+                        <x-tb-cl-fill>
+                            @if ($formation->bagian != null)
+                                Divisi
+                            @elseif($formation->prodi != null)
+                                Program Studi
+                            @elseif($formation->fakultas != null)
+                                Fakultas
+                            @else
+                                -
+                            @endif
+                        </x-tb-cl-fill>
+                        <x-tb-cl-fill>
 
-                <x-tb-cl id="2">
-                    <x-tb-cl-fill>Wakil Direktur</x-tb-cl-fill>
-                    <x-tb-cl-fill>Wakil Direktur</x-tb-cl-fill>
-                    <x-tb-cl-fill></x-tb-cl-fill>
-                    <x-tb-cl-fill></x-tb-cl-fill>
-                    <x-tb-cl-fill>1</x-tb-cl-fill>
-                    <x-tb-cl-fill>3</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
-
-                <x-tb-cl id="3">
-                    <x-tb-cl-fill>Wakil Direktur</x-tb-cl-fill>
-                    <x-tb-cl-fill>Wakil Direktur</x-tb-cl-fill>
-                    <x-tb-cl-fill></x-tb-cl-fill>
-                    <x-tb-cl-fill></x-tb-cl-fill>
-                    <x-tb-cl-fill>1</x-tb-cl-fill>
-                    <x-tb-cl-fill>2</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
-
-                <x-tb-cl>
-                    <x-tb-cl-fill>Wakil Direktur</x-tb-cl-fill>
-                    <x-tb-cl-fill>Wakil Direktur</x-tb-cl-fill>
-                    <x-tb-cl-fill></x-tb-cl-fill>
-                    <x-tb-cl-fill></x-tb-cl-fill>
-                    <x-tb-cl-fill>1</x-tb-cl-fill>
-                    <x-tb-cl-fill>4</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
-
-                <x-tb-cl>
-                    <x-tb-cl-fill>Kepala Bagian</x-tb-cl-fill>
-                    <x-tb-cl-fill>KABAG Keuangan</x-tb-cl-fill>
-                    <x-tb-cl-fill>Divisi</x-tb-cl-fill>
-                    <x-tb-cl-fill>Keuangan</x-tb-cl-fill>
-                    <x-tb-cl-fill>2</x-tb-cl-fill>
-                    <x-tb-cl-fill>1</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
-
-                <x-tb-cl>
-                    <x-tb-cl-fill>Kepala Urusan</x-tb-cl-fill>
-                    <x-tb-cl-fill>KAUR Keuangan</x-tb-cl-fill>
-                    <x-tb-cl-fill>Divisi</x-tb-cl-fill>
-                    <x-tb-cl-fill>Keuangan</x-tb-cl-fill>
-                    <x-tb-cl-fill>5</x-tb-cl-fill>
-                    <x-tb-cl-fill>1</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
-
-                <x-tb-cl>
-                    <x-tb-cl-fill>Anggota Bagian</x-tb-cl-fill>
-                    <x-tb-cl-fill>Anggota Keuangan</x-tb-cl-fill>
-                    <x-tb-cl-fill>Divisi</x-tb-cl-fill>
-                    <x-tb-cl-fill>Keuangan</x-tb-cl-fill>
-                    <x-tb-cl-fill>6</x-tb-cl-fill>
-                    <x-tb-cl-fill>6</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
-
-                <x-tb-cl>
-                    <x-tb-cl-fill>Kepala Bagian</x-tb-cl-fill>
-                    <x-tb-cl-fill>KABAG SDM</x-tb-cl-fill>
-                    <x-tb-cl-fill>Divisi</x-tb-cl-fill>
-                    <x-tb-cl-fill>SDM</x-tb-cl-fill>
-                    <x-tb-cl-fill>2</x-tb-cl-fill>
-                    <x-tb-cl-fill>1</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
-
-                <x-tb-cl>
-                    <x-tb-cl-fill>Kepala Urusan</x-tb-cl-fill>
-                    <x-tb-cl-fill>KAUR SDM</x-tb-cl-fill>
-                    <x-tb-cl-fill>Divisi</x-tb-cl-fill>
-                    <x-tb-cl-fill>SDM</x-tb-cl-fill>
-                    <x-tb-cl-fill>8</x-tb-cl-fill>
-                    <x-tb-cl-fill>1</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
-
-                <x-tb-cl>
-                    <x-tb-cl-fill>Anggota Bagian</x-tb-cl-fill>
-                    <x-tb-cl-fill>Anggota SDM</x-tb-cl-fill>
-                    <x-tb-cl-fill>Divisi</x-tb-cl-fill>
-                    <x-tb-cl-fill>SDM</x-tb-cl-fill>
-                    <x-tb-cl-fill>9</x-tb-cl-fill>
-                    <x-tb-cl-fill>6</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
-
-                
-
-                <x-tb-cl id="7">
-                    <x-tb-cl-fill>Dekan</x-tb-cl-fill>
-                    <x-tb-cl-fill>Dekan</x-tb-cl-fill>
-                    <x-tb-cl-fill>Program Studi</x-tb-cl-fill>
-                    <x-tb-cl-fill>Teknik Informatika</x-tb-cl-fill>
-                    <x-tb-cl-fill>4</x-tb-cl-fill>
-                    <x-tb-cl-fill>1</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
-
-                <x-tb-cl id="8">
-                    <x-tb-cl-fill>Dekan</x-tb-cl-fill>
-                    <x-tb-cl-fill>Dekan</x-tb-cl-fill>
-                    <x-tb-cl-fill>Fakultas</x-tb-cl-fill>
-                    <x-tb-cl-fill>Informatika</x-tb-cl-fill>
-                    <x-tb-cl-fill>4</x-tb-cl-fill>
-                    <x-tb-cl-fill>1</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
-
-                <x-tb-cl id="9">
-                    <x-tb-cl-fill>Dekan</x-tb-cl-fill>
-                    <x-tb-cl-fill>Dekan</x-tb-cl-fill>
-                    <x-tb-cl-fill>Fakultas</x-tb-cl-fill>
-                    <x-tb-cl-fill>Bisnis</x-tb-cl-fill>
-                    <x-tb-cl-fill>4</x-tb-cl-fill>
-                    <x-tb-cl-fill>1</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
-
-                <x-tb-cl>
-                    <x-tb-cl-fill>Kepala Program Studi</x-tb-cl-fill>
-                    <x-tb-cl-fill>Kaprodi Rekayasa Perangkat Lunak</x-tb-cl-fill>
-                    <x-tb-cl-fill>Program Studi</x-tb-cl-fill>
-                    <x-tb-cl-fill>Rekayasa Perangkat Lunak</x-tb-cl-fill>
-                    <x-tb-cl-fill>12</x-tb-cl-fill>
-                    <x-tb-cl-fill>1</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
-                <x-tb-cl>
-                    <x-tb-cl-fill>Anggota Program Studi</x-tb-cl-fill>
-                    <x-tb-cl-fill>Anggota Prodi RPL</x-tb-cl-fill>
-                    <x-tb-cl-fill>Program Studi</x-tb-cl-fill>
-                    <x-tb-cl-fill>Rekayasa Perangkat Lunak</x-tb-cl-fill>
-                    <x-tb-cl-fill>14</x-tb-cl-fill>
-                    <x-tb-cl-fill>8</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
-                <x-tb-cl>
-                    <x-tb-cl-fill>Kepala Program Studi</x-tb-cl-fill>
-                    <x-tb-cl-fill>Kaprodi Sistem Informasi</x-tb-cl-fill>
-                    <x-tb-cl-fill>Program Studi</x-tb-cl-fill>
-                    <x-tb-cl-fill>Rekayasa Sistem Informasi</x-tb-cl-fill>
-                    <x-tb-cl-fill>12</x-tb-cl-fill>
-                    <x-tb-cl-fill>1</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
-                <x-tb-cl>
-                    <x-tb-cl-fill>Anggota Program Studi</x-tb-cl-fill>
-                    <x-tb-cl-fill>Anggota Prodi SI</x-tb-cl-fill>
-                    <x-tb-cl-fill>Program Studi</x-tb-cl-fill>
-                    <x-tb-cl-fill>Rekayasa Sistem Informasi</x-tb-cl-fill>
-                    <x-tb-cl-fill>16</x-tb-cl-fill>
-                    <x-tb-cl-fill>8</x-tb-cl-fill>
-                    <x-tb-cl-fill>
-                        <div class="flex items-center justify-center gap-3">
-                            
-                            <button
-                                class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
-                                View Details
-                            </button>
-                        </div>
-                    </x-tb-cl-fill>
-                </x-tb-cl>
+                            @if ($formation->bagian != null)
+                                {{ $formation->bagian->kode }}
+                            @elseif($formation->prodi != null)
+                                {{ $formation->prodi->kode }}
+                            @elseif($formation->fakultas != null)
+                                {{ $formation->fakultas->kode }}
+                            @else
+                                -
+                            @endif
+                        </x-tb-cl-fill>
+                        <x-tb-cl-fill>
+                            <p class="text-wrap">{{ $formation->atasan_formation ? $formation->atasan_formation->nama_formasi : '-' }}</p>
+                        </x-tb-cl-fill>
+                        <x-tb-cl-fill>{{ $formation->kuota }}</x-tb-cl-fill>
+                        <x-tb-cl-fill>
+                            <div class="flex items-center justify-center gap-3">
+                                <button
+                                    class="px-3 py-1.5 border border-[#0070ff] text-[#0070ff] rounded-md text-xs font-medium hover:bg-[#0070ff] hover:text-white transition">
+                                    View Details
+                                </button>
+                                <div class="dropdown">
+                                    <button class="btn btn-light btn-sm" data-bs-toggle="dropdown">
+                                        ⋮
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{{ route('manage.formasi.update',['idFormasi'=>$formation->id]) }}" class="dropdown-item hover:bg-blue-500 hover:text-white" href="#">
+                                                Ubah Data
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item hover:bg-blue-500 hover:text-white" href="#">
+                                                Karyawan Aktif
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item hover:bg-blue-500 hover:text-white" href="#">
+                                                History Karyawan
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </x-tb-cl-fill>
+                    </x-tb-cl>
+                @empty
+                    <p>No Data</p>
+                @endforelse
             </x-slot:table_column>
         </x-tb>
 

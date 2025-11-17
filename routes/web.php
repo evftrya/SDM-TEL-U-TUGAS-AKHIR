@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\DashboardProdiController;
+use App\Http\Controllers\EmergencyContactController;
 use App\Http\Controllers\FakultasController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\LevelController;
@@ -11,6 +12,8 @@ use App\Http\Controllers\PengawakanController;
 use App\Http\Controllers\ProdiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\SertifikasiDosenController;
+use App\Models\Emergency_contact;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -30,13 +33,22 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile/edit', [ProfileController::class, 'profileNormalisasi'])->name('profile.edit');
-    Route::get('/profile/personal-information/{idUser}', [ProfileController::class, 'personalInfo'])->name('profile.personal-info');
-    Route::get('/profile/change-password/{idUser}', [ProfileController::class, 'changePassword'])->name('profile.change-password');
-    Route::post('/profile/update-password/', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Route::get('/profile/edit', [ProfileController::class, 'profileNormalisasi'])->name('profile.edit');
+    // Route::get('/profile/personal-information/{idUser}', [ProfileController::class, 'personalInfo'])->name('profile.personal-info');
+    // Route::get('/profile/change-password/{idUser}', [ProfileController::class, 'changePassword'])->name('profile.change-password');
+    // Route::post('/profile/update-password/', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
+        Route::get('/edit', [ProfileController::class, 'profileNormalisasi'])->name('profile.edit');
+        Route::get('/personal-information/{idUser}', [ProfileController::class, 'personalInfo'])->name('personal-info');
+        Route::get('/change-password/{idUser}', [ProfileController::class, 'changePassword'])->name('change-password');
+        Route::post('/update-password/', [ProfileController::class, 'updatePassword'])->name('update-password');
+        Route::post('/emergency-contacts/{idUser}', [EmergencyContactController::class, 'emergencyContacts'])->name('emergency-contacts');
+        Route::patch('/', [ProfileController::class, 'update'])->name('update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
+    });
     Route::group(['prefix' => 'manage', 'as' => 'manage.'], function () {
         Route::get('/', function () {
             return view('kelola_data.index');
@@ -79,12 +91,24 @@ Route::middleware('auth')->group(function () {
             })->name('dashboard');
         });
 
+        Route::group(['prefix' => 'emergency-contact', 'as' => 'emergency-contact.'], function () {
+
+            Route::get('/{id_User}/list', [EmergencyContactController::class, 'list'])->name('list');
+
+        });
+
+        // Route::group(['prefix' => 'emergency-contact', 'as' => 'emergency-contact.'], function () {
+
+        //     Route::get('/{id_User}/list', [EmergencyContactController::class, 'list'])->name('list');
+
+        // });
+
         Route::group(['prefix' => 'fakultas', 'as' => 'fakultas.'], function () {
             Route::get('/view', function () {
                 return view('kelola_data.fakultas.view');
             })->name('view');
 
-            Route::get('/list', [FacultyController::class, 'index'])->name('list');
+            // Route::get('/list', [FacultyController::class, 'index'])->name('list');
 
             Route::get('/new', function () {
                 return view('kelola_data.manajemen_akun.input');
@@ -102,7 +126,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/list/', [LevelController::class, 'index'])->name('list');
             Route::get('/new', [LevelController::class, 'new'])->name('new');
             Route::post('/create', [LevelController::class, 'create'])->name('create');
-            Route::post('/update-data', [LevelController::class, 'create'])->name('update-data');
+            Route::post('/update-data/{idLevel}', [LevelController::class, 'update_data'])->name('update-data');
             Route::get('/update/{idLevel}', [LevelController::class, 'update'])->name('update');
 
 
@@ -120,38 +144,73 @@ Route::middleware('auth')->group(function () {
             })->name('view');
 
             Route::get('/list/', [FormationController::class, 'index'])->name('list');
+            Route::get('/new/', [FormationController::class, 'new'])->name('new');
+            Route::post('/create/', [FormationController::class, 'create'])->name('create');
+            Route::get('/update/{idFormasi}', [FormationController::class, 'update'])->name('update');
+            Route::post('/update-data/{idFormasi}', [FormationController::class, 'update_data'])->name('update-data');
 
-            Route::get('/new', function () {
-                return view('kelola_data.formasi.view');
-            })->name('new');
-            Route::get('/dashboard', function () {
-                return view('kelola_data.manajemen_akun.dashboard');
-            })->name('dashboard');
+            // Route::get('/new', function () {
+            //     return view('kelola_data.formasi.view');
+            // })->name('new');
+            // Route::get('/dashboard', function () {
+            //     return view('kelola_data.manajemen_akun.dashboard');
+            // })->name('dashboard');
         });
 
         Route::group(['prefix' => 'pengawakan', 'as' => 'pengawakan.'], function () {
-            Route::get('/view', function () {
-                return view('kelola_data.formasi.view');
-            })->name('view');
+            // Route::get('/view', function () {
+            //     return view('kelola_data.sotk-pengawakan.view');
+            // })->name('view');
+            // Route::get('/input', function () {
+            //     return view('kelola_data.sotk-pengawakan.input');
+            // })->name('input');
 
             Route::get('/list/', [PengawakanController::class, 'index'])->name('list');
+            Route::get('/new/', [PengawakanController::class, 'new'])->name('new');
+            Route::post('/create/', [PengawakanController::class, 'create'])->name('create');
+            Route::get('/update/', [PengawakanController::class, 'update'])->name('update');
+            Route::post('/update-data/', [PengawakanController::class, 'update-data'])->name('update-data');
 
-            Route::get('/new', function () {
-                return view('kelola_data.formasi.view');
-            })->name('new');
-            Route::get('/dashboard', function () {
-                return view('kelola_data.manajemen_akun.dashboard');
-            })->name('dashboard');
+            // Route::get('/new', function () {
+            //     return view('kelola_data.sotk-pengawakan.view');
+            // })->name('new');
+            // Route::get('/dashboard', function () {
+            //     return view('kelola_data.sotk-pengawakan.dashboard');
+            // })->name('dashboard');
         });
 
         // Fakultas Routes
         Route::resource('fakultas', FakultasController::class);
 
         // Prodi Routes
+        Route::get('prodi/{prodi}/get-cached-stats', [ProdiController::class, 'getCachedStats'])->name('prodi.getCachedStats');
+        Route::post('prodi/{prodi}/update-stats', [ProdiController::class, 'updateStats'])->name('prodi.updateStats');
         Route::resource('prodi', ProdiController::class);
+
+        // Dashboard Prodi Routes
+        Route::group(['prefix' => 'dashboard-prodi', 'as' => 'dashboard-prodi.'], function () {
+            Route::get('/pendidikan', [DashboardProdiController::class, 'pendidikan'])->name('pendidikan');
+            Route::get('/fungsional', [DashboardProdiController::class, 'fungsional'])->name('fungsional');
+            Route::get('/kepegawaian', [DashboardProdiController::class, 'kepegawaian'])->name('kepegawaian');
+        });
+
+        // Sertifikasi Dosen Routes
+        Route::group(['prefix' => 'sertifikasi-dosen', 'as' => 'sertifikasi-dosen.'], function () {
+            Route::get('/list', [SertifikasiDosenController::class, 'index'])->name('list');
+            Route::get('/input', [SertifikasiDosenController::class, 'create'])->name('input');
+            Route::post('/store', [SertifikasiDosenController::class, 'store'])->name('store');
+            Route::get('/view/{id}', [SertifikasiDosenController::class, 'view'])->name('view');
+            Route::get('/edit/{id}', [SertifikasiDosenController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [SertifikasiDosenController::class, 'update'])->name('update');
+            Route::delete('/destroy/{id}', [SertifikasiDosenController::class, 'destroy'])->name('destroy');
+            Route::get('/upload', [SertifikasiDosenController::class, 'upload'])->name('upload');
+            Route::post('/process-upload', [SertifikasiDosenController::class, 'processUpload'])->name('process-upload');
+        });
     });
 
-    // DUPAK Routes
+    // 
+  
+  Routes
     Route::group([
         'prefix' => 'dupak',
         'as' => 'dupak.',

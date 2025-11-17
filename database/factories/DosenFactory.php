@@ -19,6 +19,7 @@ class DosenFactory extends Factory
         return [
             'nidn' => $this->faker->numerify('##########'),
             'nuptk' => $this->faker->numerify('##########'),
+            'prodi_id'=>null,
             'created_at' => now(),
             'updated_at' => now(),
         ];

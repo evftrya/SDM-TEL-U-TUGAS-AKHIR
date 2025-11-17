@@ -18,6 +18,8 @@
             }
         }
     </style>
+
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
 @endsection
 @section('page-name')
     <div
@@ -32,7 +34,7 @@
         </div>
         <div class="flex items-center w-full justify-end gap-[11.749480247497559px]">
 
-            <x-print-tb target_id="pegawaiTable"></x-print-tb>
+            {{-- <x-print-tb target_id="pegawaiTable"></x-print-tb> --}}
             <x-export-csv-tb target_id="pegawaiTable"></x-export-csv-tb>
 
             <button class="flex rounded-[5.874740123748779px]">
@@ -49,17 +51,13 @@
 @section('content-base')
     <div class="flex flex-grow-0 flex-col gap-2 max-w-100">
         <div class="flex items-center gap-[3.7518811225891113px]">
-            <a href="{{ route('manage.pegawai.list', ['destination' => 'All']) }}"
-                class="h-[17.508777618408203px] {{ $send[0] == 'All' ? 'nav-active' : null }} flex justify-center items-center gap-[6.253134727478027px] p-[6.253134727478027px] rounded-tl-[1.8759405612945557px] rounded-tr-[1.8759405612945557px]">
+            <a href="{{ route('manage.pegawai.list', ['destination' => 'Active']) }}"
+                class="h-[17.508777618408203px] {{ $send[0] == 'Active' ? 'nav-active' : null }} flex justify-center items-center gap-[6.253134727478027px] p-[6.253134727478027px] rounded-tl-[1.8759405612945557px] rounded-tr-[1.8759405612945557px]">
+                <span class="font-semibold text-xs text-center text-[#1c2762]">Active</span>
+            </a>
+            <a href="{{ route('manage.pegawai.list', ['destination' => 'Semua']) }}"
+                class="h-[17.508777618408203px] {{ $send[0] == 'Semua' ? 'nav-active' : null }} flex justify-center items-center gap-[6.253134727478027px] p-[6.253134727478027px]">
                 <span class="font-semibold text-xs text-center text-[#1c2762]">Semua</span>
-            </a>
-            <a href="{{ route('manage.pegawai.list', ['destination' => 'Tpa']) }}"
-                class="h-[17.508777618408203px] {{ $send[0] == 'Tpa' ? 'nav-active' : null }} flex justify-center items-center gap-[6.253134727478027px] p-[6.253134727478027px]">
-                <span class="font-semibold text-xs text-center text-[#1c2762]">TPA</span>
-            </a>
-            <a href="{{ route('manage.pegawai.list', ['destination' => 'Dosen']) }}"
-                class="h-[17.508777618408203px] {{ $send[0] == 'Dosen' ? 'nav-active' : null }} flex justify-center items-center gap-[6.253134727478027px] p-[6.253134727478027px]">
-                <span class="font-semibold text-xs text-center text-[#1c2762]">Dosen</span>
             </a>
         </div>
 
@@ -68,42 +66,47 @@
             <x-slot:table_header>
                 <x-tb-td nama="nama" sorting=true>Nama Lengkap</x-tb-td>
                 <x-tb-td type="select" nama="gender" sorting=true>Gender</x-tb-td>
+                <x-tb-td nama="nip" sorting=true>NIP</x-tb-td>
+                <x-tb-td nama="nik" sorting=true>NIK</x-tb-td>
                 <x-tb-td nama="hp" sorting=true>No. HP</x-tb-td>
-                <x-tb-td type="{{ $send[0] == 'All' ? 'select' : null }}" nama="tipe" sorting=true>Tipe Pegawai</x-tb-td>
-                <x-tb-td type="select" nama="status" sorting=true>Status</x-tb-td>
-                <x-tb-td type="select" nama="aktif" sorting=true>Is Active</x-tb-td>
-                <x-tb-td nama="email_pribadi" sorting=true>Email Pribadi</x-tb-td>
-                <x-tb-td nama="email_institusi" sorting=true>Email Institusi</x-tb-td>
-                <x-tb-td nama="action" sorting=true>Action</x-tb-td>
+                <x-tb-td type="select" nama="tipe" sorting=true>Tipe Pegawai</x-tb-td>
+                <x-tb-td type="select" nama="bagian" sorting=true>Prodi/Bagian</x-tb-td>
+                @if ($send[0] == 'Semua')
+                    <x-tb-td type="select" nama="aktif" sorting=true>Is Active</x-tb-td>
+                @endif
+                <x-tb-td nama="action" sorting=false>Action</x-tb-td>
             </x-slot:table_header>
             <x-slot:table_column>
                 @foreach ($users as $user)
+                    {{-- @if ($user->is_active == 1) --}}
                     @if ($user['id'] != session('account')['id'])
                         <x-tb-cl id="$i">
                             <x-tb-cl-fill>
                                 {{ $user['nama_lengkap'] }}
                             </x-tb-cl-fill>
                             <x-tb-cl-fill>{{ $user['jenis_kelamin'] }}</x-tb-cl-fill>
+                            <x-tb-cl-fill>{{ $user['nip'] }}</x-tb-cl-fill>
+                            <x-tb-cl-fill>{{ $user['nik'] }}</x-tb-cl-fill>
                             <x-tb-cl-fill>{{ $user['telepon'] }}</x-tb-cl-fill>
-                            <x-tb-cl-fill>TPA</x-tb-cl-fill>
-                            <x-tb-cl-fill>Pegawai Tetap</x-tb-cl-fill>
+                            <x-tb-cl-fill>{{ $user['tipe_pegawai'] }}</x-tb-cl-fill>
+                            <x-tb-cl-fill><p class="cursor-pointer hover:font-bold" title="{{ $user['bagian'] }}" >{{ $user['kode'] }}</p></x-tb-cl-fill>
+                            {{-- {{ dd($send) }} --}}
+                            @if ($send[0] == 'Semua')
                             <x-tb-cl-fill>
                                     @if ($user['is_active'] == true)
-
-                                <span
-                                    class="inline-flex items-center justify-center px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                    Active
-                                </span>
-                                @else
-                                <span
-                                    class="inline-flex items-center justify-center px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                                    Nonactive
-                                </span>
+                                        <span
+                                            class="inline-flex items-center justify-center px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                            Active
+                                        </span>
+                                    @else
+                                        <span
+                                            class="inline-flex items-center justify-center px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
+                                            Nonactive
+                                        </span>
+                                    @endif
+                                    
+                                </x-tb-cl-fill>
                                 @endif
-
-                            </x-tb-cl-fill>
-                            <x-tb-cl-fill>{{ $user['email_pribadi'] }}</x-tb-cl-fill>
-                            <x-tb-cl-fill>{{ $user['email_institusi'] }}</x-tb-cl-fill>
                             <x-tb-cl-fill>
                                 <div class="flex items-center justify-center gap-3">
                                     <!-- WhatsApp Button -->
@@ -114,40 +117,6 @@
                                         class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] bg-white hover:bg-[#f9fafb] transition duration-150 ease-in-out">
                                         <i class="bi bi-whatsapp text-[#25D366] text-[16px]"></i>
                                     </a>
-                                    @if ($user['is_active'] == true)
-                                        <form id="form-nonaktif-{{ $user['id'] }}"
-                                            action="{{ route('manage.pegawai.set-non-active', ['idUser' => $user['id']]) }}"
-                                            method="POST" class="inline">
-                                            @csrf
-                                            <button title="Nonaktifkan Pegawai" type="button"
-                                                onclick="konfirmasiNonaktif('{{ $user['id'] }}')"
-                                                class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] 
-                                                bg-white text-[#10B981] hover:bg-[#FEE2E2] hover:border-[#FCA5A5] hover:text-[#EF4444]
-                                            transition-all duration-200 ease-in-out shadow-sm hover:shadow-md">
-                                                <i class="fa-solid fa-power-off text-[14px]"></i>
-                                            </button>
-                                        </form>
-                                    @else
-                                        <form id="form-aktif-{{ $user['id'] }}"
-                                            action="{{ route('manage.pegawai.set-active', ['idUser' => $user['id']]) }}"
-                                            method="POST" class="inline">
-                                            @csrf
-                                            <button title="Aktifkan Pegawai" type="button"
-                                                onclick="konfirmasiAktif('{{ $user['id'] }}')"
-                                                class="flex items-center justify-center w-7 h-7 rounded-md border border-[#d0d5dd] 
-                                            bg-white text-[#EF4444] hover:bg-[#DCFCE7] hover:border-[#86EFAC] hover:text-[#10B981]
-                                            transition-all duration-200 ease-in-out shadow-sm hover:shadow-md">
-                                                <i class="fa-solid fa-power-off text-[14px]"></i>
-                                            </button>
-                                        </form>
-                                    @endif
-
-
-                                    <button
-                                        class="px-3 py-1.5 bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white rounded-md text-xs font-medium 
-                                        hover:from-[#1d4ed8] hover:to-[#2563eb] shadow-md hover:shadow-lg transition-all duration-300">
-                                        Ubah Password
-                                    </button>
 
 
                                     <a href="{{ route('manage.pegawai.view.personal-info', ['idUser' => $user['id']]) }}"
@@ -155,10 +124,25 @@
                                         View Details
                                     </a>
 
+                                    <div class="dropdown">
+                                        <button class="btn btn-light btn-sm" data-bs-toggle="dropdown">
+                                            ⋮
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item hover:bg-blue-500 hover:text-white"
+                                                    href="#">Tambah Pendidikan</a></li>
+                                            <li><a class="dropdown-item hover:bg-blue-500 hover:text-white"
+                                                    href="#">Ubah Struktural Jabatan</a></li>
+                                            <li><a class="dropdown-item hover:bg-blue-500 hover:text-white"
+                                                    href="#">Ubah Fungsional Jabatan</a></li>
+                                        </ul>
+                                    </div>
+
                                 </div>
                             </x-tb-cl-fill>
                         </x-tb-cl>
                     @endif
+                    {{-- @endif --}}
                 @endforeach
             </x-slot:table_column>
         </x-tb>
@@ -172,8 +156,9 @@
     @include('kelola_data.pegawai.js.active-and-nonactive-pegawai')
     @include('kelola_data.pegawai.js.alert-success-from-controller')
 
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> --}}
 
-
+    {{-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script> --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');

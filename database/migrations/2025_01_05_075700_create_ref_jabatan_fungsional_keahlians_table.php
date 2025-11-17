@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ref_status_pegawais', function (Blueprint $table) {
+        Schema::create('ref_jabatan_fungsional_keahlians', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('status_pegawai');
-            $table->enum('tipe_pegawai',['Dosen','TPA']);
-            // $table->enum('status', ['Dosen Tetap', 'Dosen Tamu', 'Honorer', 'Dosen Paruh Waktu','Pegawai Tetap','Pegawai Kontrak','Magang','Outsourcing'])->nullable();
+            $table->string('nama_jfk');
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('status_pegawais');
+        Schema::dropIfExists('ref_jabatan_fungsional_keahlians');
     }
 };

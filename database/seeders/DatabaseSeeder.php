@@ -2,7 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\RefBagian;
+use App\Models\RefJabatanFungsional;
+use App\Models\refJabatanFungsionalKeahlian;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,15 +18,18 @@ class DatabaseSeeder extends Seeder
      */
 public function run(): void
 {
+    
+    
+    $path = database_path('sdm_new.sql');
+
+    $sql = File::get($path);
+
+    DB::unprepared($sql);
+
     $this->call([
-        // FakultasSeeder::class,
-        RefJenjangPendidikanSeeder::class,
-        RefPangkatGolonganSeeder::class,
-        RefStatusPegawaiSeeder::class,
         UserSeeder::class,
         DupakKegiatanSeeder::class,
     ]);
-
 
     
 }

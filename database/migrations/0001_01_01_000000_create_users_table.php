@@ -17,10 +17,12 @@ return new class extends Migration
             // $table->string('telepon');
             $table->string('telepon')->unique();
             $table->string('alamat');
+            $table->string('nik');
             $table->string('email_institusi')->unique();
             $table->enum('jenis_kelamin', ['Perempuan', 'Laki-laki']);
             $table->string('tempat_lahir');
             $table->date('tgl_lahir');
+            $table->enum('tipe_pegawai', ['TPA','Dosen']);
             $table->date('tgl_bergabung');
             $table->string('email_pribadi')->unique();
             $table->timestamp('email_verified_at')->nullable();

@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sks', function (Blueprint $table) {
+        Schema::create('emergency_contacts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('users_id')->nullable();
-            $table->string('no_sk')->nullable();
-            $table->date('tanggal_berlaku')->nullable();
-            $table->string('file_sk')->nullable();
-            $table->enum('tipe_sk', ['LLDIKTI', 'Pengakuan YPT'])->nullable();
+            $table->string('nama_lengkap');
+            $table->string('status_hubungan');
+            $table->string('telepon');
+            $table->string('alamat');
+            $table->string('email')->nullable();
             $table->timestamps();
 
             $table->foreign('users_id')->references('id')->on('users')->onDelete('set null');
+
         });
     }
 
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sks');
+        Schema::dropIfExists('emergency_contacts');
     }
 };

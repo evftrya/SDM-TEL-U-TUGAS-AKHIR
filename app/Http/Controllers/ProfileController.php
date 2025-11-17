@@ -71,6 +71,7 @@ class ProfileController extends Controller
         // dd(Auth::user()->id);
         return redirect(Route('profile.edit'));
     }
+
     public function personalInfo($idUser)
     {
         // dd($idUser,'auth',Auth::user()->id,'session',session('account')['id']);
@@ -78,14 +79,18 @@ class ProfileController extends Controller
         $user['pegawai_detail'] = RiwayatNip::where('users_id', $idUser)
                                 ->where('is_active', 1)
                                 ->first();
+        $user['emergency_contacts'] = \App\Models\Emergency_contact::where('users_id',$idUser)->get();
+        // dd($user['emergency_contacts']);
         // dd($user,$idUser);
         // $user['pegawai_detail'] = RiwayatNip::where('users_id',$idUser)->first();
         $user['pegawai_detail']['status_pegawai'] = RefStatusPegawai::where('id',$user['pegawai_detail']['status_pegawai_id'])->first();
-        if($user['pegawai_detail']['status_pegawai']['tipe_pegawai']=="TPA"){
+        if($user['tipe_pegawai']=="TPA"){
             $user['pegawai_detail']['data_tpa'] = Tpa::where('users_id',$idUser)->first();
         }else{
             $user['pegawai_detail']['data_dosen'] = Dosen::where('users_id',$idUser)->first();
         }
+
+        // dd($user);
         // dd($idUser,$user,$user['pegawai_detail']['nip']);
 
         return view('kelola_data.pegawai.view.personal-information',compact('user'));

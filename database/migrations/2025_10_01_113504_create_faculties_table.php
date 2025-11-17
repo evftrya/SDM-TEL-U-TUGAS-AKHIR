@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('faculties', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('nama_fakultas', 100);
+            $table->string('kode', 20)->unique();
         });
     }
 

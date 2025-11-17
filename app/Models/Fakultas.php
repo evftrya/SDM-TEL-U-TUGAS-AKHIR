@@ -20,7 +20,7 @@ class Fakultas extends Model
     protected $casts = [
         'id' => 'string',
     ];
-    protected $fillable = ['nama_fakultas'];
+    protected $fillable = ['kode', 'nama_fakultas'];
 
     // Relationships
     public function prodi()

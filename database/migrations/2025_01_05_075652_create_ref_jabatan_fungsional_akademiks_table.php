@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('prodis', function (Blueprint $table) {
+        Schema::create('ref_jabatan_fungsional_akademiks', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('fakultas_id');
-            $table->string('nama_prodi', 100);
-
-            $table->foreign('fakultas_id')->references('id')->on('faculties')->onDelete('cascade');
+            $table->string('nama_jabatan');
+            $table->string('minimal');
+            $table->string('maximal');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('prodis');
+        Schema::dropIfExists('ref_jabatan_fungsional_akademiks');
     }
 };

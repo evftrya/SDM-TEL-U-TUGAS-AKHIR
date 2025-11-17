@@ -17,7 +17,9 @@ class FacultyFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nama_fakultas'=>null,
+            'fakultas_id' => null,
+            'kode' => $this->faker->unique()->bothify('F-###??'),
         ];
     }
 }

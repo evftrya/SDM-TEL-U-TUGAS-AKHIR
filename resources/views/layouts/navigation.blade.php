@@ -13,7 +13,7 @@
 
             <!-- Center: Navigation Links -->
             <div class="hidden md:flex md:items-center md:justify-center md:flex-1">
-                <div class="space-x-8 text-white md:flex">
+                {{-- <div class="space-x-8 text-white md:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         Beranda
                     </x-nav-link>
@@ -23,7 +23,7 @@
                     </x-nav-link>
 
                     <x-nav-link :href="url('/manage')" :active="request()->is('pencatatan*')">
-                        Kinerja Pegawai
+                        Pengelolaan Data
                     </x-nav-link>
 
                     
@@ -36,11 +36,7 @@
                         Dashboard
                     </x-nav-link> -->
                     @endauth
-                    
-                    <!-- <x-nav-link :href="url('/bantuan')" :active="request()->is('bantuan*')">
-                        Bantuan
-                    </x-nav-link> -->
-                </div>
+                </div> --}}
             </div>
 
             <!-- Right: Auth / Login + Hamburger -->
@@ -108,34 +104,30 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1 text-white">
+        {{-- <div class="pt-2 pb-3 space-y-1 text-white">
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 <p class="text-white ">Berandaaaa</p>
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="url('/presensi')" :active="request()->is('presensi*')">
-                {{-- Presensi --}}
                 <p class="text-white clear-p">Presensi</p>
 
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="url('/manage')" :active="request()->is('pencatatan*')">
-                {{-- Pencatatan Kinerja --}}
-                <p class="text-white clear-p">Pencatatan Kinerja</p>
+                <p class="text-white clear-p">Pengelolaan Data</p>
 
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="url('/bantuan')" :active="request()->is('bantuan*')">
-                {{-- Bantuan --}}
                 <p class="text-white clear-p">Bantuan</p>
 
             </x-responsive-nav-link>
 
             @auth
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    {{-- {{ __('Dashboard') }} --}}
                     <p class="text-white clear-p">{{ __('Dashboard') }}</p>
 
                 </x-responsive-nav-link>
             @endauth
-        </div>
+        </div> --}}
 
         <!-- Responsive Settings Options -->
         @auth

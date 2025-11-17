@@ -12,6 +12,15 @@
             <form id="createFakultasForm" method="POST" action="{{ route('manage.fakultas.store') }}">
                 @csrf
 
+                <!-- Kode Fakultas -->
+                <div>
+                    <label for="kode_modal" class="block text-sm font-semibold text-gray-700 mb-1">Kode
+                        Fakultas</label>
+                    <input id="kode_modal" name="kode" type="text" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition"
+                        placeholder="Contoh: FTI">
+                </div>
+
                 <!-- Nama Fakultas -->
                 <div>
                     <label for="nama_fakultas_modal" class="block text-sm font-semibold text-gray-700 mb-1">Nama

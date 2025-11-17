@@ -20,7 +20,7 @@ class RiwayatNipFactory extends Factory
             'nip'=>fake()->numerify('################'),
             'status_pegawai_id'=>null,
             'users_id'=>null,
-            'tanggal_berlaku'=>fake()->date(),
+            'tmt_mulai'=>fake()->date(),
             'is_active'=>true,
             'created_at' => now(),
             'updated_at' => now(),  

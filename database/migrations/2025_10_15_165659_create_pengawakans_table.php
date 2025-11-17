@@ -17,10 +17,14 @@ return new class extends Migration
             $table->foreignUuid('formasi_id')->nullable();
             $table->date('tmt_mulai');
             $table->date('tmt_selesai')->nullable();            
+            $table->foreignUuid('sk_ypt_id')->nullable();            
             $table->timestamps();
 
+            
+            $table->foreign('sk_ypt_id')->references('id')->on('sks')->onDelete('set null');
             $table->foreign('users_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('formasi_id')->references('id')->on('formations')->onDelete('set null');
+            
         });
     }
 

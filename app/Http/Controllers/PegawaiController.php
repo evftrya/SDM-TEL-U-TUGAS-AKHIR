@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Models\Dosen;
+use App\Models\Emergency_contact;
+use App\Models\Prodi;
+use App\Models\RefBagian;
+use App\Models\refJabatanFungsionalAkademik;
 use App\Models\refJenjangPendidikan;
 use App\Models\RefPangkatGolongan;
 use App\Models\RefStatusPegawai;
+use App\Models\riwayatJabatanFungsionalAkademik;
 use App\Models\riwayatJenjangPendidikan;
 use App\Models\RiwayatNip;
 use App\Models\Tpa;
@@ -26,17 +31,48 @@ class PegawaiController extends Controller
     {
         $text = ucwords(strtolower($destination));
         // dd($text);
-        if(!in_array($text, ['All', 'Tpa', 'Dosen'])){
+        if(!in_array($text, ['Active', 'Nonactive', 'Semua'])){
             return redirect('/manage/pegawai/list/All');
         }
         else{
             $users = User::all();
-            // dd($users,$users[1]['email_institusi']);
+            if($destination!='Semua'){
+                if($destination=='Active'){
+                    $users = $users->where('is_active',1);
+                }
+                else{
+                    $users = $users->where('is_active',0);
+                }
+            }
+            foreach($users as $user){
+                $user['bagian']=null;
+                $user['kode']=null;
+                // $user['kode_bagian']=null;
+                $nip = RiwayatNip::where('users_id',$user->id)->first();
+                $user['nip'] = $nip==null?'-':$nip->nip;
+                // dd($user);
+                
+                
+                // dd($tes);
+                if($user['tipe_pegawai']==='Dosen'){
+                    // dd($user);
+                    $bagian = Prodi::where('id',Dosen::where('users_id',$user['id'])->first()->prodi_id)->first();
+                    $user['bagian'] = $bagian->nama_prodi;
+                    $user['kode'] = $bagian->kode;
+                }
+                else{
+                    $bagian = RefBagian::where('id',Tpa::where('users_id',$user['id'])->first()->bagian_id)->first();
+                    $user['bagian'] = $bagian->nama_bagian;
+                    $user['kode'] = $bagian->kode;
+                }
+            }
+            
             $send = [$text];
+            // dd($users);
             return view('kelola_data.pegawai.list',compact('send','users'));
         }
     }
-    
+
     public function new()
     {
         $jenjang_pendidikan_options = refJenjangPendidikan::all();
@@ -44,13 +80,16 @@ class PegawaiController extends Controller
         $jenjang_jfa_options=RefPangkatGolongan::all();
         $send = null;
         return view('kelola_data.pegawai.input',compact('send','jenjang_pendidikan_options','status_pegawai_options','jenjang_jfa_options'));
-        
+
     }
 
 
     public function create(Request $request)
     {
         // Jalankan validasi
+        // dd(($request['emergency_contacts']));
+        
+        // tes
         // dd($request->status_kepegawaian, $request->jenjang_pendidikan_id);
 
 
@@ -58,9 +97,11 @@ class PegawaiController extends Controller
 
         $validated = $request->validate([
             // Data diri (umum)
+            'nik'                  => ['nullable', 'string', 'max:20'],
             'nama_lengkap'        => ['required', 'string', 'max:100'],
             'username'            => ['required', 'alpha_dash', 'min:3', 'max:20'],
-            'telepon'             => ['nullable', 'regex:/^0\d{9,12}$/'], // 10–13 digit, dimulai 0
+            'telepon'             => ['nullable', 'regex:/^0\d{9,12}$/'],
+            // 'emergency_contact_phone' => ['nullable', 'regex:/^0\d{9,12}$/'],
             'alamat'              => ['nullable', 'string', 'max:300'],
 
             'email_pribadi'       => ['nullable', 'email:rfc,dns', 'max:150'],
@@ -72,31 +113,31 @@ class PegawaiController extends Controller
 
             // Tipe & status kepegawaian
             'tipe_pegawai'        => ['required', Rule::in(['Dosen', 'TPA'])],
-            'tanggal_berlaku'       => ['nullable', 'date', 'after:tgl_lahir'],
+            'tmt_mulai'       => ['nullable', 'date', 'after:tgl_lahir'],
             'status_kepegawaian'  => 'required',
-            'nip'                  => ['nullable', 'string', 'max:30'], // opsional, tidak dipaksa required
+            'nip'                  => ['nullable', 'string', 'max:30'], 
 
             // Data kepegawaian khusus per tipe
-            'nidn'  => ['nullable','string','max:20', Rule::requiredIf($tipe === 'dosen')],
-            'nuptk' => ['nullable','string','max:20', Rule::requiredIf($tipe === 'dosen')],
-            'jfa'   => ['nullable', Rule::requiredIf($tipe === 'dosen')],
+            // 'nidn'  => ['nullable','string','max:20', Rule::requiredIf($tipe === 'dosen')],
+            // 'nuptk' => ['nullable','string','max:20', Rule::requiredIf($tipe === 'dosen')],
+            // 'jfa'   => ['nullable', Rule::requiredIf($tipe === 'dosen')],
 
             // Wajib saat TPA, boleh kosong selain itu
-            'nitk'  => ['nullable','string','max:15', Rule::requiredIf($tipe === 'tpa')],
+            // 'nitk'  => ['nullable','string','max:15', Rule::requiredIf($tipe === 'tpa')],
 
             // Data pendidikan
-            'jenjang_pendidikan_id'   => 'required',
-            'bidang_pendidikan'    => ['nullable', 'string', 'max:150'],
-            'jurusan'              => ['nullable', 'string', 'max:150'],
-            'nama_kampus'          => ['nullable', 'string', 'max:150'],
-            'alamat_kampus'        => ['nullable', 'string', 'max:150'],
+            // 'jenjang_pendidikan_id'   => 'required',
+            // 'bidang_pendidikan'    => ['nullable', 'string', 'max:150'],
+            // 'jurusan'              => ['nullable', 'string', 'max:150'],
+            // 'nama_kampus'          => ['nullable', 'string', 'max:150'],
+            // 'alamat_kampus'        => ['nullable', 'string', 'max:150'],
 
-            'tahun_lulus'          => ['nullable', 'integer', 'digits:4', 'between:1900,' . now()->year],
-            'nilai'                => ['nullable', 'numeric', 'min:0', 'max:4'],
-            'gelar'                => ['nullable', 'string', 'max:50'],
-            'singkatan_gelar'      => ['nullable', 'string', 'max:20'],
+            // 'tahun_lulus'          => ['nullable', 'integer', 'digits:4', 'between:1900,' . now()->year],
+            // 'nilai'                => ['nullable', 'numeric', 'min:0', 'max:4'],
+            // 'gelar'                => ['nullable', 'string', 'max:50'],
+            // 'singkatan_gelar'      => ['nullable', 'string', 'max:20'],
 
-            'ijazah_file'          => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
+            // 'ijazah_file'          => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
         ], [
             // Pesan error umum
             'required' => ':attribute wajib diisi.',
@@ -119,10 +160,11 @@ class PegawaiController extends Controller
 
             // Pesan khusus
             'telepon.regex' => 'Nomor telepon harus diawali 0 dan berjumlah 10–13 digit.',
-            'nidn.required' => 'NIDN wajib diisi untuk Dosen.',
+            'emergency_contact_phone.regex' => 'Nomor telepon darurat harus diawali 0 dan berjumlah 10–13 digit.',
+            // 'nidn.required' => 'NIDN wajib diisi untuk Dosen.',
             'nomor_induk_pegawai.required' => 'Nomor Induk Pegawai/NUPTK wajib diisi untuk Dosen.',
-            'jfa.required' => 'JFA wajib dipilih untuk Dosen.',
-            'nitk.required' => 'NITK wajib diisi untuk TPA.',
+            // 'jfa.required' => 'JFA wajib dipilih untuk Dosen.',
+            // 'nitk.required' => 'NITK wajib diisi untuk TPA.',
         ]);
 
 
@@ -131,9 +173,9 @@ class PegawaiController extends Controller
             DB::beginTransaction();
             // password default: telepon&namalengkap (tanpa spasi)
             $validated['password'] = strtolower(str_replace(' ', '', $validated['telepon'].'&'.$validated['nama_lengkap']));
-            $validated['tgl_bergabung'] = $validated['tanggal_berlaku'];
+            $validated['tgl_bergabung'] = $validated['tmt_mulai'];
             $validated['status_pegawai_id'] = $validated['status_kepegawaian'];
-            
+
             // Create User
             $validated['users_id'] = null;
             try {
@@ -159,16 +201,42 @@ class PegawaiController extends Controller
                 ], 500);
             }
 
-            // Create Riwayat Pendidikan
             try {
-                $pendidikan = RiwayatJenjangPendidikan::create($validated);
+                $status_pegawai = RiwayatNip::create($validated);
             } catch (\Exception $e) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Gagal membuat Riwayat Pendidikan',
+                    'message' => 'Gagal membuat Riwayat NIP',
                     'error' => $e->getMessage()
                 ], 500);
             }
+            // dd($request['emergency_contacts']);
+
+            try {
+                foreach($request['emergency_contacts'] as $save){
+                    $save['users_id'] = $user->id;
+                    Emergency_contact::create($save);
+
+                    // dd($save);
+                }
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Gagal membuat Emergency Contact',
+                    'error' => $e->getMessage()
+                ], 500);
+            }
+
+            // Create Riwayat Pendidikan
+            // try {
+            //     $pendidikan = RiwayatJenjangPendidikan::create($validated);
+            // } catch (\Exception $e) {
+            //     return response()->json([
+            //         'success' => false,
+            //         'message' => 'Gagal membuat Riwayat Pendidikan',
+            //         'error' => $e->getMessage()
+            //     ], 500);
+            // }
 
             // Create Data Pegawai Berdasarkan Tipe
             try {
@@ -187,7 +255,7 @@ class PegawaiController extends Controller
 
             // Jika semua berhasil
             DB::commit();
-            
+
             return redirect(route('manage.pegawai.view.personal-info', ['idUser' => $validated['users_id']]))->with('success', 'Data pegawai berhasil disimpan!');
 
 
@@ -260,7 +328,7 @@ class PegawaiController extends Controller
     }
 
 
-    
+
 
     /**
      * Store a newly created resource in storage.

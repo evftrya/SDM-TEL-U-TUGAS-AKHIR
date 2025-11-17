@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignUuid('pangkat_golongan_id')->nullable();
             $table->foreignUuid('dosen_id')->nullable();
             $table->foreignUuid('sk_llkdikti_id')->nullable();
-            $table->foreignUuid('sk_pengakuan_ypt_id')->nullable();
+            // $table->foreignUuid('sk_pengakuan_ypt_id')->nullable();
             $table->date('tmt_pangkat');
             $table->timestamps();
 
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreign('pangkat_golongan_id')->references('id')->on('ref_pangkat_golongans')->onDelete('set null');
             $table->foreign('dosen_id')->references('id')->on('dosens')->onDelete('set null');
             $table->foreign('sk_llkdikti_id')->references('id')->on('sks')->onDelete('set null');
-            $table->foreign('sk_pengakuan_ypt_id')->references('id')->on('sks')->onDelete('set null');
+            // $table->foreign('sk_pengakuan_ypt_id')->references('id')->on('sks')->onDelete('set null');
             
 
         });

@@ -1,5 +1,5 @@
 @props(['lbl', 'nm' => null, 'req' => true])
-<div class="flex flex-col gap-1">
+<div class="flex flex-col flex-grow gap-1">
     <label class="text-sm text-gray-600 font-medium">{{ $lbl }} @if ($req)
             *
         @endif

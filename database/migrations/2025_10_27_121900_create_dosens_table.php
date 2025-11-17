@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('dosens', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('nidn');
-            $table->string('nuptk');
+            $table->string('nidn')->nullable()->unique();
+            $table->string('nuptk')->nullable()->unique();
             $table->foreignUuid('users_id')->nullable();
+            $table->foreignUuid('prodi_id')->nullable();
             $table->timestamps();
 
 
             $table->foreign('users_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('prodi_id')->references('id')->on('prodis')->onDelete('set null');
         });
     }
 

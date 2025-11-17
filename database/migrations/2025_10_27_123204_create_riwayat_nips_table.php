@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('riwayat_nips', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('nip');
+            $table->string('nip')->nullable();
             $table->foreignUuid('status_pegawai_id')->nullable();
             $table->foreignUuid('users_id')->nullable();
-            $table->date('tanggal_berlaku');
+            $table->date('tmt_mulai');
+            $table->date('tmt_selesai')->nullable();
             $table->boolean('is_active')->default(true);
             // $table->string('no_sk')->nullable();
             $table->timestamps();

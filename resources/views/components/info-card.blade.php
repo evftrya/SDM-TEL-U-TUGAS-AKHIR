@@ -12,7 +12,7 @@
     };
 @endphp
 
-<div class="w-64 p-6 bg-white shadow-lg rounded-xl">
+<div class="w-full flex-grow p-6 bg-white shadow-lg rounded-xl">
     {{-- Header Section (Title & Icon) --}}
     <div class="flex items-center justify-between mb-5">
         <span class="text-lg font-semibold text-gray-700">

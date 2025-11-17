@@ -14,12 +14,16 @@ class SotkPemetaan extends Model
 
     protected $fillable = [
         'users_id',
-        'sotk_formasi_id',
+        'formasi_id',
+        'sk_ypt_id',
         'tmt_mulai',
         'tmt_selesai',
     ];
 
     protected $casts = [
+        'sk_ypt_id' => 'string',
+        'formasi_id' => 'string',
+        'users_id' => 'string',
         'tmt_mulai' => 'date',
         'tmt_selesai' => 'date',
         'id' => 'string',
@@ -33,7 +37,7 @@ class SotkPemetaan extends Model
 
     public function formasi()
     {
-        return $this->belongsTo(SotkFormasi::class, 'sotk_formasi_id');
+        return $this->belongsTo(SotkFormasi::class, 'formasi_id');
     }
 
     protected static function boot()

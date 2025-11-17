@@ -26,25 +26,37 @@ class UserFactory extends Factory
     {
         // Pilihan jenis kelamin acak
         $gender = $this->faker->randomElement(['Laki-laki', 'Perempuan']);
-        $nama = $this->faker->name($gender === 'Laki-laki' ? 'male' : 'female');
+        $nama   = $this->faker->name($gender === 'Laki-laki' ? 'male' : 'female');
 
         return [
-            'nama_lengkap' => $nama,
-            'telepon' => $this->faker->unique()->numerify('08##########'),
-            'alamat' => $this->faker->unique()->address(),
-            'email_institusi' => $this->faker->unique()->safeEmailDomain()
-                ? 'user'.$this->faker->unique()->randomNumber(3).'@telkomuniversity.ac.id'
-                : $this->faker->unique()->companyEmail(),
+            'nama_lengkap'   => $nama,
             'jenis_kelamin' => $gender,
-            'tempat_lahir' => $this->faker->unique()->city(),
-            'tgl_lahir' => $this->faker->unique()->dateTimeBetween('-40 years', '-18 years')->format('Y-m-d'),
-            'tgl_bergabung' => $this->faker->unique()->dateTimeBetween('-3 years', 'now')->format('Y-m-d'),
-            'email_pribadi' => $this->faker->unique()->safeEmail(),
+
+            // Wajib unik → masih pakai unique(), ruang kombinasi besar
+            'telepon'        => $this->faker->unique()->numerify('08##########'), // 10 digit sesudah 08
+            'nik'            => $this->faker->unique()->numerify('################'), // 16 digit
+
+            // Tidak perlu unik → hilangkan unique()
+            'alamat'         => $this->faker->address(),
+            'tempat_lahir'   => $this->faker->city(),
+            'tgl_lahir'      => $this->faker->dateTimeBetween('-40 years', '-18 years')->format('Y-m-d'),
+            'tgl_bergabung'  => $this->faker->dateTimeBetween('-3 years', 'now')->format('Y-m-d'),
+
+            // Email institusi: domain tetap, lokal part unik & panjang
+            'email_institusi'=> Str::slug($nama).'.'.$this->faker->unique()->bothify('########').'@telkomuniversity.ac.id',
+
+            // Email pribadi tetap unik (ruang besar)
+            'email_pribadi'  => $this->faker->unique()->safeEmail(),
+
             'email_verified_at' => now(),
-            'username' => Str::slug($nama).'_'.$this->faker->unique()->randomNumber(3),
-            // default password for factory users (hashed)
-            'password' => \Illuminate\Support\Facades\Hash::make('password123'),
-            'is_admin' => $this->faker->boolean(10), // 10% kemungkinan admin
+            'tipe_pegawai'      => $this->faker->randomElement(['TPA','Dosen']),
+
+            // Username unik tanpa pool kecil (hindari randomNumber(3))
+            'username'       => Str::slug($nama).'_'.Str::lower(Str::ulid()),
+
+            // Password default
+            'password'       => bcrypt('password123'),
+            'is_admin'       => $this->faker->boolean(10),
             'remember_token' => Str::random(10),
         ];
     }
