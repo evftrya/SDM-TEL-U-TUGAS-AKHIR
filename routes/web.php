@@ -94,7 +94,6 @@ Route::middleware('auth')->group(function () {
         Route::group(['prefix' => 'emergency-contact', 'as' => 'emergency-contact.'], function () {
 
             Route::get('/{id_User}/list', [EmergencyContactController::class, 'list'])->name('list');
-
         });
 
         // Route::group(['prefix' => 'emergency-contact', 'as' => 'emergency-contact.'], function () {
@@ -209,8 +208,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // 
-  
-  Routes
+
     Route::group([
         'prefix' => 'dupak',
         'as' => 'dupak.',
