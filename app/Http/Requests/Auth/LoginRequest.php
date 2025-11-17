@@ -7,9 +7,9 @@ use App\Models\Tpa;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
-use App\Models\User;
 use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
@@ -43,33 +43,45 @@ class LoginRequest extends FormRequest
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
+
+        $validated = $this->validated();
+        Log::info('Login attempt', ['email' => $validated['email_institusi']]);
         
-        $credentials = $this->only('email_institusi', 'password');
-        \Log::info('Login attempt credentials:', ['email' => $credentials['email_institusi']]);
-        
-        if (! Auth::attempt($credentials, $this->boolean('remember'))) {
-            \Log::warning('Login failed for:', [
-                'email' => $credentials['email_institusi'],
-                'user_exists' => \App\Models\User::where('email_institusi', $credentials['email_institusi'])->exists(),
-                'password_hash' => \App\Models\User::where('email_institusi', $credentials['email_institusi'])->value('password')
-            ]);
-            
+        // Try to find the user first
+        $user = \App\Models\User::where('email_institusi', $validated['email_institusi'])->first();
+        if (!$user) {
+            Log::error('User not found', ['email' => $validated['email_institusi']]);
             RateLimiter::hit($this->throttleKey());
-            
+            throw ValidationException::withMessages([
+                'email_institusi' => trans('auth.failed'),
+            ]);
+        }
+        
+        Log::info('Found user', ['id' => $user->id]);
+        
+        if (!Auth::attempt($validated, false)) {
+            Log::error('Password verification failed', ['email' => $validated['email_institusi']]);
+            RateLimiter::hit($this->throttleKey());
+
             throw ValidationException::withMessages([
                 'email_institusi' => trans('auth.failed'),
             ]);
         }
 
+        Log::info('Authentication successful', ['user_id' => $user->id]);
 
-
-        //set session  
-        $user = User::where('email_institusi', $credentials['email_institusi'])->first();
-        $user['role']=null;
-        if($user){
-            $user['role'] = [Tpa::where('users_id', $user->id)->first()?'TPA':'Dosen'];
+        // Set user role in session after successful authentication
+        if ($user = Auth::user()) {
+            $role = Tpa::where('users_id', $user->id)->exists() ? 'TPA' : 'Dosen';
+            session(['account' => array_merge($user->toArray(), ['role' => [$role]])]);
+            Log::info('Session data set', [
+                'user_id' => $user->id,
+                'role' => $role,
+                'session_id' => session()->getId()
+            ]);
         }
-        session(['account' => $user]);
+
+        RateLimiter::clear($this->throttleKey());
     }
 
     /**
@@ -100,6 +112,7 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email_institusi')).'|'.$this->ip());
+        $email = $this->validated()['email_institusi'];
+        return Str::transliterate(Str::lower($email).'|'.request()->ip());
     }
 }

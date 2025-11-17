@@ -20,7 +20,7 @@ class Dosen extends Model
         'users_id' => 'string',
         'nidn' => 'string',
         'nuptk' => 'string',
-        'prodi_id'=>'string'
+        'prodi_id' => 'string'
     ];
 
     protected $fillable = [
@@ -36,9 +36,14 @@ class Dosen extends Model
         return $this->belongsTo(User::class, 'users_id');
     }
 
+    // public function prodi()
+    // {
+    //     return $this->belongsTo(work_position::class);
+    // }
+
     public function prodi()
     {
-        return $this->belongsTo(Prodi::class);
+        return $this->belongsTo(work_position::class, 'prodi_id', 'id');
     }
 
     public function kelompokKeahlian()

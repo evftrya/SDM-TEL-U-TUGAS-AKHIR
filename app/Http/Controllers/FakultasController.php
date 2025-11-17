@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fakultas;
+use App\Models\work_position;
 use Illuminate\Http\Request;
 
 class FakultasController extends Controller
@@ -12,7 +13,8 @@ class FakultasController extends Controller
      */
     public function index()
     {
-        $fakultas = Fakultas::withCount('prodi')->paginate(15);
+        $fakultas = work_position::where('type_work_position','Fakultas')->withCount('prodi')->paginate(15);
+        // dd($fakultas);
         return view('kelola_data.fakultas.index', compact('fakultas'));
     }
 
@@ -34,7 +36,8 @@ class FakultasController extends Controller
             'nama_fakultas' => 'required|string|max:100',
         ]);
 
-        Fakultas::create($validated);
+        $validated['type_work_position'] = 'Fakultas';
+        work_position::create($validated);
 
         return redirect()->route('manage.fakultas.index')
             ->with('success', 'Fakultas berhasil ditambahkan.');
@@ -43,10 +46,12 @@ class FakultasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Fakultas $fakulta)
+    public function show(Fakultas $fakultas)
     {
-        $fakulta->load('prodi');
-        return view('kelola_data.fakultas.show', compact('fakulta'));
+        // dd(Fakultas::alll()==null);
+
+        $fakultas->load('prodi');
+        return view('kelola_data.fakultas.show', compact('fakultas'));
     }
 
     /**

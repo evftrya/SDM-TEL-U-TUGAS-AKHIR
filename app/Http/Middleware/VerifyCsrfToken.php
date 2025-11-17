@@ -11,7 +11,10 @@ class VerifyCsrfToken extends Middleware
      *
      * @var array<int, string>
      */
+
+    // sementara ini dimatikan karena bug csrf token mismatch pada login
     protected $except = [
-        //
+        'login',
+        '/login'
     ];
 }
