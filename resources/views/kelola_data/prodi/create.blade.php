@@ -38,7 +38,7 @@
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition bg-white">
                         <option value="">-- Pilih Fakultas --</option>
                         @foreach ($fakultas as $f)
-                            <option value="{{ $f->id }}">{{ $f->nama_fakultas }}</option>
+                            <option value="{{ $f->id }}">{{ $f->position_name }}</option>
                         @endforeach
                     </select>
                 </div>
