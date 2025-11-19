@@ -66,6 +66,7 @@ class PegawaiController extends Controller
                 else{
                     $bagian = work_position::where('id',Tpa::where('users_id',$user['id'])->first()->bagian_id)->first();
                     $user['bagian'] = $bagian;
+                    // dd($user['bagian']->kode);
                 }
             }
             

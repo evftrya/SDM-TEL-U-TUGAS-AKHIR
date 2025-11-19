@@ -9,7 +9,7 @@ INSERT INTO `ref_work_positions` (`position_name`,`singkatan`, `created_at`, `up
   ('Program Studi', 'PRODI', '2025-11-13 10:59:33', '2025-11-13 10:59:33');
 
 
-INSERT INTO `work_positions` (`id`, `type_work_position`, `position_name`, `Singkatan`, `created_at`, `updated_at`) VALUES
+INSERT INTO `work_positions` (`id`, `type_work_position`, `position_name`, `kode`, `created_at`, `updated_at`) VALUES
   ('1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6', 'Direktorat', 'Direktorat', 'DIREKTORAT', '2025-11-13 10:59:33', '2025-11-13 10:59:33'),
   ('044c852f-6f14-4876-9394-77b791768aea', 'Bagian','Pusat Teknologi Informasi', 'PTI', '2025-11-13 10:59:33', '2025-11-13 10:59:33'),
   ('0455c397-1669-4a63-b01d-0405fded2311', 'Bagian', 'Sumber Daya Manusia', 'SDM', '2025-11-13 10:59:33', '2025-11-13 10:59:33'),

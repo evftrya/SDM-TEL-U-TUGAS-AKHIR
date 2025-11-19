@@ -93,7 +93,7 @@
                             <x-tb-cl-fill>
                                 <p class="cursor-pointer hover:font-bold"
                                     title="{{ $user['bagian']['type_work_position'] . ' - ' . $user['bagian']['position_name'] }}">
-                                    {{ $user['bagian']['singkatan'] }}
+                                    {{ $user['bagian']['kode'] }}
                                 </p>
                             </x-tb-cl-fill>
                             {{-- {{ dd($send) }} --}}
