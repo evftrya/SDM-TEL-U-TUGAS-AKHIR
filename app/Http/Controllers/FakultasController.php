@@ -31,11 +31,14 @@ class FakultasController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'position_name' => 'required|string|max:100',
-            'singkatan'=>'required|string|max:10',
+            'kode' => 'required|string|max:100|unique:work_positions,kode',
+            'nama_fakultas' => 'required|string|max:100',
         ]);
 
+        $validated['position_name'] = $validated['nama_fakultas'];
         $validated['type_work_position'] = 'Fakultas';
+        unset($validated['nama_fakultas']);
+
         work_position::create($validated);
 
         return redirect()->route('manage.fakultas.index')
@@ -45,11 +48,9 @@ class FakultasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Fakultas $fakultas)
+    public function show($id)
     {
-        // dd(Fakultas::alll()==null);
-
-        $fakultas->load('prodi');
+        $fakultas = work_position::where('id', $id)->where('type_work_position', 'Fakultas')->with('children')->firstOrFail();
         return view('kelola_data.fakultas.show', compact('fakultas'));
     }
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ref_work_positions', function (Blueprint $table) {
             $table->string('position_name')->primary();
-            $table->string('singkatan');
+            $table->string('singkatan', 20)->nullable();
             $table->timestamps();
         });
     }

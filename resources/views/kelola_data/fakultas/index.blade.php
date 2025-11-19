@@ -59,7 +59,6 @@
                 <x-tb-td nama="action">Action</x-tb-td>
             </x-slot:table_header>
             <x-slot:table_column>
-                {{-- {{ dd($fakultas) }} --}}
                 @forelse ($fakultas as $index => $f)
                     <x-tb-cl id="{{ $f->id }}">
                         <x-tb-cl-fill>{{ $f->kode }}</x-tb-cl-fill>

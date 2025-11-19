@@ -18,7 +18,8 @@ class Prodi extends Model
 
     protected $fillable = [
         'fakultas_id',
-        'prodi_id',
+        'nama_prodi',
+        'kode'
     ];
 
     protected $casts = [
@@ -29,13 +30,9 @@ class Prodi extends Model
     ];
 
     // Relationships
-    public function fakultas_data()
+    public function fakultas()
     {
         return $this->belongsTo(work_position::class,'fakultas_id', 'id');
-    }
-
-    public function prodi_data(){
-        return $this->belongsTo(work_position::class, 'prodi_id', 'id');
     }
 
     public function dosen()
