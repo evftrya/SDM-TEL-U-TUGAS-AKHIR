@@ -13,8 +13,7 @@ class FakultasController extends Controller
      */
     public function index()
     {
-        $fakultas = work_position::where('type_work_position','Fakultas')->withCount('prodi')->paginate(15);
-        // dd($fakultas);
+        $fakultas = work_position::where('type_work_position','Fakultas')->withCount('children as prodi_count')->paginate(15);
         return view('kelola_data.fakultas.index', compact('fakultas'));
     }
 
@@ -57,21 +56,28 @@ class FakultasController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Fakultas $fakulta)
+    public function edit($id)
     {
+        $fakulta = work_position::where('id', $id)->where('type_work_position', 'Fakultas')->firstOrFail();
         return view('kelola_data.fakultas.edit', compact('fakulta'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Fakultas $fakulta)
+    public function update(Request $request, $id)
     {
+        $fakulta = work_position::where('id', $id)->where('type_work_position', 'Fakultas')->firstOrFail();
+
         $validated = $request->validate([
+            'kode' => 'required|string|max:100|unique:work_positions,kode,' . $fakulta->id,
             'nama_fakultas' => 'required|string|max:100',
         ]);
 
-        $fakulta->update($validated);
+        $fakulta->update([
+            'kode' => $validated['kode'],
+            'position_name' => $validated['nama_fakultas'],
+        ]);
 
         return redirect()->route('manage.fakultas.index')
             ->with('success', 'Fakultas berhasil diperbarui.');
@@ -80,8 +86,9 @@ class FakultasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Fakultas $fakulta)
+    public function destroy($id)
     {
+        $fakulta = work_position::where('id', $id)->where('type_work_position', 'Fakultas')->firstOrFail();
         $fakulta->delete();
 
         return redirect()->route('manage.fakultas.index')

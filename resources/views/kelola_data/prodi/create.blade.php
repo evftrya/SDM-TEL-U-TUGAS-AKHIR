@@ -12,13 +12,22 @@
             <form id="createProdiForm" method="POST" action="{{ route('manage.prodi.store') }}">
                 @csrf
 
+                <!-- Kode Prodi -->
+                <div>
+                    <label for="kode_modal" class="block text-sm font-semibold text-gray-700 mb-1">Kode
+                        Prodi</label>
+                    <input id="kode_modal" name="kode" type="text" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition"
+                        placeholder="Contoh: TI">
+                </div>
+
                 <!-- Nama Prodi -->
                 <div>
                     <label for="nama_prodi_modal" class="block text-sm font-semibold text-gray-700 mb-1">Nama
                         Prodi</label>
                     <input id="nama_prodi_modal" name="nama_prodi" type="text" required
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition"
-                        placeholder="Contoh: FTI">
+                        placeholder="Contoh: Teknik Informatika">
                 </div>
 
                 <!-- Fakultas -->
@@ -29,7 +38,7 @@
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition bg-white">
                         <option value="">-- Pilih Fakultas --</option>
                         @foreach ($fakultas as $f)
-                            <option value="{{ $f->id }}">{{ $f->nama_fakultas }}</option>
+                            <option value="{{ $f->id }}">{{ $f->position_name }}</option>
                         @endforeach
                     </select>
                 </div>

@@ -211,9 +211,8 @@ class ProdiController extends Controller
      */
     public function create()
     {
-        $fakultas = Fakultas::all();
+        $fakultas = work_position::where('type_work_position', 'Fakultas')->get();
         return view('kelola_data.prodi.create', compact('fakultas'));
-
     }
 
     /**
@@ -222,11 +221,17 @@ class ProdiController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'fakultas_id' => 'required|exists:faculties,id',
+            'fakultas_id' => 'required|exists:work_positions,id',
+            'kode' => 'required|string|max:100|unique:work_positions,kode',
             'nama_prodi' => 'required|string|max:100',
         ]);
 
-        Prodi::create($validated);
+        work_position::create([
+            'kode' => $validated['kode'],
+            'position_name' => $validated['nama_prodi'],
+            'type_work_position' => 'Prodi',
+            'parent_id' => $validated['fakultas_id'],
+        ]);
 
         return redirect()->route('manage.prodi.index')
             ->with('success', 'Program Studi berhasil ditambahkan.');
@@ -235,32 +240,40 @@ class ProdiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Prodi $prodi)
+    public function show($id)
     {
-        $prodi->load('fakultas', 'dosen');
+        $prodi = work_position::where('id', $id)->where('type_work_position', 'Prodi')->with(['parent', 'dosen'])->firstOrFail();
         return view('kelola_data.prodi.show', compact('prodi'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Prodi $prodi)
+    public function edit($id)
     {
-        $fakultas = Fakultas::all();
+        $prodi = work_position::where('id', $id)->where('type_work_position', 'Prodi')->firstOrFail();
+        $fakultas = work_position::where('type_work_position', 'Fakultas')->get();
         return view('kelola_data.prodi.edit', compact('prodi', 'fakultas'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Prodi $prodi)
+    public function update(Request $request, $id)
     {
+        $prodi = work_position::where('id', $id)->where('type_work_position', 'Prodi')->firstOrFail();
+
         $validated = $request->validate([
-            'fakultas_id' => 'required|exists:faculties,id',
+            'fakultas_id' => 'required|exists:work_positions,id',
+            'kode' => 'required|string|max:100|unique:work_positions,kode,' . $prodi->id,
             'nama_prodi' => 'required|string|max:100',
         ]);
 
-        $prodi->update($validated);
+        $prodi->update([
+            'kode' => $validated['kode'],
+            'position_name' => $validated['nama_prodi'],
+            'parent_id' => $validated['fakultas_id'],
+        ]);
 
         return redirect()->route('manage.prodi.index')
             ->with('success', 'Program Studi berhasil diperbarui.');
@@ -269,8 +282,9 @@ class ProdiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Prodi $prodi)
+    public function destroy($id)
     {
+        $prodi = work_position::where('id', $id)->where('type_work_position', 'Prodi')->firstOrFail();
         $prodi->delete();
 
         return redirect()->route('manage.prodi.index')
@@ -278,10 +292,41 @@ class ProdiController extends Controller
     }
 
     /**
+     * Get cached statistics for a prodi
+     */
+    public function getCachedStats($id)
+    {
+        $prodi = work_position::where('id', $id)->where('type_work_position', 'Prodi')->firstOrFail();
+        $statsKey = 'prodi_stats_' . $prodi->id;
+        $cachedStats = cache()->get($statsKey);
+
+        if ($cachedStats) {
+            return response()->json($cachedStats);
+        }
+
+        // Return default values if no cache exists
+        return response()->json([
+            's2' => 0,
+            's3' => 0,
+            'njad' => 0,
+            'aa' => 0,
+            'l' => 0,
+            'lk' => 0,
+            'gb' => 0,
+            'tetap' => 0,
+            'calon_tetap' => 0,
+            'profesional' => 0,
+            'perbantuan' => 0,
+        ]);
+    }
+
+    /**
      * Update statistics for a prodi
      */
-    public function updateStats(Request $request, Prodi $prodi)
+    public function updateStats(Request $request, $id)
     {
+        $prodi = work_position::where('id', $id)->where('type_work_position', 'Prodi')->firstOrFail();
+
         try {
             $validated = $request->validate([
                 's2' => 'required|integer|min:0',

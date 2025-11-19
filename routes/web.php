@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\DashboardProdiController;
 use App\Http\Controllers\EmergencyContactController;
 use App\Http\Controllers\FakultasController;
 use App\Http\Controllers\FormationController;
@@ -9,15 +10,25 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PengawakanController;
 use App\Http\Controllers\ProdiController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\SertifikasiDosenController;
 use App\Models\Emergency_contact;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
 Route::get('/dashboard', function () {
+    $user = Auth::user();
+    Log::info('User accessing dashboard', [
+        'id' => $user->id,
+        'email' => $user->email_institusi,
+        'session_id' => Session::getId()
+    ]);
+
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -40,8 +51,8 @@ Route::middleware('auth')->group(function () {
     });
     Route::group(['prefix' => 'manage', 'as' => 'manage.'], function () {
         Route::get('/', function () {
-                return view('kelola_data.index');
-            })->name('view');
+            return view('kelola_data.index');
+        })->name('view');
 
         Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
             Route::get('/view', function () {
@@ -73,7 +84,6 @@ Route::middleware('auth')->group(function () {
                 Route::get('/{idUser}/riwayat-jabatan', [ProfileController::class, 'riwayatJabatan'])->name('riwayat-jabatan');
                 Route::get('/{idUser}/change-password', [PegawaiController::class, 'changePassword'])->name('change-password');
                 Route::post('/{idUser}/update-password', [PegawaiController::class, 'updatePassword'])->name('update-password');
-
             });
 
             Route::get('/dashboard', function () {
@@ -84,7 +94,6 @@ Route::middleware('auth')->group(function () {
         Route::group(['prefix' => 'emergency-contact', 'as' => 'emergency-contact.'], function () {
 
             Route::get('/{id_User}/list', [EmergencyContactController::class, 'list'])->name('list');
-
         });
 
         // Route::group(['prefix' => 'emergency-contact', 'as' => 'emergency-contact.'], function () {
@@ -173,8 +182,16 @@ Route::middleware('auth')->group(function () {
         Route::resource('fakultas', FakultasController::class);
 
         // Prodi Routes
+        Route::get('prodi/{prodi}/get-cached-stats', [ProdiController::class, 'getCachedStats'])->name('prodi.getCachedStats');
         Route::post('prodi/{prodi}/update-stats', [ProdiController::class, 'updateStats'])->name('prodi.updateStats');
         Route::resource('prodi', ProdiController::class);
+
+        // Dashboard Prodi Routes
+        Route::group(['prefix' => 'dashboard-prodi', 'as' => 'dashboard-prodi.'], function () {
+            Route::get('/pendidikan', [DashboardProdiController::class, 'pendidikan'])->name('pendidikan');
+            Route::get('/fungsional', [DashboardProdiController::class, 'fungsional'])->name('fungsional');
+            Route::get('/kepegawaian', [DashboardProdiController::class, 'kepegawaian'])->name('kepegawaian');
+        });
 
         // Sertifikasi Dosen Routes
         Route::group(['prefix' => 'sertifikasi-dosen', 'as' => 'sertifikasi-dosen.'], function () {
@@ -188,6 +205,33 @@ Route::middleware('auth')->group(function () {
             Route::get('/upload', [SertifikasiDosenController::class, 'upload'])->name('upload');
             Route::post('/process-upload', [SertifikasiDosenController::class, 'processUpload'])->name('process-upload');
         });
+    });
+
+    // 
+
+    Route::group([
+        'prefix' => 'dupak',
+        'as' => 'dupak.',
+        // 'middleware' => ['auth'],
+    ], function () {
+        // Dashboard
+        Route::get('/dashboard', [App\Http\Controllers\Dupak\DashboardController::class, 'index'])
+            ->name('dashboard');
+
+        // Pengajuan DUPAK
+        Route::resource('pengajuan', \App\Http\Controllers\Dupak\PengajuanController::class)
+            ->except(['edit', 'update', 'destroy']);
+
+        // Riwayat DUPAK
+        Route::resource('riwayat', \App\Http\Controllers\Dupak\RiwayatController::class)
+            ->only(['index', 'show']);
+
+        // Validasi DUPAK (for admin/validator)
+        Route::resource('validasi', \App\Http\Controllers\Dupak\ValidasiController::class)
+            ->only(['index', 'show', 'update']);
+
+        // Pengisian Detil Formulir Pengajuan
+        Route::resource('detil_pengajuan', \App\Http\Controllers\Dupak\DetilPengajuanController::class);
     });
 
     // Kinerja Pegawai Routes (separated from manage)
@@ -235,9 +279,6 @@ Route::middleware('auth')->group(function () {
             return view('kinerja_pegawai.laporan_target.detail', ['id' => $id]);
         })->name('laporan.target.detail');
     });
-
-
-
 });
 
 // Admin Routes
@@ -252,4 +293,4 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::delete('/users/{user}', [AdminController::class, 'deleteUser'])->name('users.delete');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -29,13 +29,26 @@
                 @csrf
                 @method('PUT')
 
+                <!-- Kode Prodi -->
+                <div class="mb-4">
+                    <label for="kode" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Kode Program Studi <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" id="kode" name="kode" value="{{ old('kode', $prodi->kode) }}" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition @error('kode') border-red-500 @enderror"
+                        placeholder="Contoh: TI">
+                    @error('kode')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <!-- Nama Prodi -->
                 <div class="mb-4">
                     <label for="nama_prodi" class="block text-sm font-semibold text-gray-700 mb-2">
                         Nama Program Studi <span class="text-red-500">*</span>
                     </label>
                     <input type="text" id="nama_prodi" name="nama_prodi"
-                        value="{{ old('nama_prodi', $prodi->nama_prodi) }}" required
+                        value="{{ old('nama_prodi', $prodi->position_name) }}" required
                         class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition @error('nama_prodi') border-red-500 @enderror"
                         placeholder="Contoh: Teknik Informatika">
                     @error('nama_prodi')
@@ -53,8 +66,8 @@
                         <option value="">-- Pilih Fakultas --</option>
                         @foreach ($fakultas as $f)
                             <option value="{{ $f->id }}"
-                                {{ old('fakultas_id', $prodi->fakultas_id) == $f->id ? 'selected' : '' }}>
-                                {{ $f->nama_fakultas }}
+                                {{ old('fakultas_id', $prodi->parent_id) == $f->id ? 'selected' : '' }}>
+                                {{ $f->position_name }}
                             </option>
                         @endforeach
                     </select>

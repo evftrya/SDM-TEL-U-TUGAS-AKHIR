@@ -20,7 +20,7 @@ class Dosen extends Model
         'users_id' => 'string',
         'nidn' => 'string',
         'nuptk' => 'string',
-        'prodi_id'=>'string'
+        'prodi_id' => 'string'
     ];
 
     protected $fillable = [

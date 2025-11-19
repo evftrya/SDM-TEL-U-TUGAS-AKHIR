@@ -8,4 +8,15 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+
+    // to decrease the redundancy of calling the data
+    optimizeDeps : {
+        include: ['axios, alpinejs']
+    },
+    server: {
+        watch: {
+            usePolling : false,
+        }
+    },
+    cacheDir: 'node_modules/.vite'
 });
